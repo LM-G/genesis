@@ -33,7 +33,7 @@
     "commandLineParser.ts",
     "tsc.ts",
     "diagnosticInformationMap.generated.ts"
-  ],
+  ]/*,
   "compileOnSave": false,
-  "buildOnSave": false
+  "buildOnSave": false*/
 }

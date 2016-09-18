@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import '../assets/css/styles.css';
 @Component({
     selector: 'genesis-app',
-    templateUrl: './app/app.component.html',
-    styleUrls: ['./app.component.css']
+    template: require('./app.component.html'),
+    styleUrls: [require('./app.component.css')]
 })
 export class AppComponent { }
