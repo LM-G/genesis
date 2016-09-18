@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": true,
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true
+  },
+  "exclude": [
+    "node_modules",
+    "dist"
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "forkChecker": true
+  },
+  /* If no "files" property is present in a tsconfig.json, the compiler defaults to including all files in the
+   * containing directory and subdirectories. When a "files" property is specified, only those files are included.*/
+  "files": [
+    "core.ts",
+    "sys.ts",
+    "types.ts",
+    "scanner.ts",
+    "parser.ts",
+    "utilities.ts",
+    "binder.ts",
+    "checker.ts",
+    "emitter.ts",
+    "program.ts",
+    "commandLineParser.ts",
+    "tsc.ts",
+    "diagnosticInformationMap.generated.ts"
+  ],
+  "compileOnSave": false,
+  "buildOnSave": false
+}
