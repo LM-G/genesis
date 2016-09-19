@@ -5,7 +5,15 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "noEmitHelpers": true
+    "noEmitHelpers": true,
+    "types": [
+      "core-js",
+      "jasmine",
+      "node",
+      "webpack",
+      "source-map",
+      "uglify-js"
+    ]
   },
   "exclude": [
     "node_modules",

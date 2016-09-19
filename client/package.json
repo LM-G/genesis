@@ -7,7 +7,7 @@
     "clean": "rimraf node_modules dist && npm cache clean",
     "clean-install": "npm run clean && npm install",
     "clean-start": "npm run clean-install && npm start",
-    "build:dev": "rimraf dist &&  webpack --env.dev --progress --profile",
+    "build:dev": "rimraf dist && webpack --env.dev --progress --profile",
     "build:prod": "rimraf dist && webpack --env.prod --progress --profile --bail",
     "server:dev": "webpack-dashboard -- webpack-dev-server --inline --env.dev --port 3000",
     "server:prod": "http-server dist --cors",
@@ -15,9 +15,7 @@
     "test": "karma start",
     "postinstall": "typings install",
     "start": "npm run server:dev",
-    "start:hmr": "npm run server:dev -- --hot",
-    "deploy:dev": "npm run build:dev",
-    "deploy:dev:hmr": "npm run build:dev:hmr"
+    "start:hmr": "npm run server:dev -- --hot"
   },
   "repository": {
     "type": "git",
@@ -56,11 +54,8 @@
     "@angularclass/hmr": "^1.0.1",
     "@angularclass/hmr-loader": "^1.0.0",
     "@types/core-js": "^0.9.28",
-    "@types/hammerjs": "^2.0.28",
     "@types/jasmine": "^2.2.29",
     "@types/node": "^6.0.38",
-    "@types/protractor": "^1.5.16",
-    "@types/selenium-webdriver": "^2.44.26",
     "@types/source-map": "^0.1.26",
     "@types/uglify-js": "^2.0.27",
     "@types/webpack": "^1.12.29",

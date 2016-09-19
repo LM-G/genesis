@@ -24,13 +24,13 @@ module.exports = function() {
   return webpackMerge(commonConfig({env: ENV}), {
     metadata: METADATA,
     debug: true,
-    devtool: 'eval-source-map',
+    devtool: 'source-map',
 
     output: {
       path: helpers.root('dist'),
       publicPath: '/',
       filename: 'js/[name].js',
-      sourceMapFilename: '[name].map',
+      sourceMapFilename: 'js/[name].map',
       chunkFilename: '[id].chunk.js'
     },
 
