@@ -20,7 +20,7 @@ const METADATA = webpackMerge(commonConfig({env: ENV}).metadata, {
   HMR: HMR
 });
 
-module.exports = function(options) {
+module.exports = function() {
   return webpackMerge(commonConfig({env: ENV}), {
     metadata: METADATA,
     debug: true,
@@ -28,7 +28,8 @@ module.exports = function(options) {
 
     output: {
       path: helpers.root('dist'),
-      filename: '[name].js',
+      publicPath: '/',
+      filename: 'js/[name].js',
       sourceMapFilename: '[name].map',
       chunkFilename: '[id].chunk.js'
     },
@@ -49,6 +50,7 @@ module.exports = function(options) {
     devServer: {
       port: METADATA.port,
       host: METADATA.host,
+      quiet: true,
       historyApiFallback: true,
       stats: 'minimal',
       watchOptions: {

@@ -3,11 +3,12 @@ var helpers = require('./helpers');
 /**
  * Webpack Plugins
  */
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const autoprefixer = require('autoprefixer');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
+const DashboardPlugin = require('webpack-dashboard/plugin');
 /*
  * Webpack Constants
  */
@@ -16,95 +17,169 @@ const METADATA = {
 };
 
 module.exports = function(options) {
+  var isProd = options.env === 'production';
+  var isTest = options.env === 'test';
   return {
-    /*
-     * Static metadata for index.html
+    /**
+     * Static metadata for next loaders
      */
     metadata: METADATA,
 
+    /**
+     * Entry
+     * Reference: http://webpack.github.io/docs/configuration.html#entry
+     */
     entry: {
       polyfills: './src/polyfills.ts',
       vendor: './src/vendor.ts',
       main: './src/main.ts'
     },
 
+    /**
+     * Resolve
+     * Reference: http://webpack.github.io/docs/configuration.html#resolve
+     */
     resolve: {
+      cache : true,
       extensions: ['', '.js', '.ts', '.json', '.css', '.scss', '.html'],
-      // Make sure root is src
-      root: helpers.root('src')
+      root: helpers.root(),
+      alias: {
+        'app': 'src/app'
+      }
     },
 
+    /**
+     * Loaders
+     * Reference: http://webpack.github.io/docs/configuration.html#module-loaders
+     * List: http://webpack.github.io/docs/list-of-loaders.html
+     */
     module: {
-      preLoaders: [
+      preLoaders: isTest ? [] : [
         {
           test: /\.ts$/,
-          loader: 'string-replace-loader',
-          query: {
-            search: '(System|SystemJS)(.*[\\n\\r]\\s*\\.|\\.)import\\((.+)\\)',
-            replace: '$1.import($3).then(mod => (mod.__esModule && mod.default) ? mod.default : mod)',
-            flags: 'g'
-          },
-          include: [helpers.root('src')]
+          loader: 'tslint'
         }
       ],
+
       loaders: [
+        // Support for .ts files.
         {
           test: /\.ts$/,
-          loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
-          exclude: [/\.(spec|e2e)\.ts$/]
+          loaders: [
+            '@angularclass/hmr-loader?pretty=' + !isProd + '&prod=' + isProd,
+            'awesome-typescript-loader',
+            'angular2-template-loader'
+          ],
+          exclude: [/\.(spec|e2e)\.ts$/, /node_modules\/(?!(ng2-.+))/]
         },
+        // support for .html as raw text
         {
           test: /\.html$/,
           loader: 'raw-loader',
           exclude: [helpers.root('src/index.html')]
         },
+        // Support for json files.
         {
           test: /\.json$/,
           loader: 'json-loader'
         },
+        // copy those assets to output
         {
           test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
           loader: 'file?name=assets/[name].[hash].[ext]'
         },
+        // Support for CSS as raw text
         {
           test: /\.css$/,
           exclude: helpers.root('src', 'app'),
-          loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
+          loader: isTest ? 'null' : ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
         },
+        // all css required in src/app files will be merged in js files
         {
           test: /\.css$/,
           include: helpers.root('src', 'app'),
-          loader: 'raw'
+          loader: 'raw!postcss'
         },
+        // support for .scss files
         {
-          test: /\.(jpg|png|gif)$/,
-          loader: 'file'
+          test: /\.scss$/,
+          exclude: helpers.root('src', 'app'),
+          loader: isTest ? 'null' : ExtractTextPlugin.extract('style', 'css?sourceMap!postcss!sass')
+        },
+        // all scss required in src/app files will be merged in js files
+        {
+          test: /\.scss$/,
+          include: helpers.root('src', 'app'),
+          loader: 'raw!postcss!sass'
         }
-      ]
+      ],
+      postLoaders: []
     },
 
+    /**
+     * Plugins
+     * Reference: http://webpack.github.io/docs/configuration.html#plugins
+     * List: http://webpack.github.io/docs/list-of-plugins.html
+     */
     plugins: [
-      new CleanWebpackPlugin(['dist', 'build'], {
-        root: helpers.root(),
-        verbose: true
-      }),
+      // Really nice display of webpack build execution, feel like working for NASA !
+      new DashboardPlugin(),
 
+      /**
+       * Plugin: ForkCheckerPlugin
+       * Description: Do type checking in a separate process, so webpack don't need to wait.
+       *
+       * See: https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
+       */
       new ForkCheckerPlugin(),
 
+      /**
+       * Generate common chunks if necessary
+       * Reference: https://webpack.github.io/docs/code-splitting.html
+       * Reference: https://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin
+       */
       new webpack.optimize.CommonsChunkPlugin({
-        name: ['main', 'vendor', 'polyfills']
+        name: ['vendor', 'polyfills']
       }),
 
+      /**
+       * Copy assets from the public folder
+       * Reference: https://github.com/kevlened/copy-webpack-plugin
+       */
       new CopyWebpackPlugin([{
         from: 'src/assets',
         to: 'assets'
       }]),
 
+      /**
+       * Inject script and link tags into html files
+       * Reference: https://github.com/ampedandwired/html-webpack-plugin
+       */
       new HtmlWebpackPlugin({
         template: 'src/index.html',
         chunksSortMode: 'dependency'
       })
     ],
+
+    /**
+     * PostCSS
+     * https://github.com/postcss/autoprefixer
+     * Add browser specific prefixes to css attributes
+     */
+    postcss : [
+      autoprefixer({
+        browsers: ['last 2 version']
+      })
+    ],
+
+    /**
+     * Sass
+     * Reference: https://github.com/jtangelder/sass-loader
+     * Transforms .scss files into .css
+     */
+    sassLoader : {
+      // not implemented yet
+    },
 
     node: {
       global: 'window',

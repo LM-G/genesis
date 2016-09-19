@@ -1,5 +1,5 @@
 var helpers = require('./helpers');
-
+var commonConfig = require('./webpack.common.js');
 /**
  * Webpack Plugins
  */
@@ -10,11 +10,12 @@ const DefinePlugin = require('webpack/lib/DefinePlugin');
  */
 const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
 
-module.exports = function(options){
-  return {
+module.exports = function(){
+  return webpackMerge(commonConfig({env: ENV}), {
     devtool: 'inline-source-map',
 
     resolve: {
+      cache: false,
       extensions: ['', '.ts', '.js']
     },
 
@@ -63,5 +64,5 @@ module.exports = function(options){
         }
       })
      ]
-  };
+  });
 };
