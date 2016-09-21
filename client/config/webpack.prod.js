@@ -64,10 +64,6 @@ module.exports = function(){
           'HMR': METADATA.HMR
         }
       })
-    ],
-
-    node: {
-      process: false
-    }
+    ]
   });
 };

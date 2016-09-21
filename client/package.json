@@ -7,15 +7,12 @@
     "clean": "rimraf node_modules dist && npm cache clean",
     "clean-install": "npm run clean && npm install",
     "clean-start": "npm run clean-install && npm start",
-    "build:dev": "rimraf dist && webpack --env.dev --progress --profile",
-    "build:prod": "rimraf dist && webpack --env.prod --progress --profile --bail",
-    "server:dev": "webpack-dashboard -- webpack-dev-server --inline --env.dev --port 3000",
-    "server:prod": "http-server dist --cors",
+    "server": "webpack-dashboard -- webpack-dev-server --inline --env.dev --port 3000 --progress --content-base src/",
+    "build": "http-server dist --cors",
     "lint": "tslint --force \"src/**/*.ts\"",
     "test": "karma start",
-    "postinstall": "typings install",
-    "start": "npm run server:dev",
-    "start:hmr": "npm run server:dev -- --hot"
+    "start": "npm run server",
+    "start:hmr": "npm run server -- --hot"
   },
   "repository": {
     "type": "git",

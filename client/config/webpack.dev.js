@@ -24,7 +24,7 @@ module.exports = function() {
   return webpackMerge(commonConfig({env: ENV}), {
     metadata: METADATA,
     debug: true,
-    devtool: 'source-map',
+    devtool: 'eval-source-map',
 
     output: {
       path: helpers.root('dist'),
@@ -58,15 +58,6 @@ module.exports = function() {
         poll: 1000
       },
       outputPath: helpers.root('dist')
-    },
-
-    node: {
-      global: 'window',
-      crypto: 'empty',
-      process: true,
-      module: false,
-      clearImmediate: false,
-      setImmediate: false
     }
   });
 };

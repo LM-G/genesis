@@ -66,22 +66,22 @@ module.exports = function(options) {
         {
           test: /\.ts$/,
           loaders: [
-            '@angularclass/hmr-loader?pretty=' + !isProd + '&prod=' + isProd,
             'awesome-typescript-loader',
-            'angular2-template-loader'
+            'angular2-template-loader',
+            '@angularclass/hmr-loader?pretty=' + !isProd + '&prod=' + isProd
           ],
           exclude: [/\.(spec|e2e)\.ts$/, /node_modules\/(?!(ng2-.+))/]
         },
         // support for .html as raw text
         {
           test: /\.html$/,
-          loader: 'raw-loader',
-          exclude: [helpers.root('src/index.html')]
+          loader: 'raw',
+          exclude: helpers.root('src/index.html')
         },
         // Support for json files.
         {
           test: /\.json$/,
-          loader: 'json-loader'
+          loader: 'json'
         },
         // copy those assets to output
         {
@@ -179,15 +179,6 @@ module.exports = function(options) {
      */
     sassLoader : {
       // not implemented yet
-    },
-
-    node: {
-      global: 'window',
-      crypto: 'empty',
-      process: true,
-      module: false,
-      clearImmediate: false,
-      setImmediate: false
     }
   }
 };

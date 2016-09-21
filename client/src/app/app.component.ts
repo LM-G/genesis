@@ -3,6 +3,6 @@ import '../assets/css/styles.css';
 @Component({
     selector: 'my-genesis-app',
     template: require('./app.component.html'),
-    styleUrls: [require('./app.component.css')]
+    styles: [require('./app.component.css')]
 })
 export class AppComponent { }
