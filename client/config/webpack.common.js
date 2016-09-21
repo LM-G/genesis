@@ -41,7 +41,7 @@ module.exports = function(options) {
      */
     resolve: {
       cache : true,
-      extensions: ['', '.js', '.ts', '.json', '.css', '.scss', '.html'],
+      extensions: ['', '.ts', '.js', '.json', '.css', '.scss', '.html'],
       root: helpers.root(),
       alias: {
         'app': 'src/app'
@@ -71,12 +71,6 @@ module.exports = function(options) {
             '@angularclass/hmr-loader?pretty=' + !isProd + '&prod=' + isProd
           ],
           exclude: [/\.(spec|e2e)\.ts$/, /node_modules\/(?!(ng2-.+))/]
-        },
-        // support for .html as raw text
-        {
-          test: /\.html$/,
-          loader: 'raw',
-          exclude: helpers.root('src/index.html')
         },
         // Support for json files.
         {
@@ -111,9 +105,14 @@ module.exports = function(options) {
           test: /\.scss$/,
           include: helpers.root('src', 'app'),
           loader: 'raw!postcss!sass'
+        },
+        // support for .html as raw text
+        {
+          test: /\.html$/,
+          loader: 'raw',
+          exclude: helpers.root('src/index.html')
         }
-      ],
-      postLoaders: []
+      ]
     },
 
     /**
