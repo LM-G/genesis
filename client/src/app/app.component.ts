@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import '../assets/css/styles.css';
+import '../assets/css/main.css';
 @Component({
     selector: 'my-genesis-app',
     templateUrl: './app.component.html',

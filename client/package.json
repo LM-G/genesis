@@ -7,7 +7,8 @@
     "clean": "rimraf node_modules dist && npm cache clean",
     "clean-install": "npm run clean && npm install",
     "clean-start": "npm run clean-install && npm start",
-    "server": "webpack-dashboard -- webpack-dev-server --inline --progress --env.dev --port 3000",
+    "server": "rimraf dist && webpack-dev-server --progress --env.dev --port 3000",
+    "server:pretty": "webpack-dashboard -- webpack-dev-server --inline --progress --env.dev --port 3000",
     "build": "http-server dist --cors",
     "lint": "tslint --force \"src/**/*.ts\"",
     "test": "karma start",
@@ -107,6 +108,7 @@
     "webpack-dashboard": "^0.1.8",
     "webpack-dev-server": "^1.14.1",
     "webpack-merge": "^0.14.0",
-    "webpack-stream": "^3.2.0"
+    "webpack-stream": "^3.2.0",
+    "write-file-webpack-plugin": "^3.3.0"
   }
 }

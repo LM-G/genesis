@@ -145,10 +145,16 @@ module.exports = function(options) {
        * Copy assets from the public folder
        * Reference: https://github.com/kevlened/copy-webpack-plugin
        */
-      new CopyWebpackPlugin([{
-        from: 'src/assets',
-        to: 'assets'
-      }]),
+      new CopyWebpackPlugin([
+        {
+          from: 'src/assets',
+          to: 'assets'
+        }
+      ], {
+        ignore: [
+          'css/*'
+        ]
+      }),
 
       /**
        * Inject script and link tags into html files

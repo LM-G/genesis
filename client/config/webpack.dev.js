@@ -5,7 +5,8 @@ var helpers = require('./helpers');
  * Webpack Plugins
  */
 const DefinePlugin = require('webpack/lib/DefinePlugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const WriteFilePlugin = require('write-file-webpack-plugin');
 /**
  * Webpack Constants
  */
@@ -24,7 +25,7 @@ module.exports = function() {
   return webpackMerge(commonConfig({env: ENV}), {
     metadata: METADATA,
     debug: true,
-    devtool: 'eval-source-map',
+    devtool: 'source-map',
 
     output: {
       path: helpers.root('dist'),
@@ -35,7 +36,7 @@ module.exports = function() {
     },
 
     plugins: [
-      new ExtractTextPlugin('[name].css'),
+      new ExtractTextPlugin('assets/css/style.css'),
       new DefinePlugin({
         'ENV': JSON.stringify(METADATA.ENV),
         'HMR': METADATA.HMR,
@@ -44,19 +45,24 @@ module.exports = function() {
           'NODE_ENV': JSON.stringify(METADATA.ENV),
           'HMR': METADATA.HMR
         }
-      })
+      }),
+      /* indicate to webpack to write the generated bundle into ouputpath */
+      new WriteFilePlugin()
     ],
 
     devServer: {
       port: METADATA.port,
       host: METADATA.host,
+      inline: true,
       quiet: true,
       historyApiFallback: true,
       stats: 'minimal',
+      contentBase: helpers.root('src'),
       watchOptions: {
         aggregateTimeout: 300,
         poll: 1000
       },
+      /* bundle will be writed in this folder thanks to WriteFilePlugin */
       outputPath: helpers.root('dist')
     }
   });
