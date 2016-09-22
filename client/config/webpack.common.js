@@ -42,10 +42,7 @@ module.exports = function(options) {
     resolve: {
       cache : true,
       extensions: ['', '.ts', '.js', '.json', '.css', '.scss', '.html'],
-      root: helpers.root(),
-      alias: {
-        'app': 'src/app'
-      }
+      root: helpers.root()
     },
 
     /**

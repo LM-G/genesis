@@ -25,7 +25,7 @@ module.exports = function() {
   return webpackMerge(commonConfig({env: ENV}), {
     metadata: METADATA,
     debug: true,
-    devtool: 'source-map',
+    devtool: 'inline-source-map',
 
     output: {
       path: helpers.root('dist'),
