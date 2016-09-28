@@ -1,4 +1,5 @@
 var helpers = require('./helpers');
+var webpackMerge = require('webpack-merge');
 var commonConfig = require('./webpack.common.js');
 /**
  * Webpack Plugins
@@ -11,19 +12,22 @@ const DefinePlugin = require('webpack/lib/DefinePlugin');
 const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
 
 module.exports = function(){
-  return webpackMerge(commonConfig({env: ENV}), {
+  return {
     devtool: 'inline-source-map',
+
+    entry: {},
 
     resolve: {
       cache: false,
-      extensions: ['', '.ts', '.js']
+      extensions: ['', '.ts', '.js', '.json', '.css', '.scss', '.html'],
     },
 
     module: {
+      preLoaders: [],
       loaders: [
         {
           test: /\.ts$/,
-          loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
+          loaders: ['awesome-typescript-loader', 'angular2-template-loader', '@angularclass/hmr-loader'],
           exclude: [helpers.root('node_modules')]
         },
         {
@@ -42,15 +46,26 @@ module.exports = function(){
         },
         {
           test: /\.css$/,
-          exclude: helpers.root('app'),
+          exclude: helpers.root('src', 'app'),
           loader: 'null'
         },
         {
           test: /\.css$/,
-          include: helpers.root('app'),
+          include: helpers.root('src', 'app'),
+          loader: 'raw'
+        },
+        {
+          test: /\.scss$/,
+          exclude: helpers.root('src', 'app'),
+          loader: 'null'
+        },
+        {
+          test: /\.scss$/,
+          include: helpers.root('src', 'app'),
           loader: 'raw'
         }
-      ]
+      ],
+      postLoaders: []
     },
 
     plugins: [
@@ -64,5 +79,5 @@ module.exports = function(){
         }
       })
      ]
-  });
+  };
 };
