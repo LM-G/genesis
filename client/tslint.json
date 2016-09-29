@@ -104,8 +104,8 @@
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,
     "directive-class-suffix": true,
-    "directive-selector-prefix": [true, "my"],
-    "component-selector-prefix": [true, "my"],
-    "pipe-naming": [true, "camelCase", "my"]
+    "directive-selector-prefix": [true, "genesis"],
+    "component-selector-prefix": [true, "genesis"],
+    "pipe-naming": [true, "camelCase", "genesis"]
   }
 }

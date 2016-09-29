@@ -2,7 +2,7 @@
   "name": "genesis-server",
   "version": "1.0.0",
   "scripts": {
-    "start": "npm i && set DEBUG=genesis:server, socket.io:* & set PORT=4000 & nodemon --debug ./bin/dev.js",
+    "start": "npm i && set DEBUG=genesis:server, socket.io:* & set PORT=3000 & nodemon --debug ./bin/dev.js",
     "test": "set NODE_ENV=test&& mocha -w"
   },
   "dependencies": {
