@@ -1,5 +1,5 @@
 var webpackConfig = require('./webpack.test')({env: 'test'});
-
+var isTestWatch = process.env.ENV === 'test-watch';
 module.exports = function (config) {
   var configuration = {
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -38,7 +38,9 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: false,
-    browsers: ['PhantomJS'],
+    // start these browsers
+    // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
+    browsers: isTestWatch ? ['Chrome'] : ['PhantomJS'],
     singleRun: true
   };
 
