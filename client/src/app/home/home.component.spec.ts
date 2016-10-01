@@ -1,27 +1,26 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { AppComponent } from './app.component';
+import { HomeComponent } from './home.component';
 import { TranslateModule } from 'ng2-translate';
 
-let fixture: ComponentFixture<AppComponent>;
+let fixture: ComponentFixture<HomeComponent>;
 
 
-describe('App', () => {
+describe('Home', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [AppComponent],
+            declarations: [HomeComponent],
             imports: [
                 /* Sets up the router to be used for testing. */
                 RouterTestingModule,
                 TranslateModule.forRoot()
             ]
         });
-        fixture = TestBed.createComponent(AppComponent);
+        fixture = TestBed.createComponent(HomeComponent);
     });
     it ('should work', () => {
-        expect(fixture.componentInstance instanceof AppComponent).toBe(true, 'should create AppComponent');
+        expect(fixture.componentInstance instanceof HomeComponent).toBe(true, 'should create HomeComponent');
     });
-
 });
 

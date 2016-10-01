@@ -1,18 +1,22 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule }  from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-
+import { HttpModule } from '@angular/http';
+import { MaterialModule } from '@angular/material';
 import { AppComponent } from './app.component';
 import { routes } from './app.route';
-
 import { HomeModule } from './home/home.module';
-
+import { SharedTranslateModule } from './shared';
 
 @NgModule({
     imports: [
         BrowserModule,
         HomeModule,
-        RouterModule.forRoot(routes)
+        HttpModule,
+
+        RouterModule.forRoot(routes),
+        MaterialModule.forRoot(),
+        SharedTranslateModule
     ],
     declarations: [
         AppComponent
@@ -20,4 +24,5 @@ import { HomeModule } from './home/home.module';
     bootstrap: [ AppComponent ]
 })
 export class AppModule {
+
 }

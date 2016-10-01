@@ -12,7 +12,8 @@
       "node",
       "webpack",
       "source-map",
-      "uglify-js"
+      "uglify-js",
+      "hammerjs"
     ]
   },
   "exclude": [
