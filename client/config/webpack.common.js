@@ -1,33 +1,33 @@
+/**
+ * Webpack common config file
+ * @author Louis-Marie Guillemot
+ */
+
 var webpack = require('webpack');
 var helpers = require('./helpers');
 /**
- * Webpack Plugins
+ * Plugins
  */
 const autoprefixer = require('autoprefixer');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
+const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
-const DashboardPlugin = require('webpack-dashboard/plugin');
-/*
- * Webpack Constants
- */
-const METADATA = {
-  isDevServer: helpers.isWebpackDevServer()
-};
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-module.exports = function(options) {
-  var isProd = options.env === 'production';
-  var isTest = options.env === 'test';
+/**
+ * https://webpack.js.org/configuration/#options
+ * @returns {{
+ *  entry: {polyfills: string, vendor: string, main: string},
+ *  module: {rules: *[]},
+ *  resolve: {extensions: string[]},
+ *  plugins: *[]
+ * }}
+ */
+module.exports = function() {
   return {
     /**
-     * Static metadata for next loaders
-     */
-    metadata: METADATA,
-
-    /**
-     * Entry
-     * Reference: http://webpack.github.io/docs/configuration.html#entry
+     * Entry points
+     * Reference: https://webpack.js.org/configuration/entry-context/#entry
      */
     entry: {
       polyfills: './src/polyfills.ts',
@@ -36,54 +36,37 @@ module.exports = function(options) {
     },
 
     /**
-     * Resolve
-     * Reference: http://webpack.github.io/docs/configuration.html#resolve
-     */
-    resolve: {
-      cache : true,
-      extensions: ['', '.ts', '.js', '.json', '.css', '.scss', '.html'],
-      root: helpers.root()
-    },
-
-    /**
      * Loaders
-     * Reference: http://webpack.github.io/docs/configuration.html#module-loaders
+     * Reference: https://webpack.js.org/configuration/module/
      * List: http://webpack.github.io/docs/list-of-loaders.html
      */
     module: {
-      preLoaders: isTest ? [] : [
-        {
-          test: /\.ts$/,
-          loader: 'tslint'
-        }
-      ],
-
-      loaders: [
+      rules: [
         // Support for .ts files.
         {
           test: /\.ts$/,
           loaders: [
             'awesome-typescript-loader',
             'angular2-template-loader',
-            '@angularclass/hmr-loader?pretty=' + !isProd + '&prod=' + isProd
+            '@angularclass/hmr-loader'
           ],
           exclude: [/\.(spec|e2e)\.ts$/, /node_modules\/(?!(ng2-.+))/]
         },
-        // Support for json files.
+        // support for json files.
         {
           test: /\.json$/,
           loader: 'json'
         },
-        // copy those assets to output
+        // copy assets files to output
         {
           test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
           loader: 'file?name=assets/[name].[hash].[ext]'
         },
-        // Support for CSS as raw text
+        // support for CSS in src/assets as raw text
         {
           test: /\.css$/,
           exclude: helpers.root('src', 'app'),
-          loader: isTest ? 'null' : ExtractTextPlugin.extract('style', 'css?sourceMap!postcss')
+          loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: ['css', 'postcss']})
         },
         // all css required in src/app files will be merged in js files
         {
@@ -91,11 +74,11 @@ module.exports = function(options) {
           include: helpers.root('src', 'app'),
           loader: 'raw!postcss'
         },
-        // support for .scss files
+        // support for SASS files in src/assets as raw text
         {
           test: /\.scss$/,
           exclude: helpers.root('src', 'app'),
-          loader: isTest ? 'null' : ExtractTextPlugin.extract('style', 'css?sourceMap!postcss!sass')
+          loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: ['css', 'postcss', 'sass']})
         },
         // all scss required in src/app files will be merged in js files
         {
@@ -113,74 +96,76 @@ module.exports = function(options) {
     },
 
     /**
+     * Resolve
+     * Reference: http://webpack.github.io/docs/configuration.html#resolve
+     */
+    resolve: {
+      extensions: ['.ts', '.js', '.json', '.css', '.scss', '.html']
+    },
+
+    /**
      * Plugins
-     * Reference: http://webpack.github.io/docs/configuration.html#plugins
+     * Reference: https://webpack.js.org/configuration/plugins/
      * List: http://webpack.github.io/docs/list-of-plugins.html
      */
     plugins: [
-      // Really nice display of webpack build execution, feel like working for NASA !
-      new DashboardPlugin(),
-
       /**
-       * Plugin: ForkCheckerPlugin
-       * Description: Do type checking in a separate process, so webpack don't need to wait.
+       * Plugin: ContextReplacementPlugin
+       * Description: Provides context to Angular's use of System.import
        *
-       * See: https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
+       * See: https://webpack.github.io/docs/list-of-plugins.html#contextreplacementplugin
+       * See: https://github.com/angular/angular/issues/11580
        */
-      new ForkCheckerPlugin(),
-
-      /**
-       * Generate common chunks if necessary
-       * Reference: https://webpack.github.io/docs/code-splitting.html
-       * Reference: https://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin
-       */
-      new webpack.optimize.CommonsChunkPlugin({
-        name: ['vendor', 'polyfills']
-      }),
+      new ContextReplacementPlugin(
+        // The (\\|\/) piece accounts for path separators in *nix and Windows
+        /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+        helpers.root('src')
+      ),
 
       /**
        * Copy assets from the public folder
        * Reference: https://github.com/kevlened/copy-webpack-plugin
        */
-      new CopyWebpackPlugin([
-        {
-          from: 'src/assets',
-          to: 'assets'
-        }
-      ], {
+      new CopyWebpackPlugin([{
+        from: helpers.root('src','assets'),
+        to: 'assets'
+      }], {
         ignore: [
           'css/*'
         ]
       }),
 
-      /**
-       * Inject script and link tags into html files
-       * Reference: https://github.com/ampedandwired/html-webpack-plugin
-       */
-      new HtmlWebpackPlugin({
-        template: 'src/index.html',
-        chunksSortMode: 'dependency'
+      // Tslint configuration for webpack 2
+      new LoaderOptionsPlugin({
+        options: {
+          /**
+           * Apply the tslint loader as pre/postLoader
+           * Reference: https://github.com/wbuchwalter/tslint-loader
+           */
+          tslint: {
+            emitErrors: false,
+            failOnHint: false
+          },
+          /**
+           * Sass
+           * Reference: https://github.com/jtangelder/sass-loader
+           * Transforms .scss files to .css
+           */
+          sassLoader: {
+            /* todo */
+          },
+          /**
+           * PostCSS
+           * Reference: https://github.com/postcss/autoprefixer-core
+           * Add vendor prefixes to your css
+           */
+          postcss: [
+            autoprefixer({
+              browsers: ['last 2 version']
+            })
+          ]
+        }
       })
-    ],
-
-    /**
-     * PostCSS
-     * https://github.com/postcss/autoprefixer
-     * Add browser specific prefixes to css attributes
-     */
-    postcss : [
-      autoprefixer({
-        browsers: ['last 2 version']
-      })
-    ],
-
-    /**
-     * Sass
-     * Reference: https://github.com/jtangelder/sass-loader
-     * Transforms .scss files into .css
-     */
-    sassLoader : {
-      // not implemented yet
-    }
+    ]
   }
 };

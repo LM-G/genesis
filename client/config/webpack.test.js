@@ -16,13 +16,11 @@ module.exports = function(){
     entry: {},
 
     resolve: {
-      cache: false,
-      extensions: ['', '.ts', '.js', '.json', '.css', '.scss', '.html'],
+      extensions: ['.ts', '.js', '.json', '.css', '.scss', '.html']
     },
 
     module: {
-      preLoaders: [],
-      loaders: [
+      rules: [
         {
           test: /\.ts$/,
           loaders: ['awesome-typescript-loader', 'angular2-template-loader', '@angularclass/hmr-loader'],
@@ -62,8 +60,7 @@ module.exports = function(){
           include: helpers.root('src', 'app'),
           loader: 'raw'
         }
-      ],
-      postLoaders: []
+      ]
     },
 
     plugins: [
