@@ -62,7 +62,7 @@ module.exports = function() {
           test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
           loader: 'file?name=assets/[name].[hash].[ext]'
         },
-        // support for CSS in src/assets as raw text
+        // support for CSS in src/styles as raw text
         {
           test: /\.css$/,
           exclude: helpers.root('src', 'app'),

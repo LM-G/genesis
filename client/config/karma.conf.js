@@ -40,7 +40,7 @@ module.exports = function (config) {
     autoWatch: false,
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: isTestWatch ? ['Chrome'] : ['PhantomJS'],
+    browsers: isTestWatch ? ['Chrome', 'Firefox'] : ['PhantomJS'],
     singleRun: true
   };
 
