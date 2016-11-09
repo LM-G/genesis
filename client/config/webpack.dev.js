@@ -42,7 +42,7 @@ module.exports = function() {
       /* Forces the bundled files to be written in dist forlder */
       new WriteFilePlugin(),
 
-      new ExtractTextPlugin({filename: 'css/[name].[hash].css'}),
+      new ExtractTextPlugin({filename: 'css/[name].css'}),
 
       /**
        * Plugin: ForkCheckerPlugin
