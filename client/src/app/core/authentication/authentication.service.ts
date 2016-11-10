@@ -25,7 +25,8 @@ export class AuthenticationService {
         return this.http.post('/auth/login', credentials, options)
             .map((res: Response) => {
                 /* todo set token dans localstorage ici res.json().token.access_token et mettre en place l'interception
-                 * de requete*/
+                 * de requete
+                 * @see: https://github.com/auth0-samples/auth0-angularjs2-systemjs-sample/tree/master/02-Custom-Login*/
                 return res.json();
             })
             .flatMap((token) => this.http.get('/api/user').map((res: Response) => {
