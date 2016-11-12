@@ -9,10 +9,6 @@ import { AuthenticationService } from '../authentication/authentication.service'
 export class NavComponent {
     @Output() loginToggled = new EventEmitter();
 
-    menuItems = [
-        'Home'
-    ];
-
     constructor(private authService: AuthenticationService){
 
     }
