@@ -1,32 +1,43 @@
-import {Component, OnInit} from '@angular/core';
-import {AuthenticationService} from '../authentication/authentication.service';
-import {User} from '../../shared/models/user.model';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { AuthenticationService } from '../authentication/authentication.service';
+import { User } from '../../shared/models/user.model';
+import { UserService } from '../user.service';
 @Component({
     selector: 'genesis-login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+    styleUrls: [ './login.component.css' ]
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent {
+    /* I/Os */
+    @Input() showLogin: boolean;
+    @Output() hide = new EventEmitter();
+
+    /* credentials */
     username: string;
     password: string;
+
+    /* utility */
     loading: boolean = false;
 
-    constructor(private authenticationService: AuthenticationService) {
+    constructor(private authService: AuthenticationService, private userService: UserService) {
     }
 
-    ngOnInit() {
-        console.log('login component loaded');
-    }
+    /**
+     * logged in the user
+     */
+    login(): void {
+        const onNext = (user: User) => {
+            console.log('User connected.');
+            this.userService.user = user;
+            this.hide.emit();
+        };
+        const onError = (err: any) => console.log('connexion échec : ', err);
+        const onCompleted = () => {this.loading = false};
 
-    login() {
         this.loading = true;
-        this.authenticationService
+        this.authService
             .login(this.username, this.password)
-            .subscribe(
-                (user: User) => console.log('connexion reussie : ', user),
-                (err: any) => console.log('connexion échec : ', err),
-                () => this.loading = false
-            );
+            .subscribe(onNext, onError, onCompleted);
     }
 }

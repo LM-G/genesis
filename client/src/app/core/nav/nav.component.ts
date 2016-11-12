@@ -1,16 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
+import { AuthenticationService } from '../authentication/authentication.service';
 @Component({
     selector: 'genesis-nav',
     templateUrl: './nav.component.html',
     styleUrls: [ './nav.component.css' ]
 })
 
-export class NavComponent implements OnInit {
+export class NavComponent {
+    @Output() loginToggled = new EventEmitter();
+
     menuItems = [
         'Home'
     ];
 
-    constructor() {}
+    constructor(private authService: AuthenticationService){
 
-    ngOnInit() {}
+    }
+
+    toggleLogin(){
+        this.loginToggled.emit();
+    }
+
+    logout(){
+        this.authService.logout();
+    }
 }

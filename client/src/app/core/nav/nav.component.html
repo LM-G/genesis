@@ -1,6 +1,11 @@
 <header>
     <ul>
         <li><a [routerLink]="['']" [routerLinkActive]="['active']">Home</a></li>
-        <li class="genesis-item-right"><a href="#">Se connecter</a></li>
+        <li *ngIf="authService.notLoggedIn()" class="genesis-item-right">
+            <a href="#" (click)="toggleLogin()">Se connecter</a>
+        </li>
+        <li *ngIf="authService.loggedIn()" class="genesis-item-right">
+            <a href="#" (click)="logout()">Déconnexion</a>
+        </li>
     </ul>
 </header>

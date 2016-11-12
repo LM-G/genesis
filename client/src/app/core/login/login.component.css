@@ -1,13 +1,19 @@
 #login{
-    margin-top: 20px;
+    z-index: 0;
+    background-color: #474747;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+#login-form{
     text-align: center;
     width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: transparent;
+    margin: 0 auto 0 auto;
     padding: 20px;
+    color: white;
+    background-color: transparent;
 }
 
 button {
     width: 100%;
+    background-color: #4CAF50;
 }

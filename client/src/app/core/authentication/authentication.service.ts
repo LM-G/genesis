@@ -1,11 +1,16 @@
-import {Injectable} from '@angular/core';
-import {Http, Response, RequestOptions, Headers} from '@angular/http';
-import {Observable} from 'rxjs/Rx';
-import {User} from '../../shared/models/user.model';
+import { Injectable } from '@angular/core';
+import { Http, Response, RequestOptions, Headers } from '@angular/http';
+import { Observable } from 'rxjs/Rx';
+import { User } from '../../shared/models/user.model';
+import { TokenMessage } from '../../shared/models/token-message.model';
+import { UserService } from '../user.service';
 
+/**
+ * Authentication service, get access token, log in orlog out a user
+ */
 @Injectable()
 export class AuthenticationService {
-    constructor(private http: Http) {
+    constructor(private http: Http, private userService: UserService) {
     }
 
     /**
@@ -15,24 +20,50 @@ export class AuthenticationService {
      * @param username
      * @param password
      *
-     * @returns {Observable<boolean>}
+     * @returns {Observable<User>}
      */
     login(username: string, password: string): Observable<User> {
-        let credentials = JSON.stringify({username: username, password: password});
-        let headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers: headers});
-
+        let credentials = JSON.stringify({ username: username, password: password });
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        /* get the access token */
         return this.http.post('/auth/login', credentials, options)
             .map((res: Response) => {
-                /* todo set token dans localstorage ici res.json().token.access_token et mettre en place l'interception
-                 * de requete
-                 * @see: https://github.com/auth0-samples/auth0-angularjs2-systemjs-sample/tree/master/02-Custom-Login*/
-                return res.json();
+                let data: TokenMessage = res.json();
+                let token: string = data.token.access_token;
+                if (token != null) {
+                    localStorage.setItem('access_token', token);
+                }
             })
-            .flatMap((token) => this.http.get('/api/user').map((res: Response) => {
-                let user: User = res.json();
+            /* get the user informations thanks to the token */
+            .flatMap(() => this.userService.getUser().map((user: User) => {
                 return new User(user.id, user.username, user.email, user.role);
             }))
             .catch((err: any) => Observable.throw(err || 'Server error'));
+    }
+
+    /**
+     * Disconnects the current user
+     */
+    logout(): void {
+        console.log('User disconnected.');
+        localStorage.removeItem('access_token');
+        this.userService.user = null;
+    }
+
+    /**
+     * Determines if the user is connected
+     * @returns {boolean} true if the user is connected
+     */
+    loggedIn(): boolean {
+        return this.userService.user != null;
+    }
+
+    /**
+     * Determines if the user is not connected
+     * @returns {boolean} true if the user is not connected
+     */
+    notLoggedIn(): boolean {
+        return this.userService.user == null;
     }
 }
