@@ -3,6 +3,7 @@ var helpers = require('./helpers');
  * Webpack Plugins
  */
 const DefinePlugin = require('webpack/lib/DefinePlugin');
+const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 
 /**
  * Webpack Constants
@@ -64,6 +65,11 @@ module.exports = function(){
     },
 
     plugins: [
+      new ContextReplacementPlugin(
+        // The (\\|\/) piece accounts for path separators in *nix and Windows
+        /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+        helpers.root('src')
+      ),
       new DefinePlugin({
         'ENV': JSON.stringify(ENV),
         'HMR': false,

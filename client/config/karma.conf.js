@@ -1,6 +1,7 @@
-var webpackConfig = require('./webpack.test')({env: 'test'});
-var isTestWatch = process.env.ENV === 'test-watch';
 module.exports = function (config) {
+
+  var webpackConfig = require('./webpack.test')({env: 'test'});
+
   var configuration = {
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
@@ -34,14 +35,26 @@ module.exports = function (config) {
     },
 
     reporters: ['progress'],
+
     port: 9876,
+
     colors: true,
+
     logLevel: config.LOG_INFO,
+
     autoWatch: false,
+
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: isTestWatch ? ['Chrome', 'Firefox'] : ['PhantomJS'],
-    singleRun: true
+    browsers: ['Chrome'],
+
+    /*
+     * Continuous Integration mode
+     * if true, Karma captures browsers, runs the tests and exits
+     */
+    singleRun: true,
+
+    browserNoActivityTimeout : 60000
   };
 
   config.set(configuration);

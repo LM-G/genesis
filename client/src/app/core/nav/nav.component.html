@@ -2,10 +2,10 @@
     <ul>
         <li><a [routerLink]="['']" [routerLinkActive]="['active']">Home</a></li>
         <li *ngIf="authService.notLoggedIn()" class="genesis-item-right">
-            <a href="#" (click)="toggleLogin()">Se connecter</a>
+            <button id="login" (click)="toggleLogin()" aria-label="Se connecter">Connexion</button>
         </li>
         <li *ngIf="authService.loggedIn()" class="genesis-item-right">
-            <a href="#" (click)="logout()">Déconnexion</a>
+            <button id="logout" (click)="logout()" aria-label="Se déconnecter">Déconnexion</button>
         </li>
     </ul>
 </header>

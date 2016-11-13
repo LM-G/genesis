@@ -33,3 +33,7 @@ li a:hover {
 .genesis-item-right{
     float: right;
 }
+
+button{
+    background-color: #FFA500;
+}
