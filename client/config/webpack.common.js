@@ -55,41 +55,41 @@ module.exports = function() {
         // support for json files.
         {
           test: /\.json$/,
-          loader: 'json'
+          loader: 'json-loader'
         },
         // copy assets files to output
         {
           test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
-          loader: 'file?name=assets/[name].[hash].[ext]'
+          loader: 'file-loader?name=assets/[name].[hash].[ext]'
         },
         // support for CSS in src/styles as raw text
         {
           test: /\.css$/,
           exclude: helpers.root('src', 'app'),
-          loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: ['css', 'postcss']})
+          loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: ['css-loader', 'postcss']})
         },
         // all css required in src/app files will be merged in js files
         {
           test: /\.css$/,
           include: helpers.root('src', 'app'),
-          loader: 'raw!postcss'
+          loader: 'raw-loader!postcss'
         },
         // support for SASS files in src/assets as raw text
         {
           test: /\.scss$/,
           exclude: helpers.root('src', 'app'),
-          loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: ['css', 'postcss', 'sass']})
+          loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: ['css-loader', 'postcss', 'sass']})
         },
         // all scss required in src/app files will be merged in js files
         {
           test: /\.scss$/,
           include: helpers.root('src', 'app'),
-          loader: 'raw!postcss!sass'
+          loader: 'raw-loader!postcss!sass'
         },
         // support for .html as raw text
         {
           test: /\.html$/,
-          loader: 'raw',
+          loader: 'raw-loader',
           exclude: helpers.root('src/index.html')
         }
       ]
