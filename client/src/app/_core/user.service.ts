@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthHttpService } from './authentication/auth-http.service';
-import { User } from '../shared/models/user.model';
+import { User } from '../_shared/models/user.model';
 import { Observable } from 'rxjs/Rx';
 import { Response } from '@angular/http';
 

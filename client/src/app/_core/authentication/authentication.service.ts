@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
-import { User } from '../../shared/models/user.model';
-import { TokenMessage } from '../../shared/models/token-message.model';
+import { User } from '../../_shared/models/user.model';
+import { TokenMessage } from '../../_shared/models/token-message.model';
 import { UserService } from '../user.service';
 
 /**

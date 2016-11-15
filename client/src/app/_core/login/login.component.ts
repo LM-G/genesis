@@ -1,6 +1,6 @@
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { AuthenticationService } from '../authentication/authentication.service';
-import { User } from '../../shared/models/user.model';
+import { User } from '../../_shared/models/user.model';
 import { UserService } from '../user.service';
 @Component({
     selector: 'genesis-login',
