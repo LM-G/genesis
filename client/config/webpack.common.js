@@ -66,25 +66,25 @@ module.exports = function() {
         {
           test: /\.css$/,
           exclude: helpers.root('src', 'app'),
-          loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: ['css-loader', 'postcss']})
+          loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: ['css-loader', 'postcss-loader']})
         },
         // all css required in src/app files will be merged in js files
         {
           test: /\.css$/,
           include: helpers.root('src', 'app'),
-          loader: 'raw-loader!postcss'
+          loader: 'raw-loader!postcss-loader'
         },
         // support for SASS files in src/assets as raw text
         {
           test: /\.scss$/,
           exclude: helpers.root('src', 'app'),
-          loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: ['css-loader', 'postcss', 'sass']})
+          loader: ExtractTextPlugin.extract({ fallbackLoader: 'style-loader', loader: ['css-loader', 'postcss-loader', 'sass-loader']})
         },
         // all scss required in src/app files will be merged in js files
         {
           test: /\.scss$/,
           include: helpers.root('src', 'app'),
-          loader: 'raw-loader!postcss!sass'
+          loader: 'raw-loader!postcss-loader!sass-loader'
         },
         // support for .html as raw text
         {

@@ -30,7 +30,7 @@ app.use(cors());
 // view engine setup
 app.set('view engine', 'ejs');
 
-app.use(favicon(path.join(__dirname, '..', 'client', 'dist', 'assets', 'favicon.ico')));
+//app.use(favicon(path.join(__dirname, '..', 'client', 'dist', 'assets', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -44,7 +44,9 @@ var entries = require('./app/controllers')(passport);
 app.use('/api', entries.api);
 app.use('/auth', entries.auth);
 
+/* todo : trouver une solution pour le favicon et les fichiers du front a provider au client ...*/
 // configuration de l'acces aux fichiers du client
+/*
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // pour toutes les requetes qui arrivent jusqu'ici, envoie de l'index de l'application cliente
@@ -53,6 +55,6 @@ app.get('*', function(req, res) {
   res.sendFile('index.html', {
     root: '../client/dist'
   });
-});
+});*/
 
 module.exports = app;

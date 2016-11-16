@@ -3,7 +3,6 @@
  */
 var webpackMerge = require('webpack-merge');
 var commonConfig = require('./webpack.common.js');
-var WriteFilePlugin = require('write-file-webpack-plugin');
 var webpack = require('webpack');
 var helpers = require('./helpers');
 /**
@@ -23,6 +22,7 @@ const PORT = process.env.PORT || 4000;
 const HMR = helpers.hasProcessFlag('hot');
 
 module.exports = function() {
+  const devServerUrl = 'http://localhost:3000';
   return webpackMerge.smart(commonConfig(), {
     devtool: 'eval-source-map',
 
@@ -38,9 +38,6 @@ module.exports = function() {
     plugins: [
       /* Good looking UI */
       new DashboardPlugin(),
-
-      /* Forces the bundled files to be written in dist forlder */
-      new WriteFilePlugin(),
 
       new ExtractTextPlugin({filename: 'css/[name].css'}),
 
@@ -89,11 +86,14 @@ module.exports = function() {
       historyApiFallback: true,
       stats: 'minimal',
       contentBase: helpers.root('dist'),
-      outputPath: helpers.root('dist'),
       watchOptions: {
         aggregateTimeout: 300,
         poll: 1000,
         ignored: /node_modules/
+      },
+      proxy: {
+        '/api': devServerUrl,
+        '/auth': devServerUrl
       }
     }
   });
