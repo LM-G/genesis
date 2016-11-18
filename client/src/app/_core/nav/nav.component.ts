@@ -9,9 +9,7 @@ import {AuthenticationService} from '../authentication/authentication.service';
 export class NavComponent {
     @Output() loginToggled = new EventEmitter();
 
-    constructor(private authService: AuthenticationService) {
-
-    }
+    constructor(private authService: AuthenticationService) {}
 
     toggleLogin() {
         this.loginToggled.emit();

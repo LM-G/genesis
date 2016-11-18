@@ -34,6 +34,6 @@ li a:hover {
     float: right;
 }
 
-button{
+button#login{
     background-color: #FFA500;
 }

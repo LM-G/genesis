@@ -15,8 +15,8 @@ let authService;
 let btnLogin, btnLogout;
 
 class AuthServiceMock {
-    loggedIn(){}
-    notLoggedIn(){}
+    loggedIn() {}
+    notLoggedIn() {}
 }
 
 describe('Nav', () => {

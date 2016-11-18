@@ -14,8 +14,8 @@ export class LoginComponent {
     @Output() hide = new EventEmitter();
 
     /* credentials */
-    username: string;
-    password: string;
+    public username: string;
+    public password: string;
 
     /* utility */
     loading: boolean = false;
@@ -27,17 +27,25 @@ export class LoginComponent {
      * logged in the user
      */
     login(): void {
+        console.log('hey im login in !');
+        /* if login succeed */
         const onNext = (user: User) => {
             console.log('User connected.');
+            /* user is set */
             this.userService.user = user;
+            /* login form is hidden */
             this.hide.emit();
         };
+        /* if login failed */
         const onError = (err: any) => console.log('connexion échec : ', err);
-        const onCompleted = () => {this.loading = false};
+
+        // credentials are reset
+        const onComplete = () => this.username = this.password = null;
 
         this.loading = true;
         this.authService
             .login(this.username, this.password)
-            .subscribe(onNext, onError, onCompleted);
+            .finally(() => this.loading = false)
+            .subscribe(onNext, onError, onComplete);
     }
 }
