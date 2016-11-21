@@ -84,7 +84,6 @@ describe('Login', () => {
         expect(loginTpl).toBeTruthy('should be rendered');
     });
 
-    /* fixme : faire passer ce foutu test ... */
     it('should perform login on backend on submit', fakeAsync(() => {
         /* render login form */
         component.showLogin = true;
@@ -98,10 +97,9 @@ describe('Login', () => {
         const password = 'secr3t';
         const username = 'Alice';
 
-        /*
+
         setInput(password, page.passwordInput);
         setInput(username, page.nameInput);
-        */
 
         component.username = username;
         component.password = password;
