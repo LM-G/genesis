@@ -4,15 +4,21 @@ import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { routes } from './app.route';
-import { HomeModule } from './home/home.module';
+
 import {CoreModule} from './_core/core.module';
+
+// Features
+import { HomeModule } from './home/home.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @NgModule({
     imports: [
         BrowserModule,
-        HomeModule,
         HttpModule,
+
         CoreModule,
+        HomeModule,
+        DashboardModule,
 
         RouterModule.forRoot(routes),
     ],

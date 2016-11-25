@@ -9,6 +9,7 @@ import { AuthenticationService } from './authentication/authentication.service';
 import { AuthHttpService } from './authentication/auth-http.service';
 import { XHRBackend, RequestOptions } from '@angular/http';
 import { UserService } from './user.service';
+import {AuthGuard} from './authentication/auth-guard.service';
 
 @NgModule({
     imports: [ CommonModule, RouterModule, FormsModule ],
@@ -16,6 +17,7 @@ import { UserService } from './user.service';
     declarations: [ NavComponent, LoginComponent ],
     providers: [
         UserService,
+        AuthGuard,
         AuthenticationService,
         {
             provide: AuthHttpService,
