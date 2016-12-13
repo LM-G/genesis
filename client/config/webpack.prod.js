@@ -6,8 +6,9 @@ var helpers = require('./helpers');
  * Webpack Plugins
  */
 const DefinePlugin = require('webpack/lib/DefinePlugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 /**
  * Webpack Constants
@@ -32,6 +33,12 @@ module.exports = function(){
 
     // Prod build specific plugins
     plugins: [
+      // clean du dossier dist / build
+      new CleanWebpackPlugin(['dist', 'build'], {
+        root: helpers.root(),
+        verbose: true
+      }),
+
       new ExtractTextPlugin('[name].[hash].css'),
 
       /**
@@ -56,7 +63,7 @@ module.exports = function(){
        * Reference: https://github.com/ampedandwired/html-webpack-plugin
        */
       new HtmlWebpackPlugin({
-        template: 'src/index.html',
+        template: './src/index.html',
         chunksSortMode: 'dependency'
       }),
 

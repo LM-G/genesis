@@ -12,7 +12,6 @@ const DefinePlugin = require('webpack/lib/DefinePlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const DashboardPlugin = require('webpack-dashboard/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 /**
  * Constants
  */
@@ -35,19 +34,30 @@ module.exports = function() {
       chunkFilename: '[id].chunk.js'
     },
 
+    devServer: {
+      port: PORT,
+      host: HOST,
+      inline: true,
+      quiet: false,
+      historyApiFallback: true,
+      stats: 'minimal',
+      contentBase: helpers.root('dist'),
+      watchOptions: {
+        aggregateTimeout: 300,
+        poll: 1000,
+        ignored: /node_modules/
+      },
+      proxy: {
+        '/api': devServerUrl,
+        '/auth': devServerUrl
+      }
+    },
+
     plugins: [
       /* Good looking UI */
       new DashboardPlugin(),
 
       new ExtractTextPlugin({filename: 'css/[name].css'}),
-
-      /**
-       * Plugin: ForkCheckerPlugin
-       * Description: Do type checking in a separate process, so webpack don't need to wait.
-       *
-       * See: https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
-       */
-      new ForkCheckerPlugin(),
 
       /**
        * Generate common chunks if necessary
@@ -76,25 +86,6 @@ module.exports = function() {
           'HMR': HMR
         }
       })
-    ],
-
-    devServer: {
-      port: PORT,
-      host: HOST,
-      inline: true,
-      quiet: false,
-      historyApiFallback: true,
-      stats: 'minimal',
-      contentBase: helpers.root('dist'),
-      watchOptions: {
-        aggregateTimeout: 300,
-        poll: 1000,
-        ignored: /node_modules/
-      },
-      proxy: {
-        '/api': devServerUrl,
-        '/auth': devServerUrl
-      }
-    }
+    ]
   });
 };
