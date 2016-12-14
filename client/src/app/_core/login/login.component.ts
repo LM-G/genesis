@@ -2,6 +2,7 @@ import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { User } from '../../_shared/models/user.model';
 import { UserService } from '../user.service';
+import {Router} from '@angular/router';
 @Component({
     selector: 'genesis-login',
     templateUrl: './login.component.html',
@@ -20,7 +21,9 @@ export class LoginComponent {
     /* utility */
     loading: boolean = false;
 
-    constructor(private authService: AuthenticationService, private userService: UserService) {
+    constructor(private authService: AuthenticationService,
+                private userService: UserService,
+                private router: Router) {
     }
 
     /**
@@ -35,6 +38,11 @@ export class LoginComponent {
             this.userService.user = user;
             /* login form is hidden */
             this.hide.emit();
+            /* if a redirect url was stored */
+            const redirectUrl = this.authService.redirectUrl;
+            if(redirectUrl != null){
+                this.router.navigate([redirectUrl]);
+            }
         };
         /* if login failed */
         const onError = (err: any) => console.log('connexion échec : ', err);

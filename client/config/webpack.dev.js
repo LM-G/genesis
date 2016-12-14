@@ -23,7 +23,7 @@ const HMR = helpers.hasProcessFlag('hot');
 module.exports = function() {
   const devServerUrl = 'http://localhost:3000';
   return webpackMerge.smart(commonConfig(), {
-    devtool: 'eval-source-map',
+    devtool: 'inline-source-map',
 
     output: {
       path: helpers.root('dist'),

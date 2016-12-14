@@ -23,7 +23,7 @@ li a {
 
 /* Change the link color to #111 (black) on hover */
 li a:hover {
-    background-color: #111;
+    background-color: #81C784;
 }
 
 .active {
@@ -36,4 +36,8 @@ li a:hover {
 
 button#login{
     background-color: #FFA500;
+}
+
+button#login:hover{
+    background-color: #FFC04C;
 }

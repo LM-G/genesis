@@ -42,14 +42,6 @@ module.exports = function(){
       new ExtractTextPlugin('[name].[hash].css'),
 
       /**
-       * Plugin: ForkCheckerPlugin
-       * Description: Do type checking in a separate process, so webpack don't need to wait.
-       *
-       * See: https://github.com/s-panferov/awesome-typescript-loader#forkchecker-boolean-defaultfalse
-       */
-      new ForkCheckerPlugin(),
-
-      /**
        * Generate common chunks if necessary
        * Reference: https://webpack.github.io/docs/code-splitting.html
        * Reference: https://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin

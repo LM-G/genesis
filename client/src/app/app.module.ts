@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
-import { routes } from './app.route';
+import { defaultRouting } from './app.route';
 
 import {CoreModule} from './_core/core.module';
 
@@ -20,7 +19,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
         HomeModule,
         DashboardModule,
 
-        RouterModule.forRoot(routes),
+        defaultRouting
     ],
     declarations: [
         AppComponent

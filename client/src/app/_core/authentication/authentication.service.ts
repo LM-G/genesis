@@ -10,6 +10,9 @@ import { UserService } from '../user.service';
  */
 @Injectable()
 export class AuthenticationService {
+    // redirect url if user wanted to access protected route before being displayed the login form
+    public redirectUrl : String;
+
     constructor(private http: Http, private userService: UserService) {
     }
 
@@ -49,6 +52,7 @@ export class AuthenticationService {
         console.log('User disconnected.');
         localStorage.removeItem('access_token');
         this.userService.user = null;
+        this.redirectUrl = null;
     }
 
     /**

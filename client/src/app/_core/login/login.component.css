@@ -17,3 +17,8 @@ button {
     width: 100%;
     background-color: #4CAF50;
 }
+
+button:hover {
+    width: 100%;
+    background-color: #81C784;
+}
