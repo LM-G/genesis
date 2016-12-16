@@ -10,12 +10,14 @@ import { AuthHttpService } from './authentication/auth-http.service';
 import { XHRBackend, RequestOptions } from '@angular/http';
 import { UserService } from './user.service';
 import {AuthGuard} from './authentication/auth-guard.service';
+import {EventHandler} from './event/event-handler.service';
 
 @NgModule({
     imports: [ CommonModule, RouterModule, FormsModule ],
     exports: [ NavComponent, LoginComponent ],
     declarations: [ NavComponent, LoginComponent ],
     providers: [
+        EventHandler,
         UserService,
         AuthGuard,
         AuthenticationService,

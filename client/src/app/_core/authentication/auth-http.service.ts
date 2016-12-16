@@ -15,6 +15,7 @@ export class AuthHttpService extends Http {
         super(backend, options);
     }
 
+    // Override http base request function with our custom one which will add JWT token to header
     request(url: string|Request, options?: RequestOptionsArgs): Observable<Response> {
         let token = localStorage.getItem('access_token');
         if (typeof url === 'string') { // meaning we have to add the token to the options, not in url

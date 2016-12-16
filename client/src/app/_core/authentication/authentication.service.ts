@@ -6,7 +6,7 @@ import { TokenMessage } from '../../_shared/models/token-message.model';
 import { UserService } from '../user.service';
 
 /**
- * Authentication service, get access token, log in orlog out a user
+ * Authentication service, get access token, log in or log out a user
  */
 @Injectable()
 export class AuthenticationService {

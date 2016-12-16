@@ -9,7 +9,7 @@ export class AuthGuard implements CanActivate {
     }
 
     /**
-     * Vérifie que l'utilisateur est connecté
+     * Check that user is connected
      * @param route route courante
      * @param state état cible
      * @returns {boolean}
