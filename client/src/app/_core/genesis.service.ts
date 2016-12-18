@@ -3,7 +3,7 @@ import { UserService } from './user.service';
 import * as _ from 'lodash';
 import { JwtHelper } from 'angular2-jwt';
 import { User } from '../_shared/models/user.model';
-import { BehaviorSubject, AsyncSubject, Subject, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 /**
  * Heart of Genesis App

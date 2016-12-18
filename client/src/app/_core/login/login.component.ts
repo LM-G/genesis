@@ -1,8 +1,7 @@
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from '../authentication/authentication.service';
 import { User } from '../../_shared/models/user.model';
-import { UserService } from '../user.service';
-import {Router} from '@angular/router';
+import { Router, Params, ActivatedRoute } from '@angular/router';
 import { LoginService } from './login.service';
 import { Genesis } from '../genesis.service';
 @Component({
@@ -11,19 +10,20 @@ import { Genesis } from '../genesis.service';
     styleUrls: [ './login.component.css' ]
 })
 
-export class LoginComponent {
+export class LoginComponent implements OnInit{
+    // tells if the login form is shown or hidden
     showLogin: boolean;
 
-    /* credentials */
+    // credentials
     username: string;
     password: string;
 
-    /* utility */
+    // utility
     loading: boolean = false;
 
     constructor(private authService: AuthenticationService,
-                private userService: UserService,
                 private router: Router,
+                private route: ActivatedRoute,
                 private loginService: LoginService,
                 private genesis: Genesis) {
         // Listen to login state change to know if the form needs to be hidden or shown
@@ -34,8 +34,20 @@ export class LoginComponent {
         )
     }
 
+    ngOnInit(): void {
+        /* todo : quand la fonctionnalité sera disponible, passer par des variables non liées à l'url ... */
+        this.route.queryParams.subscribe((params : Params) => {
+            console.log ('app params : ' , params);
+            // if user is not logged and path params tells us to show login form
+            if(params['sl'] === 't' && this.authService.notLoggedIn()){
+                // then login form is displayed to user
+                this.loginService.show();
+            }
+        });
+    }
+
     /**
-     * logged in the user
+     * log in the user
      */
     login(): void {
         console.log('hey im login in !');

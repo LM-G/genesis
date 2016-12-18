@@ -1,13 +1,21 @@
-import {TestBed, ComponentFixture, tick, fakeAsync} from '@angular/core/testing';
-import {LoginComponent} from './login.component';
-import {DebugElement} from '@angular/core';
-import {AuthenticationService} from '../authentication/authentication.service';
-import {UserService} from '../user.service';
-import {Observable} from 'rxjs';
-import {FormsModule} from '@angular/forms';
-import {User} from '../../_shared/models/user.model';
-import {By} from '@angular/platform-browser';
+import { TestBed, ComponentFixture, fakeAsync } from '@angular/core/testing';
+import { LoginComponent } from './login.component';
+import { DebugElement } from '@angular/core';
+import { AuthenticationService } from '../authentication/authentication.service';
+import { UserService } from '../user.service';
+import { Observable } from 'rxjs';
+import { FormsModule } from '@angular/forms';
+import { User } from '../../_shared/models/user.model';
+import { By } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { LoginService } from './login.service';
+import { GenesisStub } from '../../../testing/genesis-stubs';
+import { AuthServiceStub } from '../../../testing/auth-stubs';
+import { Genesis } from '../genesis.service';
+import Spy = jasmine.Spy;
 
+// variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 let fixture: ComponentFixture<LoginComponent>;
 let component: LoginComponent;
@@ -15,25 +23,18 @@ let de: DebugElement;
 let authService: AuthenticationService, userService: UserService;
 let page: Page;
 
-class AuthServiceMock {
-    login(username: String, password: String): void {}
-
-    loggedIn() {}
-
-    notLoggedIn() {}
-}
-
-class UserServiceMock {
-    user: User;
-
-    getUser() {}
-}
-
+// mocks and utilities /////////////////////////////////////////////////////////////////////////////////////////////////
 class Page {
+    navSpy: Spy;
     btnSubmit: DebugElement;
     nameInput: HTMLInputElement;
     passwordInput: HTMLInputElement;
     template: DebugElement;
+
+    constructor(){
+        const router = TestBed.get(Router);
+        this.navSpy  = spyOn(router, 'navigate');
+    }
 
     init() {
         this.template = de.query(By.css('#login'));
@@ -48,14 +49,21 @@ function setInput(text: string, inputElement: HTMLInputElement) {
     inputElement.dispatchEvent(new Event('input'));
 }
 
+// tests ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 describe('Login', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [FormsModule],
+            imports: [
+                FormsModule,
+                /* Sets up the router to be used for testing. */
+                RouterTestingModule
+            ],
             declarations: [LoginComponent],
             providers: [
-                {provide: AuthenticationService, useClass: AuthServiceMock},
-                {provide: UserService, useClass: UserServiceMock}
+                LoginService,
+                {provide: AuthenticationService, useClass: AuthServiceStub},
+                {provide: Genesis, useClass: GenesisStub}
             ]
         });
 
@@ -116,9 +124,5 @@ describe('Login', () => {
         expect(component.loading).toBe(false, 'should not be loading');
         expect(authService.login).toHaveBeenCalledWith(username, password);
     }));
-
-    it('should inform nav component to hide credential inputs if login succeed', () => {
-
-    });
 });
 

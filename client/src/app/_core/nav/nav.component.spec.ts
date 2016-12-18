@@ -1,12 +1,14 @@
-import {TestBed, ComponentFixture} from '@angular/core/testing';
-import {NavComponent} from './nav.component';
-import {AuthenticationService} from '../authentication/authentication.service';
-import {RouterTestingModule} from '@angular/router/testing';
-import {By} from '@angular/platform-browser';
-import {DebugElement} from '@angular/core';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { NavComponent } from './nav.component';
+import { AuthenticationService } from '../authentication/authentication.service';
+import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
+import { find } from 'lodash';
+import { AuthServiceStub } from '../../../testing/auth-stubs';
+import { LoginService } from '../login/login.service';
 
-import {find} from 'lodash';
-
+// variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 let fixture: ComponentFixture<NavComponent>;
 let component: NavComponent;
@@ -14,16 +16,18 @@ let de: DebugElement;
 let authService;
 let btnLogin, btnLogout;
 
-class AuthServiceMock {
-    loggedIn() {}
-    notLoggedIn() {}
-}
+// mocks and utilities /////////////////////////////////////////////////////////////////////////////////////////////////
+
+// tests ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 describe('Nav', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [NavComponent],
-            providers: [{provide: AuthenticationService, useClass: AuthServiceMock}],
+            providers: [
+                LoginService,
+                {provide: AuthenticationService, useClass: AuthServiceStub}
+            ],
             imports: [
                 /* Sets up the router to be used for testing. */
                 RouterTestingModule
