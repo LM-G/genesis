@@ -20,7 +20,7 @@ import Spy = jasmine.Spy;
 let fixture: ComponentFixture<LoginComponent>;
 let component: LoginComponent;
 let de: DebugElement;
-let authService: AuthenticationService, userService: UserService;
+let authService: AuthenticationService, genesis: Genesis;
 let page: Page;
 
 // mocks and utilities /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -71,7 +71,7 @@ describe('Login', () => {
         component = fixture.componentInstance;
         de = fixture.debugElement;
         authService = de.injector.get(AuthenticationService);
-        userService = de.injector.get(UserService);
+        genesis = de.injector.get(Genesis);
 
         page = new Page();
     });
