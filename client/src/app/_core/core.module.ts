@@ -1,4 +1,4 @@
-import { NgModule, SkipSelf, Optional } from '@angular/core';
+import { NgModule, SkipSelf, Optional, APP_INITIALIZER } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule }   from '@angular/forms';
@@ -10,14 +10,25 @@ import { AuthHttpService } from './authentication/auth-http.service';
 import { XHRBackend, RequestOptions } from '@angular/http';
 import { UserService } from './user.service';
 import {AuthGuard} from './authentication/auth-guard.service';
-import {EventHandler} from './event/event-handler.service';
+import { Genesis } from './genesis.service';
+import { LoginService } from './login/login.service';
+
+/**
+ * Resolves vital data from server in order to initialize application correctly
+ * @param genesis main app service
+ * @returns {()=>Promise<T>} when all vital data will be fetch
+ */
+function InitApp(genesis: Genesis){
+    return () => genesis.init().toPromise();
+}
 
 @NgModule({
     imports: [ CommonModule, RouterModule, FormsModule ],
     exports: [ NavComponent, LoginComponent ],
     declarations: [ NavComponent, LoginComponent ],
     providers: [
-        EventHandler,
+        LoginService,
+        Genesis,
         UserService,
         AuthGuard,
         AuthenticationService,
@@ -27,6 +38,12 @@ import {EventHandler} from './event/event-handler.service';
                 return new AuthHttpService(backend, options);
             },
             deps: [ XHRBackend, RequestOptions ]
+        },
+        {
+            'provide': APP_INITIALIZER,
+            'useFactory': InitApp,
+            'deps': [Genesis],
+            'multi': true,
         }
     ]
 })

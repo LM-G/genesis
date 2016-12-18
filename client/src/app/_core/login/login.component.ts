@@ -3,6 +3,8 @@ import { AuthenticationService } from '../authentication/authentication.service'
 import { User } from '../../_shared/models/user.model';
 import { UserService } from '../user.service';
 import {Router} from '@angular/router';
+import { LoginService } from './login.service';
+import { Genesis } from '../genesis.service';
 @Component({
     selector: 'genesis-login',
     templateUrl: './login.component.html',
@@ -10,20 +12,26 @@ import {Router} from '@angular/router';
 })
 
 export class LoginComponent {
-    /* I/Os */
-    @Input() showLogin: boolean;
-    @Output() hide = new EventEmitter();
+    showLogin: boolean;
 
     /* credentials */
-    public username: string;
-    public password: string;
+    username: string;
+    password: string;
 
     /* utility */
     loading: boolean = false;
 
     constructor(private authService: AuthenticationService,
                 private userService: UserService,
-                private router: Router) {
+                private router: Router,
+                private loginService: LoginService,
+                private genesis: Genesis) {
+        // Listen to login state change to know if the form needs to be hidden or shown
+        loginService.stateObservable.subscribe(
+            isLoginShown => {
+                this.showLogin = isLoginShown;
+            }
+        )
     }
 
     /**
@@ -31,21 +39,22 @@ export class LoginComponent {
      */
     login(): void {
         console.log('hey im login in !');
-        /* if login succeed */
+        // if login succeed
         const onNext = (user: User) => {
             console.log('User connected.');
-            /* user is set */
-            this.userService.user = user;
-            /* login form is hidden */
-            this.hide.emit();
-            /* if a redirect url was stored */
+            // set the user
+            this.genesis.setUser(user);
+            // hide the component
+            this.loginService.hide();
+            // if a redirect url is stored
             const redirectUrl = this.authService.redirectUrl;
             if(redirectUrl != null){
+                // then redirects to it
                 this.router.navigate([redirectUrl]);
             }
         };
-        /* if login failed */
-        const onError = (err: any) => console.log('connexion échec : ', err);
+        // if login failed
+        const onError = (err: any) => console.log('Connexion échec : ', err);
 
         // credentials are reset
         const onComplete = () => this.username = this.password = null;

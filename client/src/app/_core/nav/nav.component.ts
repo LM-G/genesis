@@ -1,6 +1,7 @@
 import {Component, Output, EventEmitter} from '@angular/core';
 import {AuthenticationService} from '../authentication/authentication.service';
 import {Router} from '@angular/router';
+import { LoginService } from '../login/login.service';
 
 @Component({
     selector: 'genesis-nav',
@@ -9,13 +10,13 @@ import {Router} from '@angular/router';
 })
 
 export class NavComponent{
-    @Output() loginToggled = new EventEmitter();
 
+    constructor(private authService: AuthenticationService,
+                private router: Router,
+                private loginService: LoginService) {}
 
-    constructor(private authService: AuthenticationService, private router: Router) {}
-
-    toggleLogin(): void {
-        this.loginToggled.emit();
+    toggleLogin(){
+        this.loginService.toggle();
     }
 
     logout(): void {

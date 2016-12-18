@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import { User } from '../../_shared/models/user.model';
 import { TokenMessage } from '../../_shared/models/token-message.model';
 import { UserService } from '../user.service';
+import { Genesis } from '../genesis.service';
 
 /**
  * Authentication service, get access token, log in or log out a user
@@ -13,7 +14,9 @@ export class AuthenticationService {
     // redirect url if user wanted to access protected route before being displayed the login form
     public redirectUrl : String;
 
-    constructor(private http: Http, private userService: UserService) {
+    constructor(private http: Http,
+                private userService: UserService,
+                private genesis: Genesis) {
     }
 
     /**
@@ -51,7 +54,7 @@ export class AuthenticationService {
     logout(): void {
         console.log('User disconnected.');
         localStorage.removeItem('access_token');
-        this.userService.user = null;
+        this.genesis.setUser(null);
         this.redirectUrl = null;
     }
 
@@ -60,7 +63,7 @@ export class AuthenticationService {
      * @returns {boolean} true if the user is connected
      */
     loggedIn(): boolean {
-        return this.userService.user != null;
+        return this.genesis.getUser() != null;
     }
 
     /**
@@ -68,6 +71,6 @@ export class AuthenticationService {
      * @returns {boolean} true if the user is not connected
      */
     notLoggedIn(): boolean {
-        return this.userService.user == null;
+        return this.genesis.getUser() == null;
     }
 }

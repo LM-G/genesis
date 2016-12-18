@@ -50,7 +50,6 @@ describe('App', () => {
 
     it('should work', () => {
         expect(component instanceof AppComponent).toBe(true, 'should create AppComponent');
-        expect(component.showLogin).toBeFalsy('should not show login');
     });
 
     it('should contain login component', ()=> {
@@ -62,47 +61,5 @@ describe('App', () => {
         mockNavEl = fixture.debugElement.query(By.directive(MockLoginComponent));
         expect(mockNavEl).toBeTruthy();
     });
-
-    it('should pass down show login boolean', ()=> {
-        mockLoginEl = fixture.debugElement.query(By.directive(MockLoginComponent));
-        const mockLoginCmp = mockLoginEl.injector.get(MockLoginComponent) as MockLoginComponent;
-
-        expect(mockLoginCmp.showLogin).toBeFalsy();
-    });
-
-    it('should not show login when hide instruction is received', ()=> {
-        mockLoginEl = fixture.debugElement.query(By.directive(MockLoginComponent));
-        const mockLoginCmp = mockLoginEl.injector.get(MockLoginComponent) as MockLoginComponent;
-
-        component.showLogin = true;
-
-        mockLoginCmp.hide.emit();
-
-        expect(component.showLogin).toBeFalsy();
-    });
-
-
-    it('should hide login when loginToggled instruction is received and login was shown', ()=> {
-        mockNavEl = fixture.debugElement.query(By.directive(MockNavComponent));
-        const mockNavCmp = mockNavEl.injector.get(MockNavComponent) as MockNavComponent;
-
-        component.showLogin = true;
-
-        mockNavCmp.loginToggled.emit();
-
-        expect(component.showLogin).toBeFalsy();
-    });
-
-    it('should show login when loginToggled instruction is received and login was hidden', ()=> {
-        mockNavEl = fixture.debugElement.query(By.directive(MockNavComponent));
-        const mockNavCmp = mockNavEl.injector.get(MockNavComponent) as MockNavComponent;
-
-        component.showLogin = false;
-
-        mockNavCmp.loginToggled.emit();
-
-        expect(component.showLogin).toBeTruthy();
-    });
-
 });
 
