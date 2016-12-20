@@ -10,6 +10,7 @@ import {CoreModule} from './_core/core.module';
 // Features
 import { HomeModule } from './home/home.module';
 import { DashboardModule } from './dashboard/dashboard.module';
+import {ChatModule} from './chat/chat.module';
 
 
 @NgModule({
@@ -20,6 +21,8 @@ import { DashboardModule } from './dashboard/dashboard.module';
         CoreModule,
         HomeModule,
         DashboardModule,
+        ChatModule,
+
 
         defaultRouting
     ],

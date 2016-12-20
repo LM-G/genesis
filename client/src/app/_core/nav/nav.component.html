@@ -4,6 +4,9 @@
         <li *ngIf="authService.loggedIn()">
             <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
         </li>
+        <li *ngIf="authService.loggedIn()">
+            <a routerLink="/chat" routerLinkActive="active">Chat</a>
+        </li>
         <li *ngIf="authService.notLoggedIn()" class="genesis-item-right">
             <button id="login" (click)="toggleLogin()" aria-label="Se connecter">Connexion</button>
         </li>
