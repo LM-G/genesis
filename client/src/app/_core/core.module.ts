@@ -12,6 +12,8 @@ import { UserService } from './user.service';
 import {AuthGuard} from './authentication/auth-guard.service';
 import { Genesis } from './genesis.service';
 import { LoginService } from './login/login.service';
+import {AuthenticationDirective} from './authentication/authentication.directive';
+import {WebSocketSubject} from 'rxjs/observable/dom/WebSocketSubject';
 
 /**
  * Resolves vital data from server in order to initialize application correctly
@@ -32,6 +34,7 @@ function InitApp(genesis: Genesis){
         UserService,
         AuthGuard,
         AuthenticationService,
+        AuthenticationDirective,
         {
             provide: AuthHttpService,
             useFactory: (backend: XHRBackend, options: RequestOptions) => {
