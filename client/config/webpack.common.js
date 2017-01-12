@@ -135,7 +135,6 @@ module.exports = function() {
         ]
       }),
 
-      // Tslint configuration for webpack 2
       new LoaderOptionsPlugin({
         options: {
           /**
