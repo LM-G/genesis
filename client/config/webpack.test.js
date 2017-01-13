@@ -14,8 +14,6 @@ module.exports = function(){
   return {
     devtool: 'inline-source-map',
 
-    entry: {},
-
     resolve: {
       extensions: ['.ts', '.js', '.json', '.css', '.scss', '.html']
     },
