@@ -48,10 +48,10 @@ describe('Nav', () => {
         const links: DebugElement[] = de.queryAll(By.css('a'));
 
         const homeLink: DebugElement = find(links, function(el){
-            return el.nativeElement.textContent === 'Home';
+            return el.nativeElement.textContent === 'Genesis';
         });
 
-        expect(homeLink).toBeTruthy('should have Home link');
+        expect(homeLink).toBeTruthy('should have home link : Genesis');
     });
 
     it('should have logout button instead of login button if user is connected', () => {
