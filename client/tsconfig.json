@@ -5,16 +5,10 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
-    "noEmitHelpers": true,
-    "types": [
-      "core-js",
-      "jasmine",
-      "node",
-      "webpack",
-      "source-map",
-      "uglify-js",
-      "hammerjs"
-    ]
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "lib": ["es2017", "dom"]
   },
   "exclude": [
     "node_modules",
