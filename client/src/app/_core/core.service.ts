@@ -6,17 +6,17 @@ import { User } from '../_shared/models/user.model';
 import { Observable } from 'rxjs';
 
 /**
- * Heart of Genesis App
+ * Heart of GenesisCore App
  */
 @Injectable()
-export class Genesis {
+export class GenesisCore {
     // current logged user
     private user : User;
 
     constructor(private userService : UserService) {}
 
     /**
-     * Inits Genesis app logic, get all vital data
+     * Inits GenesisCore app logic, get all vital data
      */
     init(){
         // sequence to complete before launching app

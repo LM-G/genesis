@@ -3,7 +3,7 @@ import { AuthenticationService } from '../authentication/authentication.service'
 import { User } from '../../_shared/models/user.model';
 import { Router, Params, ActivatedRoute } from '@angular/router';
 import { LoginService } from './login.service';
-import { Genesis } from '../genesis.service';
+import { GenesisCore } from '../core.service';
 @Component({
     selector: 'genesis-login',
     templateUrl: './login.component.html',
@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit{
                 private router: Router,
                 private route: ActivatedRoute,
                 private loginService: LoginService,
-                private genesis: Genesis) {
+                private genesis: GenesisCore) {
         // Listen to login state change to know if the form needs to be hidden or shown
         loginService.stateObservable.subscribe(
             isLoginShown => {

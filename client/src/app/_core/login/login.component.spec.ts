@@ -12,7 +12,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { LoginService } from './login.service';
 import { GenesisStub } from '../../../testing/genesis-stubs';
 import { AuthServiceStub } from '../../../testing/auth-stubs';
-import { Genesis } from '../genesis.service';
+import { GenesisCore } from '../core.service';
 import Spy = jasmine.Spy;
 
 // variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -20,7 +20,7 @@ import Spy = jasmine.Spy;
 let fixture: ComponentFixture<LoginComponent>;
 let component: LoginComponent;
 let de: DebugElement;
-let authService: AuthenticationService, genesis: Genesis;
+let authService: AuthenticationService, genesis: GenesisCore;
 let page: Page;
 
 // mocks and utilities /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -63,7 +63,7 @@ describe('Login', () => {
             providers: [
                 LoginService,
                 {provide: AuthenticationService, useClass: AuthServiceStub},
-                {provide: Genesis, useClass: GenesisStub}
+                {provide: GenesisCore, useClass: GenesisStub}
             ]
         });
 
@@ -71,7 +71,7 @@ describe('Login', () => {
         component = fixture.componentInstance;
         de = fixture.debugElement;
         authService = de.injector.get(AuthenticationService);
-        genesis = de.injector.get(Genesis);
+        genesis = de.injector.get(GenesisCore);
 
         page = new Page();
     });

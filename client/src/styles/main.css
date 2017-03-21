@@ -1,8 +1,10 @@
+@import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
 @import './form.css';
 @import './control.css';
 
-body {
+html, body {
     margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 #pre-bootstrap {

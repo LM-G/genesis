@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 @Component({
     selector: 'genesis-home',
     templateUrl: './home.component.html',
@@ -7,6 +7,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 })
 
 export class HomeComponent implements OnInit {
+    public sections: Array<number> = Array(5);
     constructor(private route: ActivatedRoute) {}
 
     ngOnInit(): void {

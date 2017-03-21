@@ -31,7 +31,6 @@ module.exports = function() {
      */
     entry: {
       polyfills: './src/polyfills.ts',
-      vendor: './src/vendor.ts',
       main: './src/main.ts'
     },
 

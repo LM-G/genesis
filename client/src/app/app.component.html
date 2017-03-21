@@ -1,5 +1,14 @@
-<genesis-nav></genesis-nav>
-<genesis-login></genesis-login>
-<main>
-    <router-outlet></router-outlet>
-</main>
+<div id="wrapper" fxLayout="column">
+    <genesis-nav></genesis-nav>
+    <genesis-login></genesis-login>
+    <div fxLayout="row">
+        <genesis-side-nav fxFlex="200px"></genesis-side-nav>
+        <div fxLayout="column">
+            <div class="container" fxFlex>
+                <router-outlet></router-outlet>
+            </div>
+            <genesis-footer></genesis-footer>
+        </div>
+    </div>
+</div>
+

@@ -1,12 +1,10 @@
-main {
-    padding: 1em;
-    font-family: Arial, Helvetica, sans-serif;
-    margin-top: 20px;
-    margin-left: 10%;
-    margin-right: 10%;
-    display: block;
+md-sidenav-container {
 }
 
-h1{
-    color: darkorange;
+.container{
+    padding: 1em;
+    margin: 20px 10%;
+}
+
+#wrapper{
 }

@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Rx';
 import { User } from '../../_shared/models/user.model';
 import { TokenMessage } from '../../_shared/models/token-message.model';
 import { UserService } from '../user.service';
-import { Genesis } from '../genesis.service';
+import { GenesisCore } from '../core.service';
 
 /**
  * Authentication service, get access token, log in or log out a user
@@ -16,7 +16,7 @@ export class AuthenticationService {
 
     constructor(private http: Http,
                 private userService: UserService,
-                private genesis: Genesis) {
+                private genesis: GenesisCore) {
     }
 
     /**

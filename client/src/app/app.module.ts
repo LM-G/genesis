@@ -3,14 +3,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { defaultRouting } from './app.route';
-
-
-import {CoreModule} from './_core/core.module';
-
+import { CoreModule } from './_core/core.module';
 // Features
 import { HomeModule } from './home/home.module';
 import { DashboardModule } from './dashboard/dashboard.module';
-import {ChatModule} from './chat/chat.module';
+import { ChatModule } from './chat/chat.module';
+// Material 2
+import 'hammerjs';
 
 
 @NgModule({
@@ -19,10 +18,10 @@ import {ChatModule} from './chat/chat.module';
         HttpModule,
 
         CoreModule,
+
         HomeModule,
         DashboardModule,
         ChatModule,
-
 
         defaultRouting
     ],
@@ -30,6 +29,7 @@ import {ChatModule} from './chat/chat.module';
         AppComponent
     ],
     bootstrap: [ AppComponent ]
+
 })
 export class AppModule {
 
