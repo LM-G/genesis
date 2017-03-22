@@ -1,10 +1,10 @@
 <div id="wrapper" fxLayout="column">
     <genesis-nav></genesis-nav>
     <genesis-login></genesis-login>
-    <div fxLayout="row">
-        <genesis-side-nav fxFlex="200px"></genesis-side-nav>
+    <div id="container" fxLayout="row">
+        <genesis-side-nav></genesis-side-nav>
         <div fxLayout="column">
-            <div class="container" fxFlex>
+            <div class="page" fxFlex>
                 <router-outlet></router-outlet>
             </div>
             <genesis-footer></genesis-footer>

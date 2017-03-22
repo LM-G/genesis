@@ -1,12 +1,18 @@
-header {
+nav {
     z-index: 1000;
+    background-color: #333;
+    color: white;
 }
+a {
+    color: white;
+    text-decoration: none;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
-    background-color: #333;
 }
 
 li {
@@ -15,10 +21,8 @@ li {
 
 li a {
     display: block;
-    color: white;
     text-align: center;
     padding: 14px 16px;
-    text-decoration: none;
 }
 
 /* Change the link color to #111 (black) on hover */
@@ -26,10 +30,31 @@ li a:hover {
     background-color: #81C784;
 }
 
-.active {
+li>.active {
     background-color: #4CAF50;
 }
 
+.genesis-brand-container{
+    padding-left: 16px;
+    justify-content: flex-start;
+}
+
+#toggle-side-bar{
+    padding-right: 16px;
+    min-width: 40px;
+}
+
+#brand {
+    text-align: center;
+    padding: 9px 16px;
+}
+#brand>a{
+    font-size: x-large;
+}
+
+.genesis-nav-items{
+    width: 100%;
+}
 .genesis-item-right{
     float: right;
 }

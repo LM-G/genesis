@@ -1,6 +1,11 @@
-<header>
-    <ul>
-        <li><a routerLink="/home" routerLinkActive="active">Genesis</a></li>
+<nav fxLayout="row">
+    <div class="genesis-brand-container" fxFlex="200px" fxLayout="row">
+        <button id="toggle-side-bar" md-button>
+            <i class="fa fa-bars" aria-hidden="true"></i>
+        </button>
+        <div id="brand"><a routerLink="/home" routerLinkActive="active">Genesis</a></div>
+    </div>
+    <ul class="genesis-nav-items">
         <li *ngIf="authService.loggedIn()">
             <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
         </li>
@@ -14,4 +19,4 @@
             <button id="logout" (click)="logout()" aria-label="Se déconnecter">Déconnexion</button>
         </li>
     </ul>
-</header>
+</nav>

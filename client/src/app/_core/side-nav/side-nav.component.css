@@ -1,4 +1,17 @@
 .genesis-side-nav {
-    background-color: red;
-    height: 100%;
+    background-color: #616161;
+    min-height: 100%;
+    flex: 1 1 200px;
+    box-sizing: border-box;
+    max-width: 200px;
+    min-width: 200px;
+}
+
+.genesis-side-nav.collapsed {
+    background-color: #616161;
+    min-height: 100%;
+    flex: 1 1 50px;
+    box-sizing: border-box;
+    max-width: 50px;
+    min-width: 50px;
 }

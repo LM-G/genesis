@@ -1,10 +1,16 @@
 md-sidenav-container {
 }
 
-.container{
+.page{
     padding: 1em;
     margin: 20px 10%;
 }
 
 #wrapper{
+    min-height: 100%;
+}
+
+#container{
+    display: flex;
+    flex: 1 1;
 }

@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class HomeComponent implements OnInit {
-    public sections: Array<number> = Array(5);
+    public sections: Array<number> = Array(2);
     constructor(private route: ActivatedRoute) {}
 
     ngOnInit(): void {
