@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from '../authentication/authentication.service';
-import { Router } from '@angular/router';
 
 @Component({
     selector: 'genesis-footer',
@@ -9,11 +7,10 @@ import { Router } from '@angular/router';
 })
 
 export class FooterComponent implements OnInit{
-    constructor(private authService: AuthenticationService,
-                private router: Router) {}
+    constructor() {}
 
 
     ngOnInit(): void {
-        console.log('sidebar initialisée');
+        console.log('footer initialisé');
     }
 }

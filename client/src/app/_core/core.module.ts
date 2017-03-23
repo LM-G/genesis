@@ -13,9 +13,10 @@ import { GenesisCore } from './core.service';
 import { LoginService } from './login/login.service';
 import { AuthenticationDirective } from './authentication/authentication.directive';
 import { SideNavComponent } from './side-nav';
-import { MaterialModule } from "@angular/material";
+import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FooterComponent } from './footer/footer.component';
+import { SideNavService } from './side-nav/side-nav.service';
 
 /**
  * Resolves vital data from server in order to initialize application correctly
@@ -32,6 +33,7 @@ function InitApp(genesis: GenesisCore){
     declarations: [ NavComponent, SideNavComponent, LoginComponent, FooterComponent ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     providers: [
+        SideNavService,
         LoginService,
         GenesisCore,
         UserService,

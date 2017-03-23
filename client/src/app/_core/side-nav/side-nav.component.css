@@ -10,8 +10,5 @@
 .genesis-side-nav.collapsed {
     background-color: #616161;
     min-height: 100%;
-    flex: 1 1 50px;
     box-sizing: border-box;
-    max-width: 50px;
-    min-width: 50px;
 }
