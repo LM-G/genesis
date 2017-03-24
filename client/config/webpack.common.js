@@ -46,8 +46,7 @@ module.exports = function() {
           test: /\.ts$/,
           loaders: [
             'awesome-typescript-loader',
-            'angular2-template-loader',
-            '@angularclass/hmr-loader'
+            'angular2-template-loader'
           ],
           exclude: [/\.(spec|e2e)\.ts$/, /node_modules\/(?!(ng2-.+))/]
         },
@@ -117,7 +116,7 @@ module.exports = function() {
        */
       new ContextReplacementPlugin(
         // The (\\|\/) piece accounts for path separators in *nix and Windows
-        /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+        /angular(\\|\/)core(\\|\/)@angular/,
         helpers.root('src')
       ),
 

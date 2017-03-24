@@ -6,7 +6,10 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class ChatComponent implements OnInit {
+    rooms = [{name: 'room_1', color:'#da9284'},{name: 'room_2', color:'#2fb682'}];
     constructor() {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        // todo get user rooms
+    }
 }

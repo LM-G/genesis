@@ -8,6 +8,12 @@ if (process.env.ENV === 'production') {
     enableProdMode();
 }
 
+// Enables Hot Module Replacement.
+declare var module: any;
+if (module.hot) {
+    module.hot.accept();
+}
+
 export function main() {
     return platformBrowserDynamic().bootstrapModule(AppModule);
 }

@@ -17,6 +17,7 @@ import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FooterComponent } from './footer/footer.component';
 import { SideNavService } from './side-nav/side-nav.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /**
  * Resolves vital data from server in order to initialize application correctly
@@ -28,8 +29,8 @@ function InitApp(genesis: GenesisCore){
 }
 
 @NgModule({
-    imports: [ CommonModule, RouterModule, FormsModule, MaterialModule, FlexLayoutModule ],
-    exports: [ NavComponent, SideNavComponent, LoginComponent, FooterComponent, MaterialModule, FlexLayoutModule ],
+    imports: [ CommonModule, RouterModule, FormsModule, MaterialModule, FlexLayoutModule, BrowserAnimationsModule ],
+    exports: [ NavComponent, SideNavComponent, LoginComponent, FooterComponent, MaterialModule, FlexLayoutModule, BrowserAnimationsModule ],
     declarations: [ NavComponent, SideNavComponent, LoginComponent, FooterComponent ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     providers: [
