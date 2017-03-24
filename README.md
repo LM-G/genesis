@@ -1,4 +1,7 @@
 # Genesis
+
+https://app.nuclino.com/teams/13:31359/documents/Galaxie-aa77a03f-f7ba-4a1c-a1aa-2f90beeafc0c
+
 Training on angular 2, webpack, karma, jasmine
 ExpressJS, Socket io, JWT
 
