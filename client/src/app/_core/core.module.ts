@@ -29,9 +29,31 @@ function InitApp(genesis: GenesisCore){
 }
 
 @NgModule({
-    imports: [ CommonModule, RouterModule, FormsModule, MaterialModule, FlexLayoutModule, BrowserAnimationsModule ],
-    exports: [ NavComponent, SideNavComponent, LoginComponent, FooterComponent, MaterialModule, FlexLayoutModule, BrowserAnimationsModule ],
-    declarations: [ NavComponent, SideNavComponent, LoginComponent, FooterComponent ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        FormsModule,
+        MaterialModule,
+        FlexLayoutModule,
+        BrowserAnimationsModule
+    ],
+    exports: [
+        NavComponent,
+        SideNavComponent,
+        LoginComponent,
+        FooterComponent,
+        MaterialModule,
+        FlexLayoutModule,
+        BrowserAnimationsModule,
+        AuthenticationDirective
+    ],
+    declarations: [
+        NavComponent,
+        SideNavComponent,
+        LoginComponent,
+        FooterComponent,
+        AuthenticationDirective
+    ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     providers: [
         SideNavService,
@@ -40,7 +62,6 @@ function InitApp(genesis: GenesisCore){
         UserService,
         AuthGuard,
         AuthenticationService,
-        AuthenticationDirective,
         {
             provide: AuthHttpService,
             useFactory: (backend: XHRBackend, options: RequestOptions) => {

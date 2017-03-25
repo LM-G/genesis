@@ -5,10 +5,9 @@
     box-sizing: border-box;
     max-width: 200px;
     min-width: 200px;
+    color: white;
 }
 
-.genesis-side-nav.collapsed {
-    background-color: #616161;
-    min-height: 100%;
-    box-sizing: border-box;
+.genesis-side-nav-item {
+    padding-left: 10px;
 }

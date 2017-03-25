@@ -1,6 +1,7 @@
 @import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css';
 @import '~font-awesome/css/font-awesome.css';
 @import './form.css';
+@import './layout.css';
 @import './control.css';
 
 html, body {
@@ -41,4 +42,8 @@ body{
     font-size: 18px ;
     line-height: 14px ;
     margin: 0px 0px 0px 0px ;
+}
+.genesis-vertical-centered-item {
+    margin-top: auto;
+    margin-bottom: auto;
 }

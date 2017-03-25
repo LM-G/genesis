@@ -1,24 +1,24 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { DashboardComponent } from './dashboard.component';
+import { OverviewComponent } from './overview.component';
 
-let fixture: ComponentFixture<DashboardComponent>;
+let fixture: ComponentFixture<OverviewComponent>;
 
 
-describe('Dashboard', () => {
+describe('Overview', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [DashboardComponent],
+            declarations: [OverviewComponent],
             imports: [
                 /* Sets up the router to be used for testing. */
                 RouterTestingModule
             ]
         });
-        fixture = TestBed.createComponent(DashboardComponent);
+        fixture = TestBed.createComponent(OverviewComponent);
     });
     it ('should work', () => {
-        expect(fixture.componentInstance instanceof DashboardComponent).toBe(true, 'should create DashboardComponent');
+        expect(fixture.componentInstance instanceof OverviewComponent).toBe(true, 'should create OverviewComponent');
     });
 });
 

@@ -8,8 +8,10 @@ import { CoreModule } from './_core/core.module';
 import { HomeModule } from './home/home.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { ChatModule } from './chat/chat.module';
+import { OverviewModule } from './overview/overview.module';
 // Material 2
 import 'hammerjs';
+
 
 
 @NgModule({
@@ -21,6 +23,7 @@ import 'hammerjs';
 
         HomeModule,
         DashboardModule,
+        OverviewModule,
         ChatModule,
 
         defaultRouting

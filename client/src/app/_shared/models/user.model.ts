@@ -8,6 +8,6 @@ export class User {
         this.id = id;
         this.username = username;
         this.email = email;
-        this.role = role || 'client';
+        this.role = role || 'visitor';
     }
 }

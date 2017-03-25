@@ -6,15 +6,19 @@ import { BehaviorSubject } from 'rxjs';
  */
 @Injectable()
 export class SideNavService {
-    private collapsed : BehaviorSubject<boolean> = new BehaviorSubject(false);
+    private collapsed : BehaviorSubject<boolean> = new BehaviorSubject(null);
 
-    constructor() {}
+    constructor() {
+        let isCollapsed = JSON.parse(localStorage.getItem('side_nav_collapsed')) || false;
+        this.collapsed.next(isCollapsed)
+    }
 
     /**
      * Toggle the collapsed state value
      */
     toggle() : void {
         this.collapsed.next(!this.collapsed.getValue());
+        localStorage.setItem('side_nav_collapsed', JSON.stringify(this.collapsed.getValue()));
     }
 
     /**

@@ -3,7 +3,7 @@ import { UserService } from './user.service';
 import * as _ from 'lodash';
 import { JwtHelper } from 'angular2-jwt';
 import { User } from '../_shared/models/user.model';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 /**
  * Heart of GenesisCore App
@@ -11,17 +11,16 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class GenesisCore {
     // current logged user
-    private user : User;
+    public user$ = new BehaviorSubject<User>(null);
 
     constructor(private userService : UserService) {}
 
     /**
-     * Inits GenesisCore app logic, get all vital data
+     * Inits GenesisCore app logic, get all vital data before launching other mechanics
      */
     init(){
         // sequence to complete before launching app
         const initSequence = [];
-
         // get the token stored in local storage
         const token = localStorage.getItem('access_token');
         const jwtHelper = new JwtHelper();
@@ -44,10 +43,10 @@ export class GenesisCore {
     // getters and setters
 
     setUser(user : User){
-        this.user = user;
+        this.user$.next(user);
     }
 
     getUser(){
-        return this.user;
+        return this.user$.getValue();
     }
 }

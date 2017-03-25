@@ -1,17 +1,14 @@
 <nav fxLayout="row">
-    <div class="genesis-brand-container" fxFlex="200px" fxLayout="row">
-        <button id="toggle-side-bar" md-button (click)="toggleSideNav()">
-            <i class="fa fa-bars" aria-hidden="true"></i>
-        </button>
+    <div class="genesis-brand-container" fxFlex="200px" fxLayout="row" >
+        <div class="genesis-vertical-centered-item" [genesisAuth]>
+            <button  md-button id="toggle-side-bar" (click)="toggleSideNav()" >
+                <i class="fa fa-bars" aria-hidden="true"></i>
+            </button>
+        </div>
         <div id="brand"><a routerLink="/home" routerLinkActive="active">Genesis</a></div>
     </div>
     <ul class="genesis-nav-items">
-        <li *ngIf="authService.loggedIn()">
-            <a routerLink="/dashboard" routerLinkActive="active">
-                Dashboard&nbsp;<i class="fa fa-tachometer" aria-hidden="true"></i>
-            </a>
-        </li>
-        <li *ngIf="authService.loggedIn()">
+        <li [genesisAuth]>
             <a routerLink="/chat" routerLinkActive="active">
                 Chat&nbsp;<i class="fa fa-comment" aria-hidden="true"></i>
             </a>
