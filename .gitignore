@@ -50,20 +50,11 @@ Temporary Items
 *.log
 
 # Node Files
-/node_modules
-/bower_components
-npm-debug.log
-
-# Fichiers générés
-/client/doc/*
-/server/public/*
-
-# Coverage
-/coverage/
+node_modules/
+bower_components/
 
 # IDE #
 .idea/
-*.idea
 *.swp
 
 # Typing
@@ -80,3 +71,13 @@ npm-debug.log
 /src/*/dist/
 /dist/**
 .webpack.json
+
+#NPM
+package-lock.json
+
+# Generated
+/client/doc/
+/server/public/
+src/app/**/*.js
+*.js.map
+

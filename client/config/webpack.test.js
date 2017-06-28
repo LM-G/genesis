@@ -15,20 +15,19 @@ module.exports = function(){
     devtool: 'inline-source-map',
 
     resolve: {
-      extensions: ['.ts', '.js', '.json', '.css', '.scss', '.html']
+      extensions: ['.ts', '.js']
     },
 
     module: {
       rules: [
         {
           test: /\.ts$/,
-          loaders: ['awesome-typescript-loader', 'angular2-template-loader', '@angularclass/hmr-loader'],
+          loaders: ['awesome-typescript-loader', 'angular2-template-loader'],
           exclude: [helpers.root('node_modules')]
         },
         {
           test: /\.json$/,
-          loader: 'json-loader',
-          exclude: [helpers.root('src/index.html')]
+          loader: 'json-loader'
         },
         {
           test: /\.html$/,
@@ -63,11 +62,12 @@ module.exports = function(){
     },
 
     plugins: [
-      new ContextReplacementPlugin(
-        // The (\\|\/) piece accounts for path separators in *nix and Windows
-        /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-        helpers.root('src')
+      new webpack.ContextReplacementPlugin(
+        /angular(\\|\/)core(\\|\/)@angular/,
+        helpers.root('./src'),
+        {}
       ),
+
       new DefinePlugin({
         'ENV': JSON.stringify(ENV),
         'HMR': false,

@@ -14,10 +14,14 @@
             </a>
         </li>
         <li *ngIf="authService.notLoggedIn()" class="genesis-item-right">
-            <button id="login" (click)="toggleLogin()" aria-label="Se connecter">Connexion</button>
+            <button id="login" (click)="toggleLogin()" aria-label="Se connecter">
+                Connexion <i class="fa fa-sign-in" aria-hidden="true"></i>
+            </button>
         </li>
         <li *ngIf="authService.loggedIn()" class="genesis-item-right">
-            <button id="logout" (click)="logout()" aria-label="Se déconnecter">Déconnexion</button>
+            <button id="logout" (click)="logout()" aria-label="Se déconnecter">
+                <i class="fa fa-power-off" aria-hidden="true"></i>
+            </button>
         </li>
     </ul>
 </nav>

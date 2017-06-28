@@ -7,27 +7,20 @@ var helpers = require('./helpers');
  */
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 /**
  * Webpack Constants
  */
 const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
 
-module.exports = function(){
-  return webpackMerge.smart(commonConfig(), {
+module.exports = webpackMerge(commonConfig, {
     devtool: 'source-map',
 
     output: {
       path: helpers.root('dist'),
-      //publicPath: '/',
+      publicPath: '/',
       filename: '[name].[hash].js',
-      sourceMapFilename: '[name].[hash].bundle.map',
       chunkFilename: '[id].[hash].chunk.js'
-    },
-
-    htmlLoader: {
-      minimize: false // workaround for ng2
     },
 
     // Prod build specific plugins
@@ -40,24 +33,6 @@ module.exports = function(){
 
       new ExtractTextPlugin('[name].[hash].css'),
 
-      /**
-       * Generate common chunks if necessary
-       * Reference: https://webpack.github.io/docs/code-splitting.html
-       * Reference: https://webpack.github.io/docs/list-of-plugins.html#commonschunkplugin
-       */
-      new webpack.optimize.CommonsChunkPlugin({
-        name: ['vendor', 'polyfills']
-      }),
-
-      /**
-       * Inject script and link tags into html files
-       * Reference: https://github.com/ampedandwired/html-webpack-plugin
-       */
-      new HtmlWebpackPlugin({
-        template: './src/index.html',
-        chunksSortMode: 'dependency'
-      }),
-
       new DefinePlugin({
         'ENV': JSON.stringify(ENV),
         'process.env': {
@@ -65,6 +40,13 @@ module.exports = function(){
           'NODE_ENV': JSON.stringify(ENV)
         }
       }),
+
+      new webpack.LoaderOptionsPlugin({
+        htmlLoader: {
+          minimize: false // workaround for ng2
+        }
+      }),
+
       // Reference: http://webpack.github.io/docs/list-of-plugins.html#noerrorsplugin
       // Only emit files when there are no errors
       new webpack.NoErrorsPlugin(),
@@ -80,4 +62,3 @@ module.exports = function(){
       })
     ]
   });
-};

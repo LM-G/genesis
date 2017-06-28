@@ -1,12 +1,24 @@
 <div class="genesis-side-nav" [@display]="state">
-  <div class="genesis-padding-top-20" fxLayout="column">
-    <div fxLayout="row">
-      <button md-button fxFlex routerLink="/overview" routerLinkActive="active">
-        <i class="fa fa-2x fa-globe" aria-hidden="true"></i>
-        <span  class="genesis-vertical-centered-item genesis-side-nav-item" *ngIf="state == 'expanded'">
-          Vue générale
-        </span>
-      </button>
-    </div>
+  <div fxLayout="column">
+    <nav>
+      <ul >
+        <li>
+          <a md-button routerLink="/overview" routerLinkActive="active">
+            <i class="fa fa-2x fa-globe" aria-hidden="true"></i>
+            <span  class="genesis-vertical-centered-item genesis-side-nav-item" *ngIf="state == 'expanded'">
+              Vue générale
+            </span>
+          </a>
+        </li>
+        <li>
+          <a md-button routerLink="/overview" routerLinkActive="active">
+            <i class="fa fa-2x fa-globe" aria-hidden="true"></i>
+            <span  class="genesis-vertical-centered-item genesis-side-nav-item" *ngIf="state == 'expanded'">
+              Vue générale
+            </span>
+          </a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </div>

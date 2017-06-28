@@ -1,6 +1,6 @@
 module.exports = function (config) {
 
-  var webpackConfig = require('./webpack.test')({env: 'test'});
+  var webpackConfig = require('./webpack.test');
 
   var configuration = {
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -34,7 +34,7 @@ module.exports = function (config) {
       noInfo: true
     },
 
-    reporters: ['progress'],
+    reporters: ['progress', 'kjhtml'],
 
     port: 9876,
 
@@ -52,9 +52,7 @@ module.exports = function (config) {
      * Continuous Integration mode
      * if true, Karma captures browsers, runs the tests and exits
      */
-    singleRun: true,
-
-    browserNoActivityTimeout : 60000
+    singleRun: true
   };
 
   config.set(configuration);
