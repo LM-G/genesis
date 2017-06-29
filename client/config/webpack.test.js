@@ -1,14 +1,5 @@
 var helpers = require('./helpers');
-/**
- * Webpack Plugins
- */
-const DefinePlugin = require('webpack/lib/DefinePlugin');
-const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
-
-/**
- * Webpack Constants
- */
-const ENV = process.env.ENV = process.env.NODE_ENV = 'test';
+var webpack = require('webpack');
 
 module.exports = function(){
   return {
@@ -66,17 +57,7 @@ module.exports = function(){
         /angular(\\|\/)core(\\|\/)@angular/,
         helpers.root('./src'),
         {}
-      ),
-
-      new DefinePlugin({
-        'ENV': JSON.stringify(ENV),
-        'HMR': false,
-        'process.env': {
-          'ENV': JSON.stringify(ENV),
-          'NODE_ENV': JSON.stringify(ENV),
-          'HMR': false
-        }
-      })
+      )
      ]
   };
 };

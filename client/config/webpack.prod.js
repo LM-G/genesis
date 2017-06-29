@@ -5,13 +5,9 @@ var helpers = require('./helpers');
 /**
  * Webpack Plugins
  */
-const DefinePlugin = require('webpack/lib/DefinePlugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-/**
- * Webpack Constants
- */
-const ENV = process.env.NODE_ENV = process.env.ENV = 'production';
+
 
 module.exports = webpackMerge(commonConfig, {
     devtool: 'source-map',
@@ -32,14 +28,6 @@ module.exports = webpackMerge(commonConfig, {
       }),
 
       new ExtractTextPlugin('[name].[hash].css'),
-
-      new DefinePlugin({
-        'ENV': JSON.stringify(ENV),
-        'process.env': {
-          'ENV': JSON.stringify(ENV),
-          'NODE_ENV': JSON.stringify(ENV)
-        }
-      }),
 
       new webpack.LoaderOptionsPlugin({
         htmlLoader: {

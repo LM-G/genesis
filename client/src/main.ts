@@ -9,7 +9,7 @@ if (process.env.ENV === 'production') {
 }
 
 // Enables Hot Module Replacement.
-declare var module: any;
+declare let module: any;
 if (module.hot) {
     module.hot.accept();
 }

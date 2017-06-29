@@ -13,6 +13,12 @@ const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin')
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const DefinePlugin = require('webpack/lib/DefinePlugin');
+
+/**
+ * Constants
+ */
+const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 
 module.exports = {
   /**
@@ -113,6 +119,14 @@ module.exports = {
       helpers.root('src'),
       {}
     ),
+
+    new DefinePlugin({
+      'ENV': JSON.stringify(ENV),
+      'process.env': {
+        'ENV': JSON.stringify(ENV),
+        'NODE_ENV': JSON.stringify(ENV)
+      }
+    }),
 
     new webpack.optimize.CommonsChunkPlugin({
       name: ['app', 'vendor', 'polyfills']
