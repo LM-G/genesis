@@ -2,18 +2,16 @@
 
 https://app.nuclino.com/teams/13:31359/documents/Galaxie-aa77a03f-f7ba-4a1c-a1aa-2f90beeafc0c
 
-Training on angular 2, webpack, karma, jasmine
+Training on angular 4, webpack 3, karma, jasmine
 ExpressJS, Socket io, JWT
 
 ## Set-Up
 
-
 - Git
-- NodeJS 6.9.1
+- NodeJS 8.1.2
 - MongoDB
-- Typescript 2.0.6
+- Typescript 2.4.3
 - Rimraf
-- SublimeText3 or IDE (WebStorm)
 
 ### Bower
 
@@ -29,12 +27,18 @@ $ cd server
 $ npm i
 ```
 
-### Launch front-end webpack dev server
+### Start front-end webpack dev server
 
-Installation :
+JIT compilation :
 ```javascript
 $ cd client
 $ npm start
+```
+
+JIT compilation + Hot module Replacement:
+```javascript
+$ cd client
+$ npm start:hmr
 ```
 
 ### Launch DataBase
@@ -43,14 +47,12 @@ Go to root (optional) and launch this command in new terminal
 $ mongod
 ```
 
-### Launch backend
+### Start api server
 ```javascript
 $ cd server
 $ npm start
 ```
 
-### Livereload
-It is automatic with webpack dev server
 
 ## Must have
 - [GitHub](https://desktop.github.com/) client for windows
@@ -58,7 +60,7 @@ It is automatic with webpack dev server
 - [PostMan](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop) to test REST calls
 
 
-## Debugging
+## Debugging backend server
 
 ```javascript
 $ npm i -g node-inspector
@@ -68,14 +70,14 @@ In new terminal:
 $ node-inspector
 ```
 
-Then 
+## Tests
+
+Client 
 ```javascript
 $ cd client
 $ npm test
 ```
-to launch all test on time, or
 ```javascript
 $ cd client
 $ npm run test-watch
 ```
-to launch all tests in watch mode (nice for debugging them with karma in browser tab, port 9876)
