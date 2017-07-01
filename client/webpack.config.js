@@ -1,17 +1,18 @@
-switch (process.env.NODE_ENV) {
-  case 'prod':
-  case 'production':
+module.exports = function(env) {
+  var config;
+  if(env.prod || env.production){
     console.log('building app with production mode ...');
-    module.exports = require('./config/webpack.prod');
-    break;
-  case 'test':
-  case 'testing':
+    config = require('./config/webpack.prod');
+  } else if(env.test || env.testing){
     console.log('building app with testing mode ...');
-    module.exports = require('./config/webpack.test');
-    break;
-  case 'dev':
-  case 'development':
-  default:
+    config = require('./config/webpack.test');
+  } else if(env.dev || env.development) {
     console.log('building app with development mode ...');
-    module.exports = require('./config/webpack.dev');
-}
+    config = require('./config/webpack.dev');
+  } else {
+    console.log('building app with default development mode ...');
+    config = require('./config/webpack.dev');
+  }
+
+  return config;
+};

@@ -1,29 +1,27 @@
 /**
- * Webpack common config file
+ * Webpack common config file used as basis by all environments
  * @author Louis-Marie Guillemot
  */
-
 var webpack = require('webpack');
 var helpers = require('./helpers');
-/**
+/*
  * Plugins
  */
-const autoPrefixer = require('autoprefixer');
 const ContextReplacementPlugin = require('webpack/lib/ContextReplacementPlugin');
 const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const DefinePlugin = require('webpack/lib/DefinePlugin');
 
-/**
+/*
  * Constants
  */
 const ENV = process.env.ENV = process.env.NODE_ENV = 'development';
 
 module.exports = {
-  /**
-   * Entry points
-   * Reference: https://webpack.js.org/configuration/entry-context/#entry
+  /*
+   Entry points
+   @see https://webpack.js.org/configuration/entry-context/
    */
   entry: {
     polyfills: './src/polyfills.ts',
@@ -31,27 +29,33 @@ module.exports = {
     app: './src/main.ts'
   },
 
-  /**
-   * Resolve
-   * Reference: http://webpack.github.io/docs/configuration.html#resolve
+  /*
+   Resolve these extensions in import statements where they are not precised
+   @see https://webpack.js.org/concepts/module-resolution/
    */
   resolve: {
     extensions: ['.ts', '.js']
   },
 
-  /**
-   * Loaders
-   * Reference: https://webpack.js.org/configuration/module/
-   * List: http://webpack.github.io/docs/list-of-loaders.html
+  /*
+   All build modules
+   @see https://webpack.js.org/configuration/module/
    */
   module: {
     rules: [
       // Support for ts files.
       {
         test: /\.ts$/,
-        loaders: [
+        use: [
           'awesome-typescript-loader',
-          'angular2-template-loader'
+          'angular2-template-loader',
+          {
+            loader: 'tslint-loader',
+            options: {
+              emitErrors: false,
+              failOnHint: false
+            }
+          }
         ],
         exclude: [/\.(spec|e2e)\.ts$/, /node_modules\/(?!(ng2-.+))/]
       },
@@ -100,18 +104,15 @@ module.exports = {
 
 
 
-  /**
-   * Plugins
-   * Reference: https://webpack.js.org/configuration/plugins/
-   * List: http://webpack.github.io/docs/list-of-plugins.html
+  /*
+   Plugins
+   @see https://webpack.js.org/plugins/
    */
   plugins: [
-    /**
-     * Plugin: ContextReplacementPlugin
-     * Description: Provides context to Angular's use of System.import
-     *
-     * See: https://webpack.github.io/docs/list-of-plugins.html#contextreplacementplugin
-     * See: https://github.com/angular/angular/issues/11580
+    /*
+     Provides context to Angular's use of System.import
+     @see https://webpack.js.org/plugins/context-replacement-plugin/
+     @see https://github.com/angular/angular/issues/11580
      */
     new ContextReplacementPlugin(
       // The (\\|\/) piece accounts for path separators in *nix and Windows
@@ -120,6 +121,10 @@ module.exports = {
       {}
     ),
 
+    /*
+     Sets global constants in application
+     @see https://webpack.js.org/plugins/define-plugin/
+     */
     new DefinePlugin({
       'ENV': JSON.stringify(ENV),
       'process.env': {
@@ -128,48 +133,22 @@ module.exports = {
       }
     }),
 
+    /*
+     Creates app chunks
+     @see https://webpack.js.org/plugins/commons-chunk-plugin/
+     */
     new webpack.optimize.CommonsChunkPlugin({
       name: ['app', 'vendor', 'polyfills']
     }),
 
-    /**
-     * Inject script and link tags into html files
-     * Reference: https://github.com/ampedandwired/html-webpack-plugin
+    /*
+     Generates the index HTML5 file with all its dependencies
+     @see https://webpack.js.org/plugins/html-webpack-plugin/
      */
     new HtmlWebpackPlugin({
+      // use the src index as base file
       template: 'src/index.html',
       chunksSortMode: 'dependency'
-    }),
-
-    new LoaderOptionsPlugin({
-      options: {
-        /**
-         * Apply the tslint loader as pre/postLoader
-         * Reference: https://github.com/wbuchwalter/tslint-loader
-         */
-        tslint: {
-          emitErrors: false,
-          failOnHint: false
-        },
-        /**
-         * Sass
-         * Reference: https://github.com/jtangelder/sass-loader
-         * Transforms .scss files to .css
-         */
-        sassLoader: {
-          /* todo */
-        },
-        /**
-         * PostCSS
-         * Reference: https://github.com/postcss/autoprefixer-core
-         * Add vendor prefixes to your css
-         */
-        postcss: [
-          autoPrefixer({
-            browsers: ['last 2 version']
-          })
-        ]
-      }
     })
   ]
 };
