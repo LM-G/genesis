@@ -12,7 +12,7 @@ import { SideNavService } from '../side-nav/side-nav.service';
 
 export class NavComponent{
 
-    constructor(private authService: AuthenticationService,
+    constructor(public authService: AuthenticationService,
                 private router: Router,
                 private loginService: LoginService,
                 private  sideNavService: SideNavService) {}

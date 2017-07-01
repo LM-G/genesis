@@ -34,7 +34,7 @@ export class AuthHttpService extends Http {
     private catchAuthError() {
         return (res: Response) => {
             console.log(res);
-            if (res.status === 401 || res.status === 403) {
+            if(res.status === 401 || res.status === 403) {
                 console.warn('User not authenticated :', res);
             }
             return Observable.throw(res);

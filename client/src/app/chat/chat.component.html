@@ -17,6 +17,6 @@
 
 <md-grid-list cols="5">
     <md-grid-tile *ngFor="let room of rooms; let i = index;">
-        <div [ngStyle]="{'background-color': room.color}">Join {{room.name}}</div>
+        <div [ngStyle]="{'background-color': room.color}">Join {{ room.name }}</div>
     </md-grid-tile>
 </md-grid-list>

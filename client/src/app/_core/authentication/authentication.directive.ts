@@ -7,14 +7,14 @@ import { AuthLevel, IAuthLevel } from '../../_shared/constants/auth-level.consta
 
 @Directive({ selector: '[genesisAuth]' })
 export class AuthenticationDirective implements OnInit{
-    @Input('genesisAuth') authLevel: string;
+    @Input() genesisAuth: string;
 
     constructor(private el: ElementRef, private genesis: GenesisCore) {
     }
 
     ngOnInit(): void {
-        if(this.authLevel == null){
-            this.authLevel = AuthLevel.CLIENT.code;
+        if(this.genesisAuth == null){
+            this.genesisAuth = AuthLevel.CLIENT.code;
         }
         let user = this.genesis.getUser();
         this.handleDisplay(user);
@@ -26,7 +26,7 @@ export class AuthenticationDirective implements OnInit{
 
     private handleDisplay(user: User): void {
         if(user){
-            this.el.nativeElement.hidden = this.compareRole(user.role, this.authLevel) < 0;
+            this.el.nativeElement.hidden = this.compareRole(user.role, this.genesisAuth) < 0;
         } else {
             this.el.nativeElement.hidden = true;
         }
@@ -40,8 +40,8 @@ export class AuthenticationDirective implements OnInit{
      */
     private compareRole(role1: string, role2: string) : number{
         let result = -1;
-        const role1Key = findKey(AuthLevel, (key: IAuthLevel) => key.code == role1);
-        const role2Key = findKey(AuthLevel, (key: IAuthLevel) => key.code == role2);
+        const role1Key = findKey(AuthLevel, (key: IAuthLevel) => key.code === role1);
+        const role2Key = findKey(AuthLevel, (key: IAuthLevel) => key.code === role2);
 
         if(role1Key && role2Key){
             let role1Value = AuthLevel[role1Key].value;

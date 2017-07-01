@@ -9,7 +9,7 @@ export class AuthGuard implements CanActivate {
     }
 
     /**
-     * Check that user is connected
+     * Checks that user is connected
      * @param route route courante
      * @param state état cible
      * @returns {boolean}
@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
 
         console.log('router :: can activate ', url, ' ? : ', canGo, state);
 
-        if(!canGo){
+        if (!canGo) {
             this.authService.redirectUrl = url;
 
             let navigationExtras: NavigationExtras = {
