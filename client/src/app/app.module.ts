@@ -13,7 +13,9 @@ import { OverviewModule } from './overview/overview.module';
 import 'hammerjs';
 
 
-
+/**
+ * App root module
+ */
 @NgModule({
     imports: [
         BrowserModule,
@@ -34,6 +36,4 @@ import 'hammerjs';
     bootstrap: [ AppComponent ]
 
 })
-export class AppModule {
-
-}
+export class AppModule {}

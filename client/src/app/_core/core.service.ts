@@ -13,10 +13,14 @@ export class GenesisCore {
     // current logged user
     public user$ = new BehaviorSubject<User>(null);
 
+    /**
+     * GenesisCore's constructor
+     * @param userService to retrieve last stored user state
+     */
     constructor(private userService : UserService) {}
 
     /**
-     * Inits GenesisCore app logic, get all vital data before launching other mechanics
+     * Init GenesisCore app logic, get all vital data before launching other mechanics
      */
     init(){
         // sequence to complete before launching app
@@ -37,15 +41,24 @@ export class GenesisCore {
             });
         }
 
+        // when all stuff is loaded, return a "merged" init sequence to resume app bootstrap
         return Observable.forkJoin(initSequence);
     }
 
     // getters and setters
 
+    /**
+     * Sets the user
+     * @param user user to set
+     */
     setUser(user : User){
         this.user$.next(user);
     }
 
+    /**
+     * Gets the user
+     * @returns {User} current user
+     */
     getUser(){
         return this.user$.getValue();
     }

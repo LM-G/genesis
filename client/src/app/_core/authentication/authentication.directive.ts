@@ -5,6 +5,9 @@ import { User } from '../../_shared/models/user.model';
 import { findKey } from 'lodash';
 import { AuthLevel, IAuthLevel } from '../../_shared/constants/auth-level.constant';
 
+/**
+ * Handles the visibility of elements in function of user authentication level.
+ */
 @Directive({ selector: '[genesisAuth]' })
 export class AuthenticationDirective implements OnInit{
     @Input() genesisAuth: string;
@@ -24,6 +27,10 @@ export class AuthenticationDirective implements OnInit{
         })
     }
 
+    /**
+     * Determine if the user can see an element or not. If the user can't see the element, it is hidden.
+     * @param user current user
+     */
     private handleDisplay(user: User): void {
         if(user){
             this.el.nativeElement.hidden = this.compareRole(user.role, this.genesisAuth) < 0;
@@ -34,8 +41,8 @@ export class AuthenticationDirective implements OnInit{
 
     /**
      * Determine if role 1 is equivalent or superior to role 2
-     * @param role1
-     * @param role2
+     * @param role1 first role
+     * @param role2 second role
      * @return negative value if role 2 > rol 1; 0 if role 1 equals role 2 ; positive value if role 1 > role 2
      */
     private compareRole(role1: string, role2: string) : number{

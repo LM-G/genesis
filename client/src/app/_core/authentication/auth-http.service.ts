@@ -15,7 +15,13 @@ export class AuthHttpService extends Http {
         super(backend, options);
     }
 
-    // Override http base request function with our custom one which will add JWT token to header
+    /**
+     * Override http base request function with our custom one which will add JWT token to header
+     *
+     * @param url target url
+     * @param options request options
+     * @returns {Observable<Response>} response observable
+     */
     request(url: string|Request, options?: RequestOptionsArgs): Observable<Response> {
         let token = localStorage.getItem('access_token');
         if (typeof url === 'string') { // meaning we have to add the token to the options, not in url
@@ -31,6 +37,10 @@ export class AuthHttpService extends Http {
         return super.request(url, options).catch(this.catchAuthError());
     }
 
+    /**
+     * Gets an interceptor which capture authentication specific error status and terminates the observable sequence with an exception
+     * @returns {(res:Response)=>any} interceptors which returns exception terminated sequence containing the error
+     */
     private catchAuthError() {
         return (res: Response) => {
             console.log(res);

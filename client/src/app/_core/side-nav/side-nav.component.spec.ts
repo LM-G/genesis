@@ -1,29 +1,26 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SideNavComponent } from './side-nav.component';
-import { AuthenticationService } from '../authentication/authentication.service';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DebugElement, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { AuthServiceStub } from '../../../testing/auth-stubs';
-import { LoginService } from '../login/login.service';
+import { CUSTOM_ELEMENTS_SCHEMA, DebugElement } from '@angular/core';
+import { SideNavService } from './side-nav.service';
 
 // variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 let fixture: ComponentFixture<SideNavComponent>;
 let component: SideNavComponent;
 let de: DebugElement;
-let authService;
+let sideNavService;
 
 // mocks and utilities /////////////////////////////////////////////////////////////////////////////////////////////////
 
 // tests ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-describe('Layout', () => {
+describe('SideNav', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [SideNavComponent],
             providers: [
-                LoginService,
-                {provide: AuthenticationService, useClass: AuthServiceStub}
+                SideNavService
             ],
             imports: [
                 /* Sets up the router to be used for testing. */
@@ -35,7 +32,7 @@ describe('Layout', () => {
         fixture = TestBed.createComponent(SideNavComponent);
         component = fixture.componentInstance;
         de = fixture.debugElement;
-        authService = de.injector.get(AuthenticationService);
+        sideNavService = de.injector.get(SideNavService);
     });
 
     it('should work', () => {

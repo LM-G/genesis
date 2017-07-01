@@ -4,12 +4,15 @@ import { User } from '../../_shared/models/user.model';
 import { Router, Params, ActivatedRoute } from '@angular/router';
 import { LoginService } from './login.service';
 import { GenesisCore } from '../core.service';
+
+/**
+ * Login component
+ */
 @Component({
     selector: 'genesis-login',
     templateUrl: './login.component.html',
     styleUrls: [ './login.component.css' ]
 })
-
 export class LoginComponent implements OnInit{
     // tells if the login form is shown or hidden
     showLogin: boolean;
@@ -21,12 +24,21 @@ export class LoginComponent implements OnInit{
     // utility
     loading: boolean = false;
 
+    /**
+     * Login component's constructor
+     *
+     * @param authService authentication service to call login endpoints
+     * @param router for redirection after successful login
+     * @param route for getting query params which will customize login component behavior
+     * @param loginService get the shared state of component behavior
+     * @param genesis application base service
+     */
     constructor(private authService: AuthenticationService,
                 private router: Router,
                 private route: ActivatedRoute,
                 private loginService: LoginService,
                 private genesis: GenesisCore) {
-        // Listen to login state change to know if the form needs to be hidden or shown
+        // Listens the login state change in login service to know if the form needs to be hidden or shown
         loginService.stateObservable.subscribe(
             isLoginShown => {
                 this.showLogin = isLoginShown;
@@ -50,8 +62,7 @@ export class LoginComponent implements OnInit{
      * log in the user
      */
     login(): void {
-        console.log('hey im login in !');
-        // if login succeed
+        // sucess callback
         const onNext = (user: User) => {
             console.log('User connected.');
             // set the user
@@ -65,8 +76,8 @@ export class LoginComponent implements OnInit{
                 this.router.navigate([redirectUrl]);
             }
         };
-        // if login failed
-        const onError = (err: any) => console.log('Connexion échec : ', err);
+        // error callback
+        const onError = (err: any) => console.log('User connection failed : ', err);
 
         // credentials are reset
         const onComplete = () => this.username = this.password = null;

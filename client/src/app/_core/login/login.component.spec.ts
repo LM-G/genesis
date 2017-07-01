@@ -1,8 +1,7 @@
-import { TestBed, ComponentFixture, fakeAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { LoginComponent } from './login.component';
 import { DebugElement } from '@angular/core';
 import { AuthenticationService } from '../authentication/authentication.service';
-import { UserService } from '../user.service';
 import { Observable } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { User } from '../../_shared/models/user.model';
@@ -10,9 +9,8 @@ import { By } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LoginService } from './login.service';
-import { GenesisStub } from '../../../testing/genesis-stubs';
-import { AuthServiceStub } from '../../../testing/auth-stubs';
 import { GenesisCore } from '../core.service';
+import { instance, mock, when } from 'ts-mockito';
 import Spy = jasmine.Spy;
 
 // variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -20,10 +18,13 @@ import Spy = jasmine.Spy;
 let fixture: ComponentFixture<LoginComponent>;
 let component: LoginComponent;
 let de: DebugElement;
-let authService: AuthenticationService, genesis: GenesisCore;
+let authService: AuthenticationService, genesisCore: GenesisCore;
 let page: Page;
 
 // mocks and utilities /////////////////////////////////////////////////////////////////////////////////////////////////
+let authenticationServiceStub : AuthenticationService = mock(AuthenticationService);
+let genesisCoreStub : GenesisCore = mock(GenesisCore);
+
 class Page {
     navSpy: Spy;
     btnSubmit: DebugElement;
@@ -50,31 +51,33 @@ function setInput(text: string, inputElement: HTMLInputElement) {
 }
 
 // tests ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+let setupLoginComponent = () => {
+    TestBed.configureTestingModule({
+        imports: [
+            FormsModule,
+            /* Sets up the router to be used for testing. */
+            RouterTestingModule
+        ],
+        declarations: [LoginComponent],
+        providers: [
+            LoginService,
+            {provide: AuthenticationService, useValue: authenticationServiceStub},
+            {provide: GenesisCore, useValue: genesisCoreStub}
+        ]
+    });
+
+    fixture = TestBed.createComponent(LoginComponent);
+    component = fixture.componentInstance;
+    de = fixture.debugElement;
+
+    authService = de.injector.get(AuthenticationService);
+    genesisCore = de.injector.get(GenesisCore);
+
+    page = new Page();
+};
 
 describe('Login', () => {
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [
-                FormsModule,
-                /* Sets up the router to be used for testing. */
-                RouterTestingModule
-            ],
-            declarations: [LoginComponent],
-            providers: [
-                LoginService,
-                {provide: AuthenticationService, useClass: AuthServiceStub},
-                {provide: GenesisCore, useClass: GenesisStub}
-            ]
-        });
-
-        fixture = TestBed.createComponent(LoginComponent);
-        component = fixture.componentInstance;
-        de = fixture.debugElement;
-        authService = de.injector.get(AuthenticationService);
-        genesis = de.injector.get(GenesisCore);
-
-        page = new Page();
-    });
+    beforeEach(setupLoginComponent);
 
     it('should work', () => {
         expect(component instanceof LoginComponent).toBe(true, 'should create login component');
@@ -98,12 +101,13 @@ describe('Login', () => {
         fixture.detectChanges();
 
         page.init();
+
         /* mock return value from backend */
         spyOn(authService, 'login').and.returnValue(Observable.of(new User('', '', '')));
 
         /* set credentials */
-        const password = 'secr3t';
-        const username = 'Alice';
+        const password = 'foo';
+        const username = 'bar';
 
 
         setInput(password, page.passwordInput);

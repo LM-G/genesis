@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { animate, state, style, transition, trigger} from '@angular/animations';
 import { SideNavService } from './side-nav.service';
 
+/**
+ * Side navigation component
+ */
 @Component({
     selector: 'genesis-side-nav',
     templateUrl: './side-nav.component.html',
@@ -27,6 +30,10 @@ export class SideNavComponent implements OnInit{
     // determines in which state is the side nav
     state: string = 'expanded';
 
+    /**
+     * Side nav component's constructor
+     * @param sideNarService holds the real state of side nav which his shared through the application
+     */
     constructor(private sideNarService: SideNavService) {}
 
     ngOnInit(): void {

@@ -7,7 +7,7 @@ import { UserService } from '../user.service';
 import { GenesisCore } from '../core.service';
 
 /**
- * Authentication service, get access token, log in or log out a user
+ * Handles user login mechanisms.
  */
 @Injectable()
 export class AuthenticationService {
@@ -20,13 +20,13 @@ export class AuthenticationService {
     }
 
     /**
-     * Try to log in a user, with a username and a password. First the function gets a valid token if the authentication
-     * succeed and set it in the browser's localstorage. Then it gets the user informations.
+     * Tries to log in a user, with a username and a password. First the function gets a valid token if the authentication
+     * succeed and set it in the browser's local storage. Then it gets the user basic information.
      *
-     * @param username
-     * @param password
+     * @param username user name
+     * @param password user password
      *
-     * @returns {Observable<User>}
+     * @returns {Observable<User>} response with user basic information
      */
     login(username: string, password: string): Observable<User> {
         let credentials = JSON.stringify({ username: username, password: password });
@@ -41,7 +41,7 @@ export class AuthenticationService {
                     localStorage.setItem('access_token', token);
                 }
             })
-            /* get the user informations thanks to the token */
+            /* get the user information thanks to the token */
             .flatMap(() => this.userService.getUser().map((user: User) => {
                 return new User(user.id, user.username, user.email, user.role);
             }))
@@ -49,7 +49,7 @@ export class AuthenticationService {
     }
 
     /**
-     * Disconnects the current user
+     * Disconnects the current user and cleans access token.
      */
     logout(): void {
         console.log('User disconnected.');

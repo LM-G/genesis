@@ -6,19 +6,23 @@ import { BehaviorSubject } from 'rxjs';
  */
 @Injectable()
 export class SideNavService {
-    private collapsed : BehaviorSubject<boolean> = new BehaviorSubject(null);
+    /** Collapse state */
+    private collapsedState : BehaviorSubject<boolean> = new BehaviorSubject(null);
 
+    /**
+     * SideNavService's constructor. Initialize side nav state depending of what value was previously stored in local storage.
+     */
     constructor() {
         let isCollapsed = JSON.parse(localStorage.getItem('side_nav_collapsed')) || false;
-        this.collapsed.next(isCollapsed)
+        this.collapsedState.next(isCollapsed)
     }
 
     /**
      * Toggle the collapsed state value
      */
     toggle() : void {
-        this.collapsed.next(!this.collapsed.getValue());
-        localStorage.setItem('side_nav_collapsed', JSON.stringify(this.collapsed.getValue()));
+        this.collapsedState.next(!this.collapsedState.getValue());
+        localStorage.setItem('side_nav_collapsed', JSON.stringify(this.collapsedState.getValue()));
     }
 
     /**
@@ -26,6 +30,6 @@ export class SideNavService {
      * @returns {BehaviorSubject<boolean>}
      */
     isCollapsed() : BehaviorSubject<boolean>{
-        return this.collapsed;
+        return this.collapsedState;
     }
 }

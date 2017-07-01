@@ -2,11 +2,7 @@ import {Route, RouterModule} from '@angular/router';
 import {ModuleWithProviders} from '@angular/core';
 
 const appRoutes: Route[] = [
-    {
-        path: '',
-        redirectTo: '/home',
-        pathMatch: 'full'
-    }
+    { path: '', redirectTo: '/home', pathMatch: 'full' }
 ];
 
 

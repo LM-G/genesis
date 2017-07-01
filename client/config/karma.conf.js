@@ -34,7 +34,7 @@ module.exports = function (config) {
       noInfo: true
     },
 
-    reporters: ['progress', 'kjhtml'],
+    reporters: ['kjhtml'],
 
     port: 9876,
 

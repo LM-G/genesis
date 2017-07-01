@@ -1,43 +1,50 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { NavComponent } from './nav.component';
-import { AuthenticationService } from '../authentication/authentication.service';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { DebugElement, NO_ERRORS_SCHEMA } from '@angular/core';
 import { find } from 'lodash';
-import { AuthServiceStub } from '../../../testing/auth-stubs';
-import { LoginService } from '../login/login.service';
 
-// variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+import { NavComponent } from './nav.component';
+import { AuthenticationService } from '../authentication/authentication.service';
+import { LoginService } from '../login/login.service';
+import { instance, mock } from 'ts-mockito';
+import { SideNavService } from '../side-nav/side-nav.service';
+
+// variables ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 let fixture: ComponentFixture<NavComponent>;
 let component: NavComponent;
 let de: DebugElement;
-let authService;
+let authService : AuthenticationService;
 let btnLogin, btnLogout;
 
-// mocks and utilities /////////////////////////////////////////////////////////////////////////////////////////////////
+// mocks and utilities /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// tests ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// tests ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 describe('Nav', () => {
     beforeEach(() => {
+        let authServiceStub = mock(AuthenticationService);
+
         TestBed.configureTestingModule({
             declarations: [NavComponent],
             providers: [
+                SideNavService,
                 LoginService,
-                {provide: AuthenticationService, useClass: AuthServiceStub}
+                {provide: AuthenticationService, useValue: instance(authServiceStub)}
             ],
             imports: [
                 /* Sets up the router to be used for testing. */
                 RouterTestingModule
-            ]
+            ],
+            schemas: [NO_ERRORS_SCHEMA]
         });
 
         fixture = TestBed.createComponent(NavComponent);
         component = fixture.componentInstance;
         de = fixture.debugElement;
         authService = de.injector.get(AuthenticationService);
+        fixture.detectChanges(); // initial binding
     });
 
     it('should work', () => {

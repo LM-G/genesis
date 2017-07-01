@@ -16,10 +16,14 @@ if (module.hot) {
 
 export function main() {
     return platformBrowserDynamic().bootstrapModule(AppModule);
+
 }
 
+// JIT compilation
 if (document.readyState === 'complete') {
-    main();
+    main()
+        .then((success: any) => console.log('App bootstrapped'))
+        .catch((err: any) => console.error(err));
 } else {
     document.addEventListener('DOMContentLoaded', main);
 }
