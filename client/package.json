@@ -21,10 +21,8 @@
     "url": "git+https://github.com/LM-G/genesis.git"
   },
   "keywords": [
-    "webpack",
-    "angular2",
-    "mmorts",
-    "browsergame"
+    "webpack3",
+    "angular4"
   ],
   "author": "Louis-Marie Guillemot",
   "license": "MIT",
