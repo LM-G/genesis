@@ -78,5 +78,5 @@ package-lock.json
 # Generated
 /client/doc/
 /server/public/
-src/app/**/*.js
-*.js.map
+/client/src/app/**/*.js
+/client/src/app/**/*.js.map
