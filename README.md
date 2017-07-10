@@ -1,6 +1,4 @@
-# Genesis !
-
-https://app.nuclino.com/teams/13:31359/documents/Galaxie-aa77a03f-f7ba-4a1c-a1aa-2f90beeafc0c
+# Genesis
 
 Training on angular 4, webpack 3, karma, jasmine
 ExpressJS, Socket io, JWT
@@ -13,21 +11,21 @@ ExpressJS, Socket io, JWT
 - Typescript 2.4.3
 - Rimraf
 
-### Bower
+### libraries installation
 
-Installation client :
+client :
 ```javascript
 $ cd client
 $ npm run clean-install
 ```
 
-Installation backend:
+server :
 ```javascript
 $ cd server
 $ npm i
 ```
 
-### Start front-end webpack dev server
+### Start front-end dev server
 
 JIT compilation :
 ```javascript
@@ -70,7 +68,7 @@ In new terminal:
 $ node-inspector
 ```
 
-## Tests
+## Unit tests
 
 Client 
 ```javascript

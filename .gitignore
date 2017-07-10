@@ -80,3 +80,9 @@ package-lock.json
 /server/public/
 /client/src/app/**/*.js
 /client/src/app/**/*.js.map
+/client/src/main.js
+/client/src/main.js.map
+/client/src/polyfills.js
+/client/src/polyfills.js.map
+/client/src/vendor.js
+/client/src/vendor.js.map
