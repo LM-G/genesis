@@ -1,0 +1,35 @@
+{
+  "name": "genesis-server",
+  "private": true,
+  "version": "0.0.1",
+  "description": "genesis backend",
+  "keywords": [
+    "sailsjs",
+    "nodejs",
+    "expressjs",
+    "mongodb"
+  ],
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "include-all": "^1.0.0",
+    "jsonwebtoken": "^7.4.1",
+    "lodash": "^4.17.4",
+    "passport": "^0.3.2",
+    "passport-jwt": "^2.2.1",
+    "passport-local": "^1.0.0",
+    "rc": "1.0.1",
+    "sails": "~0.12.13",
+    "sails-mongo": "^0.12.2"
+  },
+  "scripts": {
+    "debug": "nodemon --inspect app.js",
+    "start": "nodemon app.js"
+  },
+  "main": "app.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/LM-G/genesis.git"
+  },
+  "author": "LM-G",
+  "license": "MIT"
+}
