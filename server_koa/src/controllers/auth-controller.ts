@@ -12,26 +12,16 @@ export class AuthController extends BaseController {
     super();
   }
   register(router:Router) {
-    router.get('/', index);
-    router.get('/login', login);
+    router.post('/sign-up', signUp);
+    router.post('/sign-in', signIn);
   }
 }
 
-/**
- * Default message
- * @param ctx
- * @returns {Promise.<void>}
- */
-let index = async(ctx: Context) => {
-  ctx.body = 'Hello Auth Controller';
+let signUp = async(ctx: Context) => {
+  // todo create authservice
+  ctx.body = 'tried to signUp';
 };
-
-/**
- * Log in an user;
- * @param ctx
- * @returns {Promise.<void>}
- */
-let login = async(ctx: Context) => {
-  ctx.body = 'tried to signin';
+let signIn = async(ctx: Context) => {
+  ctx.body = 'tried to signIn';
 };
 
