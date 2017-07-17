@@ -7,7 +7,7 @@ export class AuthService {
         this.userRepository = new UserRepository();
     }
 
-    signUp(body: ICreateUser) {
+    signUp = (body: ICreateUser) => {
         const email = body.email;
         const pwd = body.password;
         const name = body.username;

@@ -80,5 +80,4 @@ package-lock.json
 /client/doc/
 /server/public/
 /client/src/app/**/*.js
-/client/src/*.js
 /server_koa/**/*.js

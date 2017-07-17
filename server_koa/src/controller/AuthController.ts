@@ -16,18 +16,17 @@ export class AuthController extends BaseController {
     this.authService = new AuthService();
   }
   register(router:Router) {
-    router.post('/sign-up', signUp);
+    router.post('/sign-up', this.signUp);
     router.post('/sign-in', this.signIn);
   }
 
+  private signUp = async (ctx: Context) => {
+      await this.authService.signUp(ctx.request.body);
+      ctx.body = 'User registered'
+  };
 
-
-  async signIn(ctx: Context) {
+  private  signIn = async(ctx: Context) => {
     ctx.body = 'tried to signIn';
   }
-}
-
-let signUp = async (ctx: Context) => {
-  await this.authService.signUp(ctx.request.body);
 }
 

@@ -6,7 +6,9 @@
     "noEmitOnError": true,
     "module": "commonjs",
     "sourceMap": true,
-    "target": "es6"
+    "target": "es6",
+    "outDir":"./dev",
+    "rootDir": "./src"
   },
   //"lib": [ "es2015" ],
   "exclude": [
