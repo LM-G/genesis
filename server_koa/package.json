@@ -27,6 +27,7 @@
     "koa-route": "^3.2.0",
     "koa-router": "^7.2.1",
     "lodash": "^4.17.4",
+    "mongoose": "^4.11.3",
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
     "passport-local": "^1.0.0",
@@ -40,15 +41,16 @@
     "@types/koa-passport": "^2.0.4",
     "@types/koa-router": "^7.0.22",
     "@types/lodash": "^4.14.69",
+    "@types/mongoose": "^4.7.18",
     "@types/node": "^8.0.13",
     "@types/passport": "^0.3.3",
     "@types/passport-jwt": "^2.0.21",
     "es6-promise": "^4.1.1",
+    "is-finite": "^1.0.2",
     "nodemon": "^1.11.0",
     "rimraf": "^2.6.1",
     "ts-node": "^3.2.0",
     "typescript": "^2.4.1",
-    "is-finite": "^1.0.2",
     "wrappy": "^1.0.2"
   }
 }

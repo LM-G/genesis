@@ -2,10 +2,10 @@ import { forEach } from 'lodash';
 import { Context } from 'koa';
 import * as Router from 'koa-router';
 import Application = require('koa');
-import * as controllers from '../controllers';
+import * as controllers from '../controller';
 
 /**
- * Loads and register all application controllers with their respective route
+ * Loads and register all application controller with their respective route
  * @returns async middleware which register all controller behaviors
  */
 export function RouterLoader() {
@@ -18,7 +18,7 @@ export function RouterLoader() {
       app.use(router.routes()).use(router.allowedMethods());
     });
 
-    // proceed app bootstraping with next middlewares
+    // proceed app bootstraping with next middleware
     await next();
   }
 }

@@ -1,4 +1,4 @@
-import { BaseController } from '../controllers/base-controller';
+import { BaseController } from '../controller/BaseController';
 
 /**
  * Decorator to enable a controller which extends BaseController to be given a base path
