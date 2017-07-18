@@ -7,10 +7,10 @@
     "module": "commonjs",
     "sourceMap": true,
     "target": "es6",
+    "lib": ["es6"],
     "outDir":"./dev",
-    "rootDir": "./src"
+    "rootDir": "./"
   },
-  //"lib": [ "es2015" ],
   "exclude": [
     "node_modules"
   ]

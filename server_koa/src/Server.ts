@@ -1,7 +1,7 @@
 import * as Logger from 'koa-logger';
 import * as Koa from 'koa';
 import * as BodyParser from 'koa-bodyparser';
-import {config} from './config/config';
+import {config} from '../config/Environment';
 import {RouterLoader} from './middleware/RouterLoader';
 
 global.__srcDir = __dirname;

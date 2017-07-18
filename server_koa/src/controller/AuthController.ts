@@ -9,7 +9,7 @@ import {AuthService} from '../service/AuthService';
  */
 @Controller('/auth')
 export class AuthController extends BaseController {
-  authService : AuthService;
+  private authService : AuthService;
   constructor(){
     super();
     // TODO injection de dépendance
@@ -25,7 +25,7 @@ export class AuthController extends BaseController {
       ctx.body = 'User registered'
   };
 
-  private  signIn = async(ctx: Context) => {
+  private  signIn = async (ctx: Context) => {
     ctx.body = 'tried to signIn';
   }
 }
