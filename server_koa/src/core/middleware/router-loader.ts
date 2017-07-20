@@ -2,13 +2,14 @@ import { forEach } from 'lodash';
 import { Context } from 'koa';
 import * as Router from 'koa-router';
 import Application = require('koa');
-import * as controllers from '../controller';
+import * as controllers from '../../controller';
+import {AppIocContainer} from '../app-ioc-container';
 
 /**
  * Loads and register all application controller with their respective route
  * @returns async middleware which register all controller behaviors
  */
-export function RouterLoader() {
+export function RouterLoader(container: AppIocContainer) {
   return async (ctx: Context, next:Function) => {
     let app: Application = ctx.app;
 

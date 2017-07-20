@@ -1,8 +1,8 @@
-import { BaseController } from "./BaseController";
-import { Controller } from "../util/@Controller";
+import { BaseController } from "./base-controller";
+import { Controller } from "../core/decorator/controller-decorator";
 import { Context } from 'koa';
 import * as Router from 'koa-router';
-import {AuthService} from '../service/AuthService';
+import {AuthService} from '../service/auth-service';
 
 /**
  * AuthController. Handles user registration, login or logout

@@ -1,5 +1,5 @@
-import {UserRepository} from '../repository/UserRepository';
-import {ICreateUser} from '../form/ICreateUser';
+import {UserRepository} from '../repository/user-repository';
+import {ICreateUser} from '../form/create-user';
 
 export class AuthService {
     private userRepository: UserRepository;

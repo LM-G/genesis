@@ -1,2 +1,2 @@
-import {AuthController} from './AuthController';
+import {AuthController} from './auth-controller';
 export {AuthController};
