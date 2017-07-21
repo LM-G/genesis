@@ -1,10 +1,10 @@
 import {UserRepository} from '../repository/user-repository';
 import {ICreateUser} from '../form/create-user';
+import {inject, injectable} from 'inversify';
 
 export class AuthService {
     private userRepository: UserRepository;
     constructor(){
-        this.userRepository = new UserRepository();
     }
 
     signUp = (body: ICreateUser) => {
