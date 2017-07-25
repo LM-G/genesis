@@ -3,28 +3,53 @@ import { Context } from 'koa';
 import * as Router from 'koa-router';
 import Application = require('koa');
 import * as controllers from '../../controller';
-import {AppIocContainer} from '../app-ioc-container';
-import {BaseController} from '../../controller/base-controller';
-import {Container} from 'inversify';
+import {GET, IRoute, POST, ROUTES} from '../decorator/path-decorator';
+import {PATH} from '../decorator/controller-decorator';
 
 /**
- * Loads and register all application controller with their respective route
- * @returns async middleware which register all controller behaviors
+ * Load a route of a controller in koa-router
+ * @param {IRoute} route route to load
+ * @param controller controller which hold the route
+ * @param {Router} router koa-router
  */
-export function RouterLoader(container: AppIocContainer) {
+const loadRoute = (route: IRoute, controller:any, router: Router) => {
+    // to access the this from the current controller inside its extracted methods
+    route.action = route.action.bind(controller);
+    // register the controller method on koa router
+    switch(route.verb){
+        case GET:
+        case POST:
+            router[route.verb](route.path, route.action);
+            break;
+        default: throw new Error(`Unknown http verb ${route.verb}`);
+    }
+};
+
+/**
+ * Load a controller in app and register all its routes
+ * @param {Function} controller controller to instanciate and register
+ * @param {Application} app app instance
+ */
+const loadController = (controller: Function, app:Application) => {
+    // defines controller prefix
+    const router = new Router({
+        prefix: Reflect.getMetadata(PATH, controller)
+    });
+    let routes = Reflect.getMetadata(ROUTES, controller);
+    forEach(routes, route => loadRoute(route, controller, router));
+    app.use(router.routes()).use(router.allowedMethods());
+};
+
+/**
+ * Middleware to register all routers
+ * @returns {(ctx: Application.Context, next: Function) => Promise<any>} Middleware
+ */
+export function RouterLoader(){
     return async (ctx: Context, next:Function) => {
         let app: Application = ctx.app;
-        let test: Container = container.getContainer();
-
-        forEach(controllers, (controllerClass) => {
-            // register the controller in Koa
-
-            let ctrl: BaseController  = test.get(controllerClass.name);
-            let router:Router = new controllerClass().build();
-            app.use(router.routes()).use(router.allowedMethods());
-        });
-
-        // proceed app bootstraping with next middleware
+        forEach(controllers, instanceConstructor => loadController(new instanceConstructor(), app));
         await next();
     }
 }
+
+

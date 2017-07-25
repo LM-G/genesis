@@ -1,16 +1,12 @@
-import 'reflect-metadata';
 import * as Logger from 'koa-logger';
 import * as Koa from 'koa';
 import * as BodyParser from 'koa-bodyparser';
 import {config} from '../config/environment';
 import {RouterLoader} from './core/middleware/router-loader';
-import {AppIocContainer} from './core/app-ioc-container';
 
 export class App {
 	private koa: Koa;
-	private container: AppIocContainer;
 	constructor(){
-		this.container = new AppIocContainer();
 	}
 
 	start(){
@@ -21,7 +17,7 @@ export class App {
         app
             .use(Logger())
             .use(BodyParser())
-            .use(RouterLoader(this.container))
+            .use(RouterLoader())
             .listen(port, () => console.log(`Listening on ${port}`));
 	}
 }

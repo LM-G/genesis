@@ -1,10 +1,6 @@
-import {Controller} from '../core/decorator/controller-decorator';
-import {BaseController} from './base-controller';
-import * as Router from 'koa-router';
+import {controller} from '../core/decorator/controller-decorator';
 
-@Controller('/me')
-export class UserController extends BaseController {
-    register(router: Router): void {
-    }
+@controller('/me')
+export class UserController {
 
 }
