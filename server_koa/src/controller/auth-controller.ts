@@ -2,17 +2,18 @@ import {Context} from 'koa';
 import {controller} from "../core/decorator/controller-decorator";
 import {post} from '../core/decorator/path-decorator';
 import {AuthService} from '../service/auth-service';
+import { inject } from '../core/decorator/inject-decorator';
 
 /**
- * AuthController. Handles user registration, login or logout
+ * @class AuthController.
+ * @description Handles user registration, login or logout
  */
-@controller('/auth')
+@controller('/auth', {
+    isPublic : true
+})
 export class AuthController {
+    @inject
     private authService : AuthService;
-    constructor(){
-        // todo injection (ioc ?)
-        this.authService = new AuthService();
-    }
 
     @post('/sign-up')
     async signUp (ctx: Context) {

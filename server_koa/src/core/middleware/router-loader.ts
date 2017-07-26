@@ -1,10 +1,11 @@
-import { forEach } from 'lodash';
+import { forEach, remove } from 'lodash';
 import { Context } from 'koa';
 import * as Router from 'koa-router';
 import Application = require('koa');
-import * as controllers from '../../controller';
+import * as controllerPrototypes from '../../controller';
 import {GET, IRoute, POST, ROUTES} from '../decorator/path-decorator';
-import {PATH} from '../decorator/controller-decorator';
+import {PATH, PUBLIC} from '../decorator/controller-decorator';
+import { config } from '../../../config/environment';
 
 /**
  * Load a route of a controller in koa-router
@@ -31,23 +32,37 @@ const loadRoute = (route: IRoute, controller:any, router: Router) => {
  * @param {Application} app app instance
  */
 const loadController = (controller: Function, app:Application) => {
+    // construct controller path
+    let url = config.restApiRoot + Reflect.getMetadata(PATH, controller);
     // defines controller prefix
     const router = new Router({
-        prefix: Reflect.getMetadata(PATH, controller)
+        prefix: url
     });
     let routes = Reflect.getMetadata(ROUTES, controller);
     forEach(routes, route => loadRoute(route, controller, router));
     app.use(router.routes()).use(router.allowedMethods());
 };
 
+const loadControllers  = (controllers: any[], app:Application) => {
+    forEach(controllers, controller => loadController(new controller(), app));
+}
+
 /**
  * Middleware to register all routers
- * @returns {(ctx: Application.Context, next: Function) => Promise<any>} Middleware
+ * @returns {(ctx: Application.Context, next: Function) => Middleware} Middleware
  */
 export function RouterLoader(){
     return async (ctx: Context, next:Function) => {
         let app: Application = ctx.app;
-        forEach(controllers, instanceConstructor => loadController(new instanceConstructor(), app));
+        let controllers = new Array();
+        forEach(controllerPrototypes, prototype => controllers.push(prototype));
+        let publicControllers = remove(controllers, controller => Reflect.getMetadata(PUBLIC, controller) === true);
+        // load public controllers first
+        loadControllers(publicControllers, app);
+        // then securise others
+        // todo securise other controllers app.use(passport ... )
+        // then load others
+        loadControllers(controllers, app);
         await next();
     }
 }

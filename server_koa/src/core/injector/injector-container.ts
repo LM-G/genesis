@@ -1,26 +1,44 @@
-let container: Container;
+class Injectable{
+    instance: any;
+    prototype: any;
+    constructor(prototype: any){
+        this.prototype = prototype;
+    }
+
+    createInstance(){
+        this.instance = new this.prototype(); //Object.create(this.prototype);
+    }
+
+}
 
 class Container{
-    injectables: Map<string, any>;
+    injectables: Map<string, Injectable>;
     constructor(){
         this.injectables = new Map();
     }
 }
 
-export class InjectorContainer {
+let container = new Container();
+
+
+export class Injector {
     static init(){
-        container = new Container();
+        container.injectables.forEach((injectable) => {
+            injectable.createInstance();
+        });
     }
 
     static resolve(name: string){
-        container.injectables.get(name);
+        return container.injectables.get(name).instance;
     }
 
-    static register(name: string, injectable : any){
+    static register(name: string, prototype: any){
         if(container == null){
             throw new Error("Injector container has not been initialized !");
         }
 
-        container.injectables.set(name, Object.create(injectable));
+        let injectable = new Injectable(prototype);
+
+        container.injectables.set(name, injectable);
     }
 }
