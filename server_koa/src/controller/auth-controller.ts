@@ -3,8 +3,6 @@ import {controller} from "../core/decorator/controller-decorator";
 import {post} from '../core/decorator/path-decorator';
 import {AuthService} from '../service/auth-service';
 
-
-
 /**
  * AuthController. Handles user registration, login or logout
  */

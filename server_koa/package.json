@@ -6,7 +6,7 @@
   "scripts": {
     "clean": "rimraf dev dist build",
     "start": "npm run clean && tsc && nodemon --inspect --watch dev dev/server",
-    "ts": "ts-node",
+    "dev": "tsc",
     "start:watch": "tsc && nodemon --inspect-brk=57642 src/server.js"
   },
   "keywords": [

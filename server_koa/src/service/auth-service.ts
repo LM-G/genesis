@@ -1,9 +1,9 @@
-import {UserRepository} from '../repository/user-repository';
 import {ICreateUser} from '../form/create-user';
-import {inject, injectable} from 'inversify';
+import {injectable} from '../core/decorator/injectable-decorator';
 
+@injectable
 export class AuthService {
-    private userRepository: UserRepository;
+    //private userRepository: UserRepository;
     constructor(){
     }
 
