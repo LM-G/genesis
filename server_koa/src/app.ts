@@ -2,8 +2,9 @@ import * as Logger from 'koa-logger';
 import * as Koa from 'koa';
 import * as BodyParser from 'koa-bodyparser';
 import {config} from '../config/environment';
-import {RouterLoader} from './core/middleware/router-loader';
 import { application } from './core/decorator/application-decorator';
+import {RouterLoader} from './core/middleware/router-loader';
+
 
 @application()
 export class App {

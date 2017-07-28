@@ -1,11 +1,12 @@
+import '../../controller';
 import { forEach, remove } from 'lodash';
 import { Context } from 'koa';
 import * as Router from 'koa-router';
 import Application = require('koa');
-import * as controllerPrototypes from '../../controller';
 import {GET, IRoute, POST, ROUTES} from '../decorator/path-decorator';
-import {PATH, PUBLIC} from '../decorator/controller-decorator';
+import {PATH} from '../decorator/controller-decorator';
 import { config } from '../../../config/environment';
+import {Injector} from '../injector/injector-container';
 
 /**
  * Load a route of a controller in koa-router
@@ -54,15 +55,15 @@ const loadControllers  = (controllers: any[], app:Application) => {
 export function RouterLoader(){
     return async (ctx: Context, next:Function) => {
         let app: Application = ctx.app;
-        let controllers = new Array();
-        forEach(controllerPrototypes, prototype => controllers.push(prototype));
-        let publicControllers = remove(controllers, controller => Reflect.getMetadata(PUBLIC, controller) === true);
+
+        const unauthenticatedControllers = Injector.getUnauthenticatedControllers();
+        const authenticatedControllers = Injector.getAuthenticatedControllers();
         // load public controllers first
-        loadControllers(publicControllers, app);
+        loadControllers(unauthenticatedControllers, app);
         // then securise others
         // todo securise other controllers app.use(passport ... )
         // then load others
-        loadControllers(controllers, app);
+        loadControllers(authenticatedControllers, app);
         await next();
     }
 }

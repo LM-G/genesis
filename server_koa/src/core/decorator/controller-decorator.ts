@@ -1,10 +1,10 @@
+import {Injector, ControllerType} from '../injector/injector-container';
 /** Controller path metadata identifier */
 export const PATH = 'path';
-export const PUBLIC = 'public';
 
 interface ControllerOptions {
     /** Indicates if the controller is public or is behind authentication */
-    isPublic: boolean;
+    authenticated: boolean;
 }
 
 /**
@@ -17,7 +17,8 @@ export function controller(path: string, opts? : ControllerOptions) {
     return (target: Function) => {
         Reflect.defineMetadata(PATH, path, target.prototype);
         // marks the controller as public or not
-        let isPublic = opts != null && opts.isPublic === true;
-        Reflect.defineMetadata(PUBLIC, isPublic, target.prototype);
+        let type = opts != null && opts.authenticated === false ?
+            ControllerType.UNAUTHENTICATED : ControllerType.AUTHENTICATED;
+        Injector.registerController(type, target);
     }
 }

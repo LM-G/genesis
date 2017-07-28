@@ -9,7 +9,7 @@ import { inject } from '../core/decorator/inject-decorator';
  * @description Handles user registration, login or logout
  */
 @controller('/auth', {
-    isPublic : true
+    authenticated : false
 })
 export class AuthController {
     @inject
