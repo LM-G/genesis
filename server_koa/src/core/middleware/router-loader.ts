@@ -1,8 +1,7 @@
-import '../../controller';
-import { forEach, remove } from 'lodash';
+import { forEach } from 'lodash';
+import * as Application from 'koa';
 import { Context } from 'koa';
 import * as Router from 'koa-router';
-import Application = require('koa');
 import {GET, IRoute, POST, ROUTES} from '../decorator/path-decorator';
 import {PATH} from '../decorator/controller-decorator';
 import { config } from '../../../config/environment';
@@ -40,13 +39,16 @@ const loadController = (controller: Function, app:Application) => {
         prefix: url
     });
     let routes = Reflect.getMetadata(ROUTES, controller);
+    // register each route on current router
     forEach(routes, route => loadRoute(route, controller, router));
+    // register the router in app's middlewares cascade
     app.use(router.routes()).use(router.allowedMethods());
 };
 
 const loadControllers  = (controllers: any[], app:Application) => {
+    // Instanciate each controller and load it in app
     forEach(controllers, controller => loadController(new controller(), app));
-}
+};
 
 /**
  * Middleware to register all routers
@@ -61,7 +63,7 @@ export function RouterLoader(){
         // load public controllers first
         loadControllers(unauthenticatedControllers, app);
         // then securise others
-        // todo securise other controllers app.use(passport ... )
+        // todo secure other controllers app.use(passport ... )
         // then load others
         loadControllers(authenticatedControllers, app);
         await next();

@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import * as Logger from 'koa-logger';
 import * as Koa from 'koa';
 import * as BodyParser from 'koa-bodyparser';
@@ -5,11 +6,16 @@ import {config} from '../config/environment';
 import { application } from './core/decorator/application-decorator';
 import {RouterLoader} from './core/middleware/router-loader';
 
-
-@application()
+/**
+ * Application bootstrap class
+ */
+@application({
+    root: __dirname,
+    endpoints : 'controller'
+})
 export class App {
     /**
-     * Register all middlewares and start koa application
+     * Starts the application
      */
 	static start(){
         // create the app
@@ -27,3 +33,6 @@ export class App {
         app.listen(port, () => console.log(`Listening on ${port}`));
 	}
 }
+
+// starts the app
+App.start();
