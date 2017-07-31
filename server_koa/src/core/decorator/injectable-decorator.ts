@@ -1,5 +1,5 @@
 import {Injector} from '../injector/injector-container';
 
-export function injectable(target: any) {
+export function Injectable(target: any) {
     Injector.register(target.name, target);
 }

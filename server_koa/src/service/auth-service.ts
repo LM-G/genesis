@@ -1,10 +1,10 @@
 import {ICreateUser} from '../form/create-user';
-import {injectable} from '../core/decorator/injectable-decorator';
+import {Injectable} from '../core/decorator/injectable-decorator';
 
 /**
  * @class AuthService
  */
-@injectable
+@Injectable
 export class AuthService {
     signUp = (body: ICreateUser) => {
         const email = body.email;

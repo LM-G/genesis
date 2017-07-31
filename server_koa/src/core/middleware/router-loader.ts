@@ -5,7 +5,7 @@ import * as Router from 'koa-router';
 import {GET, IRoute, POST, ROUTES} from '../decorator/path-decorator';
 import {PATH} from '../decorator/controller-decorator';
 import { config } from '../../../config/environment';
-import {Injector} from '../injector/injector-container';
+import {ControllerType, Injector} from '../injector/injector-container';
 
 /**
  * Load a route of a controller in koa-router
@@ -55,18 +55,19 @@ const loadControllers  = (controllers: any[], app:Application) => {
  * @returns {(ctx: Application.Context, next: Function) => Middleware} Middleware
  */
 export function RouterLoader(){
-    return async (ctx: Context, next:Function) => {
+    return async (ctx: Context, next: () => Promise<any>) => {
         let app: Application = ctx.app;
 
-        const unauthenticatedControllers = Injector.getUnauthenticatedControllers();
-        const authenticatedControllers = Injector.getAuthenticatedControllers();
-        // load public controllers first
-        loadControllers(unauthenticatedControllers, app);
-        // then securise others
-        // todo secure other controllers app.use(passport ... )
-        // then load others
-        loadControllers(authenticatedControllers, app);
+        const notProtectedControllers = Injector.getControllers(ControllerType.NOT_PROTECTED);
+        const protectedControllers = Injector.getControllers(ControllerType.PROTECTED);
+
+        // loading not protected controllers first
+        loadControllers(notProtectedControllers, app);
+        // load security after
         await next();
+        // todo secure other controllers app.use(passport ... )
+        // then load protected controllers behind the security
+        loadControllers(protectedControllers, app);
     }
 }
 

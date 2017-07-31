@@ -3,13 +3,14 @@ import * as Logger from 'koa-logger';
 import * as Koa from 'koa';
 import * as BodyParser from 'koa-bodyparser';
 import {config} from '../config/environment';
-import { application } from './core/decorator/application-decorator';
+import { Application } from './core/decorator/application-decorator';
 import {RouterLoader} from './core/middleware/router-loader';
+import {Securizer} from "./core/middleware/securizer";
 
 /**
  * Application bootstrap class
  */
-@application({
+@Application({
     root: __dirname,
     endpoints : 'controller'
 })
@@ -27,7 +28,8 @@ export class App {
         app
             .use(Logger())
             .use(BodyParser())
-            .use(RouterLoader());
+            .use(RouterLoader())
+            .use(Securizer());
 
         // start to listen
         app.listen(port, () => console.log(`Listening on ${port}`));

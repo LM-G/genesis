@@ -1,27 +1,26 @@
 import {Context} from 'koa';
-import {controller} from "../core/decorator/controller-decorator";
-import {post} from '../core/decorator/path-decorator';
+import {Controller, NotProtected} from "../core/decorator/controller-decorator";
+import {Post} from '../core/decorator/path-decorator';
 import {AuthService} from '../service/auth-service';
-import { inject } from '../core/decorator/inject-decorator';
+import { Inject } from '../core/decorator/inject-decorator';
 
 /**
  * @class AuthController.
  * @description Handles user registration, login or logout
  */
-@controller('/auth', {
-    authenticated : false
-})
+@Controller('/auth')
+@NotProtected
 export class AuthController {
-    @inject
+    @Inject
     private authService : AuthService;
 
-    @post('/sign-up')
+    @Post('/sign-up')
     async signUp (ctx: Context) {
         await this.authService.signUp(ctx.request.body);
         ctx.body = 'User registered'
     }
 
-    @post('/sign-in')
+    @Post('/sign-in')
     async  signIn (ctx: Context) {
         ctx.body = 'tried to signIn';
     }

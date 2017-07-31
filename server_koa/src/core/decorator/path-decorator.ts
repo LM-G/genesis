@@ -61,7 +61,7 @@ const decorateRoute = (path: string, verb: string) => {
  * @param {string} path
  * @returns post decorator function
  */
-export const post = (path: string) => {
+export const Post = (path: string) => {
     return decorateRoute(path, POST);
 };
 
@@ -71,7 +71,7 @@ export const post = (path: string) => {
  * @param {string} path
  * @returns post decorator function
  */
-export const get = (path: string) => {
+export const Get = (path: string) => {
     return decorateRoute(path, GET);
 };
 

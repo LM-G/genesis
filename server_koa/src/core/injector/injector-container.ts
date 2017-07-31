@@ -10,8 +10,8 @@ class Injectable{
 }
 
 export enum ControllerType {
-    AUTHENTICATED,
-    UNAUTHENTICATED
+    PROTECTED,
+    NOT_PROTECTED
 }
 
 class Container{
@@ -53,11 +53,7 @@ export class Injector {
         container.controllers.set(type, controllers);
     }
 
-    static getAuthenticatedControllers(){
-        return container.controllers.get(ControllerType.AUTHENTICATED);
-    }
-
-    static getUnauthenticatedControllers(){
-        return container.controllers.get(ControllerType.UNAUTHENTICATED);
+    static getControllers(type: ControllerType){
+        return container.controllers.get(type);
     }
 }

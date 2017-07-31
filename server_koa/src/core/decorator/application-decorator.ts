@@ -1,5 +1,4 @@
 import { Injector } from '../injector/injector-container';
-import { App } from '../../app';
 
 type ApplicationOptions = {
     // root dir location
@@ -12,7 +11,7 @@ type ApplicationOptions = {
  * Decorator to bootstrap application framework
  * @returns {Function}
  */
-export function application(opts: ApplicationOptions) {
+export function Application(opts: ApplicationOptions) {
     // defines root dir location
     const root = global.__srcDir = opts.root;
 

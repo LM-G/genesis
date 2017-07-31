@@ -1,6 +1,6 @@
-import {controller} from '../core/decorator/controller-decorator';
+import {Controller} from '../core/decorator/controller-decorator';
 
-@controller('/me')
+@Controller('/me')
 export class UserController {
 
 }

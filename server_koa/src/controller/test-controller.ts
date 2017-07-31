@@ -1,16 +1,16 @@
 import { Context } from 'koa';
-import { controller } from "../core/decorator/controller-decorator";
-import { get, post } from '../core/decorator/path-decorator';
+import { Controller } from "../core/decorator/controller-decorator";
+import { Get, Post } from '../core/decorator/path-decorator';
 
 
-@controller('/test')
+@Controller('/test')
 export class TestController {
-    @get('/a')
+    @Get('/a')
     async getA(ctx: Context) {
         ctx.body = 'TestController : A'
     };
 
-    @post('/b')
+    @Post('/b')
     async getB(ctx: Context) {
         ctx.body = 'TestController : B';
     }
