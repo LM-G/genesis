@@ -5,7 +5,7 @@ import * as BodyParser from 'koa-bodyparser';
 import {config} from '../config/environment';
 import { Application } from './core/decorator/application-decorator';
 import {RouterLoader} from './core/middleware/router-loader';
-import {Securizer} from "./core/middleware/securizer";
+import * as KoaPassport from 'koa-passport';
 
 /**
  * Application bootstrap class
@@ -28,8 +28,8 @@ export class App {
         app
             .use(Logger())
             .use(BodyParser())
-            .use(RouterLoader())
-            .use(Securizer());
+            .use(KoaPassport.initialize())
+            .use(RouterLoader());
 
         // start to listen
         app.listen(port, () => console.log(`Listening on ${port}`));

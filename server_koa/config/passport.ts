@@ -1,11 +1,10 @@
 import {ExtractJwt} from 'passport-jwt';
-import * as passport from 'passport';
 
-const EXPIRES_IN_SECONDES = 86400;
-const SECRET = "secr3t";
-const ALGORITHM = "HS256";
-const ISSUER = "genesis.com";
-const AUDIENCE = "genesis.com";
+export const EXPIRES_IN_SECONDES = 86400;
+export const SECRET = "secr3t";
+export const ALGORITHM = "HS256";
+export const ISSUER = "genesis.com";
+export const AUDIENCE = "genesis.com";
 
 /**
  * Configuration object for local strategy authentication
@@ -26,5 +25,3 @@ export const JWT_STRATEGY_CONFIG = Object.freeze({
     issuer : ISSUER,
     audience: AUDIENCE
 });
-
-export { passport };

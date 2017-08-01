@@ -56,18 +56,22 @@ const loadControllers  = (controllers: any[], app:Application) => {
  */
 export function RouterLoader(){
     return async (ctx: Context, next: () => Promise<any>) => {
-        let app: Application = ctx.app;
-
+        const app: Application = ctx.app;
         const notProtectedControllers = Injector.getControllers(ControllerType.NOT_PROTECTED);
         const protectedControllers = Injector.getControllers(ControllerType.PROTECTED);
-
-        // loading not protected controllers first
+        // load and enable public routers to be hit without authentication
         loadControllers(notProtectedControllers, app);
-        // load security after
         await next();
-        // todo secure other controllers app.use(passport ... )
-        // then load protected controllers behind the security
+
+
+
+        // load and protect behind authentication other routers
         loadControllers(protectedControllers, app);
+        if(ctx.isAuthenticated()){
+            next();
+        } else {
+            ctx.status = 401;
+        }
     }
 }
 
