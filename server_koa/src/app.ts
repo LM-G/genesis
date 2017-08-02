@@ -3,9 +3,9 @@ import * as Logger from 'koa-logger';
 import * as Koa from 'koa';
 import * as BodyParser from 'koa-bodyparser';
 import {config} from '../config/environment';
-import { Application } from './core/decorator/application-decorator';
+import {Application} from './core/decorator/application-decorator';
 import {RouterLoader} from './core/middleware/router-loader';
-import * as KoaPassport from 'koa-passport';
+import {ErrorHandler} from './core/middleware/error-handler';
 
 /**
  * Application bootstrap class
@@ -28,7 +28,7 @@ export class App {
         app
             .use(Logger())
             .use(BodyParser())
-            .use(KoaPassport.initialize())
+            .use(ErrorHandler())
             .use(RouterLoader());
 
         // start to listen

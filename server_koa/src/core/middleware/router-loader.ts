@@ -1,11 +1,14 @@
-import { forEach } from 'lodash';
+import {forEach, includes} from 'lodash';
 import * as Application from 'koa';
-import { Context } from 'koa';
+import {Context} from 'koa';
 import * as Router from 'koa-router';
 import {GET, IRoute, POST, ROUTES} from '../decorator/path-decorator';
 import {PATH} from '../decorator/controller-decorator';
-import { config } from '../../../config/environment';
-import {ControllerType, Injector} from '../injector/injector-container';
+import {config} from '../../../config/environment';
+import {Injector} from '../injector/injector-container';
+import {AuthGuard} from './auth-guard';
+
+const KNOW_ACTIONS = [GET, POST];
 
 /**
  * Load a route of a controller in koa-router
@@ -16,13 +19,14 @@ import {ControllerType, Injector} from '../injector/injector-container';
 const loadRoute = (route: IRoute, controller:any, router: Router) => {
     // to access the this from the current controller inside its extracted methods
     route.action = route.action.bind(controller);
-    // register the controller method on koa router
-    switch(route.verb){
-        case GET:
-        case POST:
-            router[route.verb](route.path, route.action);
-            break;
-        default: throw new Error(`Unknown http verb ${route.verb}`);
+    if(includes(KNOW_ACTIONS, route.verb)){
+        if(route.protected){
+            (<any>router)[route.verb](route.path, AuthGuard, route.action);
+        } else {
+            (<any>router)[route.verb](route.path, route.action);
+        }
+    } else {
+        throw new Error(`Unknown http verb ${route.verb}`);
     }
 };
 
@@ -57,21 +61,9 @@ const loadControllers  = (controllers: any[], app:Application) => {
 export function RouterLoader(){
     return async (ctx: Context, next: () => Promise<any>) => {
         const app: Application = ctx.app;
-        const notProtectedControllers = Injector.getControllers(ControllerType.NOT_PROTECTED);
-        const protectedControllers = Injector.getControllers(ControllerType.PROTECTED);
-        // load and enable public routers to be hit without authentication
-        loadControllers(notProtectedControllers, app);
+        // load controllers
+        loadControllers(Injector.getControllers(), app);
         await next();
-
-
-
-        // load and protect behind authentication other routers
-        loadControllers(protectedControllers, app);
-        if(ctx.isAuthenticated()){
-            next();
-        } else {
-            ctx.status = 401;
-        }
     }
 }
 

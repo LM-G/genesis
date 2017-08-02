@@ -9,16 +9,11 @@ class Injectable{
     }
 }
 
-export enum ControllerType {
-    PROTECTED,
-    NOT_PROTECTED
-}
-
 class Container{
-    controllers: Map<ControllerType, any[]>;
+    controllers: any[];
     injectables: Map<string, Injectable>;
     constructor(){
-        this.controllers = new Map();
+        this.controllers = [];
         this.injectables = new Map();
     }
 }
@@ -47,13 +42,12 @@ export class Injector {
         container.injectables.set(name, injectable);
     }
 
-    static registerController(type: ControllerType, prototype : any){
-        let controllers = container.controllers.get(type) || [];
+    static registerController(prototype : any){
+        let controllers = container.controllers || [];
         controllers.push(prototype);
-        container.controllers.set(type, controllers);
     }
 
-    static getControllers(type: ControllerType){
-        return container.controllers.get(type);
+    static getControllers(){
+        return container.controllers;
     }
 }

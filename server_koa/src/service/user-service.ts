@@ -7,12 +7,12 @@ import {Injectable} from '../core/decorator/injectable-decorator';
 @Injectable
 export class UserService {
 
-    getUser() {
-        return {
+    getUser(username: string) {
+        return username === 'toto' ? {
             id : 1,
-            username: "toto",
-            password: "$2a$10$WEhxl44JPrA/LGA6cmp6CuvTLGE3rnRQwSiEHhODPM9XO59vlhcBa"
-        };
+            username: 'toto',
+            password: '$2a$10$WEhxl44JPrA/LGA6cmp6CuvTLGE3rnRQwSiEHhODPM9XO59vlhcBa'
+        } : null;
     }
 
     createUser = (body: ICreateUser) => {

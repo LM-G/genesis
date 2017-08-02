@@ -1,5 +1,6 @@
 import {IMiddleware} from 'koa-router';
 import {Context} from 'koa';
+import {find} from 'lodash';
 
 export const POST = 'post';
 export const GET = 'get';
@@ -12,7 +13,9 @@ export const ROUTES = 'routes';
 export interface IRoute{
     verb: string,
     path: string,
-    action: IMiddleware
+    action: IMiddleware,
+    key?: string,
+    protected?: boolean
 }
 
 /**
@@ -26,7 +29,8 @@ const defineRouteMetaData = (verb: string, path: string, action: IMiddleware) : 
     return {
         verb: verb,
         path: path,
-        action: action
+        action: action,
+        protected: true
     }
 };
 
@@ -51,6 +55,7 @@ const decorateRoute = (path: string, verb: string) => {
         //
         let routes = getRoutes(target);
         let route = defineRouteMetaData(verb, path, target[key]);
+        route.key = key;
         routes.push(route);
         Reflect.defineMetadata(ROUTES, routes, target);
     }
@@ -73,6 +78,20 @@ export const Post = (path: string) => {
  */
 export const Get = (path: string) => {
     return decorateRoute(path, GET);
+};
+
+/**
+ * GET route annotation factory
+ * @param {string} path
+ * @returns post decorator function
+ */
+export function Public(target: any, key: string, descriptor: TypedPropertyDescriptor<(ctx: Context) => Promise<any>>) {
+    let routes: IRoute[] = getRoutes(target);
+    let route = find(routes, (r: IRoute) => r.key == key);
+    if(route != null){
+        route.protected = false;
+    }
+    Reflect.defineMetadata(ROUTES, routes, target);
 };
 
 

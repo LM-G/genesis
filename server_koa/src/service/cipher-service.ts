@@ -40,4 +40,12 @@ export class CipherService {
             }
         );
     }
+
+    verify(token: string){
+        return jwt.verify(token, jwtConfig.SECRET, {
+            algorithms: [jwtConfig.ALGORITHM],
+            issuer: jwtConfig.ISSUER,
+            audience: jwtConfig.AUDIENCE
+        });
+    }
 }
