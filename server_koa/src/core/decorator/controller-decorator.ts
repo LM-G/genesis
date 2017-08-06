@@ -1,7 +1,5 @@
-import {Injector} from '../injector/injector-container';
-/** Controller path metadata identifier */
-export const PATH = 'path';
-export const TYPE = 'type';
+import { registerControllerMetadata } from '../';
+import { ControllerMetadata } from '../metadata/controller-metadata';
 
 /**
  *  Decorator to enable a controller which extends BaseController to be given a base path
@@ -10,7 +8,10 @@ export const TYPE = 'type';
  */
 export function Controller(path: string) {
     return (target: Function) => {
-        Reflect.defineMetadata(PATH, path, target.prototype);
-        Injector.registerController(target);
+        const meta = new ControllerMetadata({
+            target: target,
+            route: path
+        });
+        registerControllerMetadata(meta)
     }
 }

@@ -10,10 +10,8 @@ class Injectable{
 }
 
 class Container{
-    controllers: any[];
     injectables: Map<string, Injectable>;
     constructor(){
-        this.controllers = [];
         this.injectables = new Map();
     }
 }
@@ -22,12 +20,6 @@ let container = new Container();
 
 
 export class Injector {
-    static init(){
-        container.injectables.forEach((injectable) => {
-            injectable.createInstance();
-        });
-    }
-
     static resolve(name: string){
         return container.injectables.get(name).instance;
     }
@@ -38,16 +30,7 @@ export class Injector {
         }
 
         let injectable = new Injectable(prototype);
-
+        injectable.createInstance();
         container.injectables.set(name, injectable);
-    }
-
-    static registerController(prototype : any){
-        let controllers = container.controllers || [];
-        controllers.push(prototype);
-    }
-
-    static getControllers(){
-        return container.controllers;
     }
 }

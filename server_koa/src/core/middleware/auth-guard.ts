@@ -2,8 +2,6 @@ import {Context} from 'koa';
 import * as jwt from 'jsonwebtoken';
 import * as jwtConfig from "../../../config/passport";
 import {UnauthorizedException} from '../exception/unauthorized.exception';
-import {JsonWebTokenError} from 'jsonwebtoken';
-
 const AUTHORIZATION = 'authorization';
 export function AuthGuard(ctx: Context, next: () => Promise<any>){
     try {

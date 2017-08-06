@@ -1,11 +1,14 @@
-import {Context} from 'koa';
-import {Controller} from "../core/decorator/controller-decorator";
-import {Post, Public} from '../core/decorator/path-decorator';
-import {Inject} from '../core/decorator/inject-decorator';
-import {UserService} from '../service/user-service';
-import {CipherService} from '../service/cipher-service';
-import {IUser} from '../model/interface/user';
-import {DataNotFoundException} from '../core/exception/data-not-found.exception';
+import { Context } from 'koa';
+import { Controller } from "../core/decorator/controller-decorator";
+import { Post } from '../core/decorator/action-decorator';
+import { Inject } from '../core/decorator/inject-decorator';
+import { UserService } from '../service/user-service';
+import { CipherService } from '../service/cipher-service';
+import { Body } from '../core';
+import { ICreateUser } from '../form/create-user';
+import { IUser } from '../model/interface/user';
+import { DataNotFoundException } from '../core/exception/data-not-found.exception';
+import { UnauthorizedException } from '../core/exception/unauthorized.exception';
 
 /**
  * @class AuthController.
@@ -19,25 +22,26 @@ export class AuthController {
     @Inject
     private cipherService : CipherService;
 
-    @Public
+
     @Post('/sign-up')
-    async signUp (ctx: Context) {
-        //await this.authService.signUp(ctx.request.body);
-        ctx.body = 'User registered'
+    async signUp (@Body() body :ICreateUser) {
+        await this.userService.createUser(body);
     }
 
-    @Public
+
     @Post('/sign-in')
-    async signIn (ctx: Context) {
-        /* Gets user */
-        const user: IUser = await this.userService.getUser(ctx.request.body.username);
+    async signIn (@Body() body: any) {
+        // Gets user
+        const user: IUser = await this.userService.getUser(body.username);
         if(user == null) {
             throw new DataNotFoundException("User not found");
         }
-        /* Password validation */
-        const isGoodPassword = await this.cipherService.comparePassword(ctx.request.body.password, user);
+        // Password validation
+        const isGoodPassword = await this.cipherService.comparePassword(body.password, user);
         if(isGoodPassword){
-           ctx.body = "User connected";
+           return "User connected";
+        } else {
+            throw new UnauthorizedException('Wrong password');
         }
     }
 }
