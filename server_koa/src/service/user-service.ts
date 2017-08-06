@@ -1,4 +1,4 @@
-import {ICreateUser} from '../form/create-user';
+import {CreateUserForm} from '../form/create-user';
 import {Injectable} from '../core/decorator/injectable-decorator';
 
 /**
@@ -15,7 +15,7 @@ export class UserService {
         } : null;
     }
 
-    createUser = (body: ICreateUser) => {
+    createUser = (body: CreateUserForm) => {
         const email = body.email;
         const pwd = body.password;
         const name = body.username;

@@ -10,7 +10,6 @@ export interface ActionMetadataArgs {
     target: Function;
     method: string;
     type: ActionType;
-    params?: any[];
 }
 
 /**

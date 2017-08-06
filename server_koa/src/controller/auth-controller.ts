@@ -1,11 +1,7 @@
-import { Context } from 'koa';
-import { Controller } from "../core/decorator/controller-decorator";
-import { Post } from '../core/decorator/action-decorator';
-import { Inject } from '../core/decorator/inject-decorator';
+import { Controller, Post, Body, Inject } from '../core';
 import { UserService } from '../service/user-service';
 import { CipherService } from '../service/cipher-service';
-import { Body } from '../core';
-import { ICreateUser } from '../form/create-user';
+import { CreateUserForm } from '../form/create-user';
 import { IUser } from '../model/interface/user';
 import { DataNotFoundException } from '../core/exception/data-not-found.exception';
 import { UnauthorizedException } from '../core/exception/unauthorized.exception';
@@ -24,7 +20,7 @@ export class AuthController {
 
 
     @Post('/sign-up')
-    async signUp (@Body() body :ICreateUser) {
+    async signUp (@Body() body :CreateUserForm) {
         await this.userService.createUser(body);
     }
 

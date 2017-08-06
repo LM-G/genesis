@@ -6,7 +6,7 @@ export interface ParamMetadataArgs {
     methodName: string;
     index: number;
     type: ParamType;
-    name?: string;
+    name: string;
     required: boolean;
 }
 

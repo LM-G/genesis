@@ -5,7 +5,7 @@ const CONTROLLER_DIR = __dirname + '/controller';
 const PORT = 3000;
 
 const app = createApp({
-    routePrefix: '/api',
+    apiPath: '/api',
     controllers : CONTROLLER_DIR
 });
 

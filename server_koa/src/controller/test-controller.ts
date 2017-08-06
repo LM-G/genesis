@@ -1,9 +1,5 @@
-import { Controller } from '../core/decorator/controller-decorator';
-import { Get, Post } from '../core/decorator/action-decorator';
-import { Context } from 'koa';
-import { Param } from '../core/decorator/param-decorator';
+import { Controller, Get, Post, Body, Param, Inject } from '../core';
 import { UserService } from '../service/user-service';
-import { Inject } from '../core/decorator/inject-decorator';
 
 @Controller('/test')
 export class TestController {
@@ -16,8 +12,8 @@ export class TestController {
         return `TestController : ${JSON.stringify(result)}`;
     };
 
-    @Post('/b')
-    async getB() {
-        return 'TestController : B';
+    @Post('/b/:id')
+    async getB(@Param("id") id: string, @Body() body: any) {
+        return `TestController : B -> ${id} - ${JSON.stringify(body)}`;
     }
 }
