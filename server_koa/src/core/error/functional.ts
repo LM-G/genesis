@@ -1,6 +1,7 @@
 export abstract class FunctionalError extends Error{
+    details: any;
     status: number;
-    constructor(message: string, status: number){
+    constructor(message: string, status: number, details?: any){
         super(message);
         // Capturing stack trace, excluding constructor call from it.
         Error.captureStackTrace(this, this.constructor);
@@ -8,5 +9,6 @@ export abstract class FunctionalError extends Error{
         // Saving class name in the property of our custom error as a shortcut.
         this.name = this.constructor.name;
         this.status = status || 500;
+        this.details = details;
     }
 }

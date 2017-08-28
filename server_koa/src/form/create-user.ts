@@ -1,12 +1,12 @@
-import {Contains, Length} from 'class-validator';
+import { Contains, IsEmail, Length } from 'class-validator';
 
 export class CreateUserForm {
     @Length(6, 32)
-    username : string;
+    name : string;
 
     @Length(8, 64)
     password: string;
 
-    @Contains('toto')
+    @IsEmail()
     email: string
 }

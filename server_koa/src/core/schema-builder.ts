@@ -46,8 +46,7 @@ export class SchemaBuilder{
             case Number: return Schema.Types.Number;
             case Date: return Schema.Types.Date;
             default:
-                throw new TypeError(`Unknow schema type for property "${field.property}" `
-                    +`on document "${field.target.name}" : ${type.name}`);
+                throw new TypeError(`Unknow schema type for property "${field.property}" on document "${field.target.name}"`);
         }
     }
 }

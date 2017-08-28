@@ -1,9 +1,7 @@
-import {Context} from 'koa';
-import {FunctionalError, Middleware} from '../core';
-import {LOGGER} from '../../config/logger';
-import {GenesisMiddleware} from './interface/middleware';
-
-const chalk = require('chalk');
+import { Context } from 'koa';
+import { FunctionalError, Middleware } from '../core';
+import { LOGGER } from '../../config/logger';
+import { GenesisMiddleware } from './interface/middleware';
 
 /**
  * Global handler error
@@ -17,7 +15,10 @@ export class ErrorHandler implements GenesisMiddleware{
             // TODO error handling : {code : number, message: string, detail?: object}
             if(err instanceof FunctionalError){
                 ctx.status = err.status;
-                ctx.body = err.message;
+                ctx.body = {message: err.message };
+                if(err.details){
+                    ctx.body.details = err.details;
+                }
             } else {
                 ctx.status = 500;
                 ctx.body = 'Oops something somewhere went terribly wrong';

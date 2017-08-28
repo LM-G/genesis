@@ -1,10 +1,7 @@
-import {CreateUserForm} from '../form/create-user';
-import {Injectable} from '../core/decorator/injectable';
-import {UserRepository} from '../repository/user';
-import {LOGGER} from '../../config/logger';
-import {User} from '../model/user';
-import {IUser} from '../model/interface/user';
-import {Inject} from '../core/decorator/inject';
+import { Injectable } from '../core/decorator/injectable';
+import { UserRepository } from '../repository/user';
+import { User } from '../model/user';
+import { Inject } from '../core/decorator/inject';
 
 /**
  * @class UserService
@@ -23,14 +20,7 @@ export class UserService {
     }
 
     createUser = async (user: User) => {
-        let userCreated: User = null;
-
-        try {
-            userCreated = await this.userRepository.save(user);
-        } catch(err){
-            LOGGER.warn('erreur save ', err);
-            throw err;
-        }
+        let userCreated = await this.userRepository.save(user);
 
         console.log(`Id: ${user.id}`)
     };

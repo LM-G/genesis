@@ -1,12 +1,15 @@
 import * as Router from 'koa-router';
-import {Context} from 'koa';
-import {ControllerMetadata} from './metadata/controller';
-import {ActionMetadata} from './metadata/action';
-import {ActionType} from './metadata/type/action-type';
-import {ParamMetadata} from './metadata/param';
-import {ActionParamType} from './metadata/type/param-type';
-import {MiddlewareType} from './metadata/type/middleware-type';
-import {validateSync} from 'class-validator';
+import { Context } from 'koa';
+import { ControllerMetadata } from './metadata/controller';
+import { ActionMetadata } from './metadata/action';
+import { ActionType } from './metadata/type/action-type';
+import { ParamMetadata } from './metadata/param';
+import { ActionParamType } from './metadata/type/param-type';
+import { MiddlewareType } from './metadata/type/middleware-type';
+import { validateSync } from 'class-validator';
+import { plainToClass } from 'class-transformer';
+import { isEmpty, omit } from 'lodash';
+import { ValidationError } from './error';
 
 /**
  * Build a router from a controller metadata
@@ -96,7 +99,7 @@ export class RouterBuilder{
         };
 
         // add action on the router
-        (<any>this.router)[ActionType.getHttpVerb(meta.type)](meta.route, wrapper);
+        (this.router as any)[ActionType.getHttpVerb(meta.type)](meta.route, wrapper);
     }
 
     /**
@@ -142,7 +145,16 @@ export class RouterBuilder{
      * @param type classe de l'objet
      */
     protected validate(value: any, type: any){
-
+        let validationErrors = validateSync(plainToClass(type, value));
+        if(!isEmpty(validationErrors)){
+            let details = {
+                target: validationErrors[0].target,
+                violations: validationErrors.map((validationError) => {
+                    return omit(validationError, ['target'])
+                })
+            };
+            throw new ValidationError(`${type.name} not validated`, details);
+        }
     }
 }
 

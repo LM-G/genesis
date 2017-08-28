@@ -23,8 +23,6 @@ export class AuthController {
     @Post('/sign-up')
     async signUp (@Body() form : CreateUserForm) {
         let user = new User();
-        form = new CreateUserForm();
-        let test = validateSync(form);
         Object.assign(user, form);
         // hash password
         await this.cipherService.hashPassword(user);
