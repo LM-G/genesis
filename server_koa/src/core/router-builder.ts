@@ -1,10 +1,12 @@
 import * as Router from 'koa-router';
 import { Context } from 'koa';
-import { ControllerMetadata } from './metadata/controller-metadata';
-import { ActionMetadata } from './metadata/action-metadata';
+import { ControllerMetadata } from './metadata/controller';
+import { ActionMetadata } from './metadata/action';
 import { ActionType } from './metadata/type/action-type';
-import { ParamMetadata } from './metadata/param-metadata';
+import { ParamMetadata } from './metadata/param';
 import { ParamType } from './metadata/type/param-type';
+import { MiddlewareMetadata } from './metadata/middleware';
+import { MiddlewareType } from './metadata/type/middleware-type';
 
 /**
  * Build a router from a controller metadata
@@ -38,13 +40,30 @@ export class RouterBuilder{
     build(){
         // instanciate the referenced controller to activate dependency injection
         this.controller = new this.controllerMetadata.target();
+        // load middlewares to execute before the router
+        this.loadMiddlewares(MiddlewareType.BEFORE);
         // retrives all controller actions
         this.controllerMetadata.actions
             .forEach((actionMeta : ActionMetadata) => {
                 this.loadAction(actionMeta);
             });
+        // load middlewares to execute after the router
+        this.loadMiddlewares(MiddlewareType.AFTER);
 
         return this.router;
+    }
+
+    /**
+     * Register router specific middlewares
+     * @param {MiddlewareType} type after or before executing router actions
+     */
+    protected loadMiddlewares(type: MiddlewareType){
+        this.controllerMetadata.middlewares
+            .filter((middlewareMeta) => middlewareMeta.type === type)
+            .sort((m1, m2) => m1.index - m2.index)
+            .forEach((middlewareMeta) => {
+                this.router.use(middlewareMeta.middleware())
+            });
     }
 
     /**
@@ -100,6 +119,9 @@ export class RouterBuilder{
             case ParamType.BODY:
                 // extracts it from the context request
                 arg = ctx.request.body;
+                break;
+            case ParamType.QUERY_PARAM:
+                arg = ctx.query[paramMeta.name];
                 break;
             default: throw Error('Unknown parameter type');
         }

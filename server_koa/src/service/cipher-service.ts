@@ -2,7 +2,7 @@ import * as bcrypt from 'bcryptjs';
 import * as jwt from 'jsonwebtoken';
 import {IUser} from '../model/interface/user';
 import * as jwtConfig from "../../config/passport";
-import {Injectable} from '../core/decorator/injectable-decorator';
+import {Injectable} from '../core/decorator/injectable';
 
 @Injectable
 export class CipherService {

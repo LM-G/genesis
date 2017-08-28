@@ -1,4 +1,5 @@
-import {ActionMetadata} from './action-metadata';
+import {ActionMetadata} from './action';
+import { MiddlewareMetadata } from './middleware';
 
 /**
  * Controller params
@@ -14,6 +15,10 @@ export class ControllerMetadata {
      */
     actions: ActionMetadata[];
     /**
+     * Middlewares
+     */
+    middlewares: MiddlewareMetadata[];
+    /**
      * Controller target prototype.
      */
     target: any;
@@ -25,5 +30,7 @@ export class ControllerMetadata {
     constructor(args: ControllerMetadataArgs) {
         this.target = args.target;
         this.route = args.route;
+        this.actions = [];
+        this.middlewares = [];
     }
 }

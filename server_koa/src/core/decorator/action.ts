@@ -1,6 +1,6 @@
 import { ActionType } from '../metadata/type/action-type';
 import { registerActionMetadata } from '../';
-import { ActionMetadata } from '../metadata/action-metadata';
+import { ActionMetadata } from '../metadata/action';
 
 /**
  * POST route annotation factory

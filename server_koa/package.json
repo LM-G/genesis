@@ -17,6 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "class-validator": "^0.7.2",
     "es6-promisify": "^5.0.0",
     "jsonwebtoken": "^7.4.1",
     "koa": "^2.3.0",
@@ -27,12 +28,14 @@
     "koa-route": "^3.2.0",
     "koa-router": "^7.2.1",
     "lodash": "^4.17.4",
+    "moment": "^2.18.1",
     "mongoose": "^4.11.3",
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
     "passport-local": "^1.0.0",
     "reflect-metadata": "^0.1.10",
-    "require-all": "^2.2.0"
+    "require-all": "^2.2.0",
+    "winston": "^2.3.1"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.0",
@@ -43,17 +46,19 @@
     "@types/koa-passport": "^2.0.4",
     "@types/koa-router": "^7.0.22",
     "@types/lodash": "^4.14.69",
-    "@types/mongoose": "^4.7.18",
+    "@types/moment": "^2.13.0",
+    "@types/mongoose": "^4.7.19",
     "@types/node": "^8.0.13",
     "@types/passport": "^0.3.3",
     "@types/passport-jwt": "^2.0.21",
     "@types/reflect-metadata": "0.0.5",
+    "@types/winston": "^2.3.4",
     "es6-promise": "^4.1.1",
     "is-finite": "^1.0.2",
     "nodemon": "^1.11.0",
     "rimraf": "^2.6.1",
     "ts-node": "^3.2.0",
-    "typescript": "^2.4.1",
+    "typescript": "^2.4.2",
     "wrappy": "^1.0.2"
   }
 }

@@ -1,11 +1,12 @@
 import {CreateUserForm} from '../form/create-user';
-import {Injectable} from '../core/decorator/injectable-decorator';
+import {Injectable} from '../core/decorator/injectable';
 
 /**
  * @class UserService
  */
 @Injectable
 export class UserService {
+    private userRepository: UserRepository;
 
     getUser(username: string) {
         return username === 'toto' ? {
@@ -15,10 +16,10 @@ export class UserService {
         } : null;
     }
 
-    createUser = (body: CreateUserForm) => {
-        const email = body.email;
-        const pwd = body.password;
-        const name = body.username;
+    createUser = (form: CreateUserForm) => {
+        const email = form.email;
+        const pwd = form.password;
+        const name = form.username;
         console.log(`Email : ${email} - Password: ${pwd} - Password: ${name}`)
     };
 }

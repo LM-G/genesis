@@ -1,4 +1,4 @@
-import {ActionMetadata} from './action-metadata';
+import {ActionMetadata} from './action';
 import {ParamType} from './type/param-type';
 
 export interface ParamMetadataArgs {

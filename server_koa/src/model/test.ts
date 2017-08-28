@@ -1,11 +1,10 @@
+import { Document } from '../core/decorator/document';
 import { Field } from '../core/decorator/field';
-import { Document } from "../core/decorator/document";
-
 
 @Document({
-    name: 'User'
+    name: 'Test'
 })
-export class User {
+export class Test {
     @Field({
         unique: true,
         required: true
@@ -34,8 +33,4 @@ export class User {
         default: true
     })
     active: boolean;
-
-    get id(): string{
-        return 'todo';
-    }
 }

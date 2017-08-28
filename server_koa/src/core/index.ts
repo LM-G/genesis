@@ -1,15 +1,22 @@
 import * as Koa from 'koa';
-import { ControllerMetadata } from './metadata/controller-metadata';
-import { ActionMetadata } from './metadata/action-metadata';
-import { ParamMetadata } from './metadata/param-metadata';
+import { isEmpty } from 'lodash';
+import { ControllerMetadata } from './metadata/controller';
+import { ActionMetadata } from './metadata/action';
+import { ParamMetadata } from './metadata/param';
 import { GenesisCore, GenesisCoreOptions } from './genesis-core';
 import { Injector } from './injector/injector-container';
 import { MetadataStore } from './metadata/metadata-store';
-export { Body, Param } from './decorator/param-decorator';
-export { Get, Post } from './decorator/action-decorator';
-export {Controller} from './decorator/controller-decorator';
-export {Inject } from './decorator/inject-decorator';
-export {Injectable } from './decorator/injectable-decorator';
+import { MiddlewareMetadata } from './metadata/middleware';
+import { DocumentMetadata } from './metadata/document';
+import { FieldMetadata } from './metadata/field';
+
+export { Body, Param } from './decorator/param';
+export { Get, Post } from './decorator/action';
+export { Before, After, Middleware } from './decorator/middleware';
+export {Controller} from './decorator/controller';
+export {Inject } from './decorator/inject';
+export {Injectable } from './decorator/injectable';
+export {DataNotFoundError, FunctionalError, UnauthorizedError} from './error';
 
 /** metadata store name */
 const STORE_TOKEN = MetadataStore.name;
@@ -23,7 +30,19 @@ let core : GenesisCore;
  */
 export function createApp(opts : GenesisCoreOptions): Koa{
     core = new GenesisCore(opts);
-    core.initialize().createRouters();
+    try {
+        core
+            .initDocuments().registerDocuments()
+            .initMiddlewares().registerMiddlewares()
+            .initRouters().registerRouters()
+            .registerRouters()
+            .clean();
+    } catch (err){
+        console.error('Failed to start application', err);
+        process.exit(1);
+    }
+
+
     return core.app;
 }
 
@@ -44,6 +63,13 @@ export function registerControllerMetadata(meta: ControllerMetadata){
     actions.forEach((action: ActionMetadata) => {
         action.controller = meta;
     });
+    // handles possible missing middlewares
+    if(isEmpty(meta.middlewares)){
+        let middlewares = store.middlewares.filter((middleware: MiddlewareMetadata) => {
+            return middleware.target === meta.target;
+        });
+        meta.middlewares.push(middlewares);
+    }
 }
 
 /**
@@ -73,4 +99,45 @@ export function registerParamMetadata(meta: ParamMetadata){
     let store = Injector.resolve(STORE_TOKEN);
     // insert meta in store
     store.params.push(meta);
+}
+
+/**
+ * Registers a middleware metadata
+ * @param {MiddlewareMetadata} meta middleware metadata
+ */
+export function registerMiddleMetadata(meta: MiddlewareMetadata){
+    let store = Injector.resolve(STORE_TOKEN);
+    // insert meta in store
+    store.middlewares.push(meta);
+    // retrieve corresponding controller
+    let controller = store.controllers.find((controllerMeta: ControllerMetadata) => {
+        return controllerMeta.target === meta.target;
+    });
+    if(controller){
+        controller.middlewares.push(meta);
+    }
+}
+
+/**
+ * Registers a document metadata
+ * @param {DocumentMetadata} meta document metadata
+ */
+export function registerDocumentMetadata(meta: DocumentMetadata){
+    let store = Injector.resolve(STORE_TOKEN);
+    // insert meta in store
+    store.documents.push(meta);
+    // retrieve fields
+    meta.fields = store.fields.filter((fieldMeta: FieldMetadata) => {
+        return fieldMeta.target === meta.target;
+    });
+}
+
+/**
+ * Registers a document field metadata
+ * @param {FieldMetadata} meta field metadata
+ */
+export function registerFieldMetadata(meta: FieldMetadata){
+    let store = Injector.resolve(STORE_TOKEN);
+    // insert meta in store
+    store.fields.push(meta);
 }

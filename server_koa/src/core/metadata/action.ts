@@ -1,5 +1,5 @@
-import {ControllerMetadata} from './controller-metadata';
-import {ParamMetadata} from './param-metadata';
+import {ControllerMetadata} from './controller';
+import {ParamMetadata} from './param';
 import {ActionType} from './type/action-type';
 
 /**

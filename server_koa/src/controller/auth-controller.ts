@@ -1,10 +1,9 @@
-import { Controller, Post, Body, Inject } from '../core';
+import { Controller, Post, Body, Inject, DataNotFoundError, UnauthorizedError } from '../core';
 import { UserService } from '../service/user-service';
 import { CipherService } from '../service/cipher-service';
 import { CreateUserForm } from '../form/create-user';
 import { IUser } from '../model/interface/user';
-import { DataNotFoundException } from '../core/exception/data-not-found.exception';
-import { UnauthorizedException } from '../core/exception/unauthorized.exception';
+import { LoginForm } from '../form/login';
 
 /**
  * @class AuthController.
@@ -20,24 +19,24 @@ export class AuthController {
 
 
     @Post('/sign-up')
-    async signUp (@Body() body :CreateUserForm) {
-        await this.userService.createUser(body);
+    async signUp (@Body() form :CreateUserForm) {
+        await this.userService.createUser(form);
     }
 
 
     @Post('/sign-in')
-    async signIn (@Body() body: any) {
+    async signIn (@Body() form: LoginForm) {
         // Gets user
         const user: IUser = await this.userService.getUser(body.username);
         if(user == null) {
-            throw new DataNotFoundException("User not found");
+            throw new DataNotFoundError("User not found");
         }
         // Password validation
         const isGoodPassword = await this.cipherService.comparePassword(body.password, user);
         if(isGoodPassword){
            return "User connected";
         } else {
-            throw new UnauthorizedException('Wrong password');
+            throw new UnauthorizedError('Wrong password');
         }
     }
 }

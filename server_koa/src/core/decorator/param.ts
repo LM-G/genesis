@@ -1,5 +1,5 @@
 import { ParamType } from "../metadata/type/param-type";
-import { ParamMetadata } from '../metadata/param-metadata';
+import { ParamMetadata } from '../metadata/param';
 import { registerParamMetadata } from '../index';
 
 export const Param = (name: string) => {
