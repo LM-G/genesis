@@ -1,7 +1,8 @@
-import { Context } from 'koa';
-import { FunctionalError, Middleware } from '../core';
-import { LOGGER } from '../../config/logger';
-import { GenesisMiddleware } from './interface/middleware';
+import {Context} from 'koa';
+import {FunctionalError, Middleware} from '../core';
+import {LOGGER} from '../../config/logger';
+import {GenesisMiddleware} from './interface/middleware';
+
 const chalk = require('chalk');
 
 /**
@@ -21,9 +22,7 @@ export class ErrorHandler implements GenesisMiddleware{
                 ctx.status = 500;
                 ctx.body = 'Oops something somewhere went terribly wrong';
             }
-
-            // TODO logs handling -> console.error/warn use STDERR which is not synchronized with STDOUT ..
-            LOGGER.info(chalk.red('[ERROR]') + err.message, err);
+            LOGGER.error(err.message, err);
         }
     }
 }

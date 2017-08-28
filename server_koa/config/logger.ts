@@ -6,6 +6,8 @@ export const LOGGER = new (winston.Logger)({
     level: 'info',
     transports: [
         new (winston.transports.Console)({
+            colorize: 'true',
+            prettyPrint: true,
             timestamp: () => moment().format('YYYY-MM-DD HH:mm:ss'),
             formatter: (opts) => {
                 let msg = `${opts.timestamp()} ${opts.level.toUpperCase()}`;

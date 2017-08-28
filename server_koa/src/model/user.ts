@@ -1,16 +1,17 @@
 import { Field } from '../core/decorator/field';
 import { Document } from "../core/decorator/document";
-
+import {IUser} from './interface/user';
 
 @Document({
     name: 'User'
 })
-export class User {
+export class User implements IUser{
+
     @Field({
         unique: true,
         required: true
     })
-    name: String;
+    name: string;
 
     @Field({
         lowercase: true,

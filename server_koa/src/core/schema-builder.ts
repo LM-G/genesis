@@ -1,10 +1,8 @@
-import { DocumentMetadata } from './metadata/document';
-import { FieldMetadata } from './metadata/field';
-import { Schema } from 'mongoose';
-import { isObject } from 'lodash';
-import * as util from 'util';
-import { isEmpty } from 'lodash';
-import { LOGGER } from '../../config/logger';
+import {DocumentMetadata} from './metadata/document';
+import {FieldMetadata} from './metadata/field';
+import {Schema} from 'mongoose';
+import {isEmpty, isObject} from 'lodash';
+import {LOGGER} from '../../config/logger';
 
 /**
  * Build a mongoose schema from a document metadata
@@ -31,8 +29,7 @@ export class SchemaBuilder{
                     definition[field.property] = this.getSchemaType(field);
                 }
             });
-        LOGGER.info(`Schema options generated for document ${this.documentMetadata.name} :
-        ${util.inspect(definition)}` );
+        LOGGER.info(`Schema options generated for document ${this.documentMetadata.name} :`, definition);
         if(!isEmpty(this.documentMetadata.options)){
             this.schema.options = this.documentMetadata.options;
         }

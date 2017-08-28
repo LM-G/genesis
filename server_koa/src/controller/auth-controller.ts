@@ -4,6 +4,8 @@ import { CipherService } from '../service/cipher-service';
 import { CreateUserForm } from '../form/create-user';
 import { IUser } from '../model/interface/user';
 import { LoginForm } from '../form/login';
+import {User} from '../model/user';
+import {Validate, validateSync} from 'class-validator';
 
 /**
  * @class AuthController.
@@ -19,20 +21,28 @@ export class AuthController {
 
 
     @Post('/sign-up')
-    async signUp (@Body() form :CreateUserForm) {
-        await this.userService.createUser(form);
+    async signUp (@Body() form : CreateUserForm) {
+        let user = new User();
+        form = new CreateUserForm();
+        let test = validateSync(form);
+        Object.assign(user, form);
+        // hash password
+        await this.cipherService.hashPassword(user);
+
+        // save user
+        await this.userService.createUser(user);
     }
 
 
     @Post('/sign-in')
     async signIn (@Body() form: LoginForm) {
         // Gets user
-        const user: IUser = await this.userService.getUser(body.username);
+        const user: IUser = await this.userService.getUser(form.username);
         if(user == null) {
             throw new DataNotFoundError("User not found");
         }
         // Password validation
-        const isGoodPassword = await this.cipherService.comparePassword(body.password, user);
+        const isGoodPassword = await this.cipherService.comparePassword(form.password, user);
         if(isGoodPassword){
            return "User connected";
         } else {

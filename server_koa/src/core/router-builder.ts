@@ -1,12 +1,12 @@
 import * as Router from 'koa-router';
-import { Context } from 'koa';
-import { ControllerMetadata } from './metadata/controller';
-import { ActionMetadata } from './metadata/action';
-import { ActionType } from './metadata/type/action-type';
-import { ParamMetadata } from './metadata/param';
-import { ParamType } from './metadata/type/param-type';
-import { MiddlewareMetadata } from './metadata/middleware';
-import { MiddlewareType } from './metadata/type/middleware-type';
+import {Context} from 'koa';
+import {ControllerMetadata} from './metadata/controller';
+import {ActionMetadata} from './metadata/action';
+import {ActionType} from './metadata/type/action-type';
+import {ParamMetadata} from './metadata/param';
+import {ActionParamType} from './metadata/type/param-type';
+import {MiddlewareType} from './metadata/type/middleware-type';
+import {validateSync} from 'class-validator';
 
 /**
  * Build a router from a controller metadata
@@ -111,27 +111,38 @@ export class RouterBuilder{
         let arg : any;
         switch(paramMeta.type){
             // if the param is a path param
-            case ParamType.PATH_PARAM:
+            case ActionParamType.PATH_PARAM:
                 // extracts it from the context params
                 arg = ctx.params[paramMeta.name];
                 break;
             // if the param is a body
-            case ParamType.BODY:
+            case ActionParamType.BODY:
                 // extracts it from the context request
                 arg = ctx.request.body;
+                // body validation
+                this.validate(arg, paramMeta.paramType);
                 break;
-            case ParamType.QUERY_PARAM:
+            case ActionParamType.QUERY_PARAM:
                 arg = ctx.query[paramMeta.name];
                 break;
             default: throw Error('Unknown parameter type');
         }
         // if the parameter is required and missing
         if(paramMeta.required && arg == null){
-            // TODO validation error handling
+            // TODO better error
             throw new Error(`Missing parameter : ${paramMeta.name}`);
         }
 
         return arg;
+    }
+
+    /**
+     * Validation de l'objet body d'une action
+     * @param value object à valider
+     * @param type classe de l'objet
+     */
+    protected validate(value: any, type: any){
+
     }
 }
 

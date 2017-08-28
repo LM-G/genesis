@@ -1,7 +1,7 @@
 /**
  * Action parameter's type
  */
-export enum ParamType {
+export enum ActionParamType {
     PATH_PARAM,
     BODY,
     QUERY_PARAM,

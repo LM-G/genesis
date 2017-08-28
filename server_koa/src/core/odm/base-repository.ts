@@ -26,39 +26,39 @@ export abstract class BaseRepository<T> /*implements IReadRepository<T>, IWriteR
         return this.model.create(item);
     }
 
-    save (item: T, cb?: Callback<T>){
-
+    save (item: T){
+        return this.model.create(item);
     }
 
-    upsert (cond: any, item: T, cb?: Callback<T>) {
+    upsert (cond: any, item: T) {
 
     };
 
-    delete (_id: string, cb?: Callback<T>) {
+    delete (_id: string) {
 
     }
 
-    deleteAll (cb?: Callback<T>) {
+    deleteAll () {
 
     }
 
-    deleteAllItems (items: T[], cb?: Callback<T>) {
+    deleteAllItems (items: T[]) {
 
     }
 
-    retrieve (cb?: Callback<T>) {
+    retrieve () {
 
     }
 
-    findById (id: string, cb?: Callback<T>) {
+    findById (id: string) {
 
     }
 
-    findOne (cond: any, fields: any, options: any, cb?: Callback<T>) {
+    findOne (cond: any, fields: any, options: any) {
 
     }
 
-    find (cond: any, fields: any, options: any, sortOptions?: any, cb?: Callback<T>) {
+    find (cond: any, fields: any, options: any, sortOptions?: any) {
 
     }
 

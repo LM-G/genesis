@@ -1,11 +1,17 @@
 import {CreateUserForm} from '../form/create-user';
 import {Injectable} from '../core/decorator/injectable';
+import {UserRepository} from '../repository/user';
+import {LOGGER} from '../../config/logger';
+import {User} from '../model/user';
+import {IUser} from '../model/interface/user';
+import {Inject} from '../core/decorator/inject';
 
 /**
  * @class UserService
  */
 @Injectable
 export class UserService {
+    @Inject
     private userRepository: UserRepository;
 
     getUser(username: string) {
@@ -16,10 +22,16 @@ export class UserService {
         } : null;
     }
 
-    createUser = (form: CreateUserForm) => {
-        const email = form.email;
-        const pwd = form.password;
-        const name = form.username;
-        console.log(`Email : ${email} - Password: ${pwd} - Password: ${name}`)
+    createUser = async (user: User) => {
+        let userCreated: User = null;
+
+        try {
+            userCreated = await this.userRepository.save(user);
+        } catch(err){
+            LOGGER.warn('erreur save ', err);
+            throw err;
+        }
+
+        console.log(`Id: ${user.id}`)
     };
 }
