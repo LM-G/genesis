@@ -1,11 +1,10 @@
-import { Controller, Post, Body, Inject, DataNotFoundError, UnauthorizedError } from '../core';
-import { UserService } from '../service/user-service';
-import { CipherService } from '../service/cipher-service';
-import { CreateUserForm } from '../form/create-user';
-import { IUser } from '../model/interface/user';
-import { LoginForm } from '../form/login';
+import {Body, Controller, DataNotFoundError, Inject, Post, UnauthorizedError} from '../core';
+import {UserService} from '../service/user-service';
+import {CipherService} from '../service/cipher-service';
+import {LoginForm} from '../form/login';
+import {CreateUserForm} from '../form/create-user';
 import {User} from '../model/user';
-import {Validate, validateSync} from 'class-validator';
+import {HttpStatus} from '../core/decorator/http-status';
 
 /**
  * @class AuthController.
@@ -19,7 +18,7 @@ export class AuthController {
     @Inject
     private cipherService : CipherService;
 
-
+    @HttpStatus(201)
     @Post('/sign-up')
     async signUp (@Body() form : CreateUserForm) {
         let user = new User();
@@ -35,7 +34,7 @@ export class AuthController {
     @Post('/sign-in')
     async signIn (@Body() form: LoginForm) {
         // Gets user
-        const user: IUser = await this.userService.getUser(form.username);
+        const user = await this.userService.getUser(form.username);
         if(user == null) {
             throw new DataNotFoundError("User not found");
         }

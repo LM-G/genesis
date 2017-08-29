@@ -1,12 +1,13 @@
-import { Contains, IsEmail, Length } from 'class-validator';
+import {ICreateUserForm} from 'genesis-common';
+import {IsEmail, Length} from 'class-validator';
 
-export class CreateUserForm {
+export class CreateUserForm implements  ICreateUserForm{
     @Length(6, 32)
-    name : string;
+    public name : string;
 
     @Length(8, 64)
-    password: string;
+    public password: string;
 
     @IsEmail()
-    email: string
+    public email: string
 }

@@ -15,14 +15,6 @@ function registerParam(name: string, type: ActionParamType) {
     return function (target: Object, methodName: string, index: number) {
         // gets the parameter action type
         let paramType = (Reflect as any).getMetadata("design:paramtypes", target, methodName)[index];
-        /*
-        if (paramType) {
-            if (paramType instanceof Function && paramType.name) {
-                paramType = paramType.name.toLowerCase();
-            } else if (typeof this.targetType === "string") {
-                paramType = paramType.toLowerCase();
-            }
-        }*/
 
         const meta = new ParamMetadata({
             target: target,

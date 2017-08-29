@@ -1,14 +1,15 @@
 import * as Koa from 'koa';
-import { isEmpty } from 'lodash';
-import { ControllerMetadata } from './metadata/controller';
-import { ActionMetadata } from './metadata/action';
-import { ParamMetadata } from './metadata/param';
-import { GenesisCore, GenesisCoreOptions } from './genesis-core';
-import { Injector } from './injector/injector-container';
-import { MetadataStore } from './metadata/metadata-store';
-import { MiddlewareMetadata } from './metadata/middleware';
-import { DocumentMetadata } from './metadata/document';
-import { FieldMetadata } from './metadata/field';
+import {isEmpty} from 'lodash';
+import {ControllerMetadata} from './metadata/controller';
+import {ActionMetadata} from './metadata/action';
+import {ParamMetadata} from './metadata/param';
+import {GenesisCore, GenesisCoreOptions} from './genesis-core';
+import {Injector} from './injector/injector-container';
+import {MetadataStore} from './metadata/metadata-store';
+import {MiddlewareMetadata} from './metadata/middleware';
+import {DocumentMetadata} from './metadata/document';
+import {FieldMetadata} from './metadata/field';
+import {ResponseMetadata} from './metadata/response';
 
 export { Body, Param } from './decorator/param';
 export { Get, Post } from './decorator/action';
@@ -137,6 +138,16 @@ export function registerDocumentMetadata(meta: DocumentMetadata){
  * @param {FieldMetadata} meta field metadata
  */
 export function registerFieldMetadata(meta: FieldMetadata){
+    let store = Injector.resolve(STORE_TOKEN);
+    // insert meta in store
+    store.fields.push(meta);
+}
+
+/**
+ * Registers an action response handler metadata
+ * @param {ResponseMetadata} meta field metadata
+ */
+export function registerResponseMetadata(meta: ResponseMetadata){
     let store = Injector.resolve(STORE_TOKEN);
     // insert meta in store
     store.fields.push(meta);

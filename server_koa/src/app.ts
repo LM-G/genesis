@@ -3,7 +3,7 @@ import { createApp } from './core';
 import { connectDatabase } from '../config/mongoose';
 import { config } from '../config/environment';
 import { LOGGER } from '../config/logger';
-const chalk = require('chalk');
+import {useContainer} from 'class-validator';
 
 const CONTROLLER_DIR = __dirname + '/controller';
 const MIDDLEWARE_DIR = __dirname + '/middleware';
@@ -18,7 +18,7 @@ connectDatabase(config.db.uri).then(() => {
         models: MODEL_DIR
     });
 
-    app.listen(PORT, () => LOGGER.info(`${chalk.gray('Listening on')} ${PORT}`));
+    app.listen(PORT, () => LOGGER.info(`Listening on' ${PORT}`));
 });
 
 

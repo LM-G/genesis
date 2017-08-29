@@ -1,6 +1,6 @@
 import { Field } from '../core/decorator/field';
 import { Document } from "../core/decorator/document";
-import {IUser} from './interface/user';
+import {IUser} from 'genesis-common';
 
 @Document({
     name: 'User'

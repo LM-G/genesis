@@ -4,8 +4,9 @@
   "description": "test koa2",
   "main": "index.js",
   "scripts": {
-    "clean": "rimraf dev dist build",
-    "start": "npm run clean && tsc && nodemon --inspect --watch dev dev/server",
+    "clean": "rimraf dev dist build node_modules/genesis-common",
+    "clean-install": "npm run clean && npm install",
+    "start": "npm run clean-install && tsc && nodemon --inspect --watch dev dev/server",
     "dev": "tsc",
     "start:watch": "tsc && nodemon --inspect-brk=57642 src/server.js"
   },
@@ -18,8 +19,6 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "class-transformer": "^0.1.7",
-    "class-validator": "^0.7.2",
-    "es6-promisify": "^5.0.0",
     "jsonwebtoken": "^7.4.3",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
@@ -34,9 +33,9 @@
     "passport": "^0.3.2",
     "passport-jwt": "^2.2.1",
     "passport-local": "^1.0.0",
-    "reflect-metadata": "^0.1.10",
-    "require-all": "^2.2.0",
-    "winston": "^2.3.1"
+    "winston": "^2.3.1",
+    "class-validator": "^0.7.2",
+    "genesis-common": "file:../common"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.1",
@@ -54,11 +53,14 @@
     "@types/reflect-metadata": "0.0.5",
     "@types/winston": "^2.3.4",
     "es6-promise": "^4.1.1",
+    "es6-promisify": "^5.0.0",
     "is-finite": "^1.0.2",
     "nodemon": "^1.11.0",
     "rimraf": "^2.6.1",
     "ts-node": "^3.3.0",
     "typescript": "^2.4.2",
-    "wrappy": "^1.0.2"
+    "wrappy": "^1.0.2",
+    "reflect-metadata": "^0.1.10",
+    "require-all": "^2.2.0"
   }
 }

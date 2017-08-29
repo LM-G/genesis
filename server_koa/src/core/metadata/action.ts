@@ -1,6 +1,7 @@
 import {ControllerMetadata} from './controller';
 import {ParamMetadata} from './param';
 import {ActionType} from './type/action-type';
+import {ResponseMetadata} from './response';
 
 /**
  * Controller Action params
@@ -25,6 +26,10 @@ export class ActionMetadata {
      */
     params: ParamMetadata[];
     /**
+     * Reponse handlers
+     */
+    responseHandlers: ResponseMetadata[];
+    /**
      * Action's class
      */
     target: Function;
@@ -37,6 +42,9 @@ export class ActionMetadata {
      */
     route: string;
 
+    /**
+     * method's name
+     */
     method: string;
 
     /**
@@ -45,6 +53,8 @@ export class ActionMetadata {
     roles: string[];
 
     constructor(opts: ActionMetadataArgs){
+        this.params = [];
+        this.responseHandlers = [];
         this.target = opts.target;
         this.route = opts.route;
         this.type = opts.type;

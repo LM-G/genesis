@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Inject, Param, Post } from '../core';
 import { TestService } from '../service/test-service';
-import { CreateUserForm } from '../form/create-user';
+import {CreateUserForm} from '../form/create-user';
 
 
 @Controller('/test')
@@ -20,8 +20,5 @@ export class TestController {
 
     @Post('/c')
     async testC(@Body() user: CreateUserForm) {
-        let test = await this.testService.createTest(user);
-
-        return `TestController : C -> ${JSON.stringify(test)}`;
     }
 }

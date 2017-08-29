@@ -63,21 +63,14 @@ bower_components/
 /tsd_typings/
 
 # Dist
-/dist/
-/public/__build__/
-/src/*/__build__/
-/__build__/**
-/public/dist/
-/src/*/dist/
-/dist/**
+*/dist/
+*/dev/
+*/build/
 .webpack.json
 
 #NPM
-package-lock.json
+*/package-lock.json
 
 # Generated
 *.js.map
-/client/doc/
-/server/public/
 /client/src/app/**/*.js
-/server_koa/**/*.js

@@ -1,4 +1,6 @@
-export interface LoginForm {
-    username: string,
-    password: string
+import {ILoginForm} from 'genesis-common';
+
+export class LoginForm implements ILoginForm{
+    username: string;
+    password: string;
 }

@@ -1,10 +1,11 @@
-import { ControllerMetadata } from './controller';
-import { ActionMetadata } from './action';
-import { ParamMetadata } from './param';
-import { Injectable } from '../decorator/injectable';
-import { MiddlewareMetadata } from './middleware';
-import { FieldMetadata } from './field';
-import { DocumentMetadata } from './document';
+import {ControllerMetadata} from './controller';
+import {ActionMetadata} from './action';
+import {ParamMetadata} from './param';
+import {Injectable} from '../decorator/injectable';
+import {MiddlewareMetadata} from './middleware';
+import {FieldMetadata} from './field';
+import {DocumentMetadata} from './document';
+import {ResponseMetadata} from './response';
 
 /**
  * Singleton storing all application metadata
@@ -35,6 +36,10 @@ export class MetadataStore{
      * Action's parameters metadata
      */
     params: ParamMetadata[];
+    /**
+     * Response metadata handlers
+     */
+    responseHandlers: ResponseMetadata[];
 
     constructor(){
         this.reset();
@@ -47,5 +52,6 @@ export class MetadataStore{
         this.controllers = [];
         this.actions = [];
         this.params = [];
+        this.responseHandlers = [];
     }
 }
