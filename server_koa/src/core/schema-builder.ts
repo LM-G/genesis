@@ -1,6 +1,6 @@
 import {DocumentMetadata} from './metadata/document';
 import {FieldMetadata} from './metadata/field';
-import {Schema} from 'mongoose';
+import {Schema, SchemaDefinition, SchemaOptions} from 'mongoose';
 import {isEmpty, isObject} from 'lodash';
 import {LOGGER} from '../../config/logger';
 
@@ -8,7 +8,10 @@ import {LOGGER} from '../../config/logger';
  * Build a mongoose schema from a document metadata
  */
 export class SchemaBuilder{
-    schema: any;
+    schema: {
+        definition: SchemaDefinition,
+        options: SchemaOptions
+    };
     documentMetadata: DocumentMetadata;
     constructor(meta: DocumentMetadata){
         this.schema = {
@@ -24,9 +27,9 @@ export class SchemaBuilder{
             .forEach((field: FieldMetadata) => {
                 if(isObject(field.options)){
                     definition[field.property] = field.options;
-                    definition[field.property]['type'] = this.getSchemaType(field);
+                    definition[field.property]['type'] = SchemaBuilder.getSchemaType(field);
                 } else {
-                    definition[field.property] = this.getSchemaType(field);
+                    definition[field.property] = SchemaBuilder.getSchemaType(field);
                 }
             });
         LOGGER.info(`Schema options generated for document ${this.documentMetadata.name} :`, definition);
@@ -36,7 +39,7 @@ export class SchemaBuilder{
         return this.schema;
     }
 
-    private getSchemaType(field: FieldMetadata){
+    private static getSchemaType(field: FieldMetadata){
         //TODO embedded + objectid + documentarray -> use @Id, @Embeded, @DocumentArray
         const type = Reflect.getMetadata('design:type', field.target.prototype, field.property);
         switch (type){
@@ -46,7 +49,8 @@ export class SchemaBuilder{
             case Number: return Schema.Types.Number;
             case Date: return Schema.Types.Date;
             default:
-                throw new TypeError(`Unknow schema type for property "${field.property}" on document "${field.target.name}"`);
+                const err = `Unknow schema type for property "${field.property}" on document "${field.target.name}"`;
+                throw new TypeError(err);
         }
     }
 }

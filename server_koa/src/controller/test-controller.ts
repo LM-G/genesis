@@ -3,22 +3,22 @@ import { TestService } from '../service/test-service';
 import {CreateUserForm} from '../form/create-user';
 
 
-@Controller('/test')
+//@Controller('/test')
 export class TestController {
     @Inject
     private testService : TestService;
 
-    @Get('/a/:id')
+    //@Get('/a/:id')
     async getA(@Param("id") id: string) {
         return `TestController : A ->  ${JSON.stringify(id)}`;
     };
 
-    @Post('/b/:id')
+    //@Post('/b/:id')
     async getB(@Param("id") id: string, @Body() body: any) {
         return `TestController : B -> ${id} - ${JSON.stringify(body)}`;
     }
 
-    @Post('/c')
+    //@Post('/c')
     async testC(@Body() user: CreateUserForm) {
     }
 }

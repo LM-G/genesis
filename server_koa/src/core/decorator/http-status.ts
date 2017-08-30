@@ -4,6 +4,7 @@
 import {registerResponseMetadata} from '../index';
 import {ResponseMetadata} from '../metadata/response';
 import {ResponseType} from '../metadata/type/response-type';
+import {Context} from 'koa';
 
 export function HttpStatus(code: number){
     return (target: Object, method: string) => {
@@ -11,8 +12,13 @@ export function HttpStatus(code: number){
             target: target.constructor,
             methodName: method,
             type: ResponseType.SUCCESS,
-            code: code
+            behavior: behavior
         });
+
         registerResponseMetadata(meta);
+    };
+
+    function behavior(ctx: Context){
+        ctx.status = code;
     }
 }

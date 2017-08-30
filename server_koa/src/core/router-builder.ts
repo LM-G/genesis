@@ -11,6 +11,7 @@ import { plainToClass } from 'class-transformer';
 import { isEmpty, omit } from 'lodash';
 import { ValidationError } from './error';
 import {CreateUserForm} from "../form/create-user";
+import {ResponseMetadata} from './metadata/response';
 
 /**
  * Build a router from a controller metadata
@@ -88,9 +89,9 @@ export class RouterBuilder{
                     return this.loadParam(ctx, paramMeta);
                 });
 
-            let responseHandlers = meta.responseHandlers;
             // calls the controller method with parameters loaded from original koa context
             let result = await meta.target.prototype[meta.method].call(this.controller, ...args);
+
             // if a result is present
             if(result){
                 // returns it on the context body
@@ -99,6 +100,11 @@ export class RouterBuilder{
                 // else defines status 204 for all no content responses
                 ctx.status = 204;
             }
+
+            // applies all response handlers
+            meta.responseHandlers.forEach((responseHandler: ResponseMetadata) => {
+                responseHandler.behavior(ctx);
+            });
         };
 
         // add action on the router
@@ -143,13 +149,12 @@ export class RouterBuilder{
     }
 
     /**
-     * Validation de l'objet body d'une action
-     * @param value object à valider
-     * @param type classe de l'objet
+     * Validate a dto
+     * @param value object to validate
+     * @param type object's type
      */
     protected validate(value: any, type: any){
-        let test = new CreateUserForm();//plainToClass(type, value);
-        let validationErrors = validateSync(test);
+        let validationErrors = validateSync(plainToClass(type, value));
         if(!isEmpty(validationErrors)){
             let details = {
                 target: validationErrors[0].target,

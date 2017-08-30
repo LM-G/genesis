@@ -2,6 +2,7 @@ import { Injectable } from '../core/decorator/injectable';
 import { UserRepository } from '../repository/user';
 import { User } from '../model/user';
 import { Inject } from '../core/decorator/inject';
+import { pick } from 'lodash';
 
 /**
  * @class UserService
@@ -19,9 +20,12 @@ export class UserService {
         } : null;
     }
 
-    createUser = async (user: User) => {
-        let userCreated = await this.userRepository.save(user);
+    async createUser(user: User) {
+        let userCreated = await this.userRepository.create(user);
+        let toto = Object.assign(user, userCreated._doc);
 
-        console.log(`Id: ${user.id}`)
+        console.log(`Id: ${userCreated.id}`);
+
+        return toto;
     };
 }

@@ -3,7 +3,19 @@ import { Document } from "../core/decorator/document";
 import {IUser} from 'genesis-common';
 
 @Document({
-    name: 'User'
+    name: 'User',
+    options : {
+        timestamps: {
+            createdAt: 'created_at',
+            updatedAt: 'updated_at'
+        },
+        toObject: {
+            virtuals: true
+        },
+        toJSON: {
+            virtuals: true
+        }
+    }
 })
 export class User implements IUser{
 

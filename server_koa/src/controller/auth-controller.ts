@@ -27,7 +27,7 @@ export class AuthController {
         await this.cipherService.hashPassword(user);
 
         // save user
-        await this.userService.createUser(user);
+        return await this.userService.createUser(user);
     }
 
 

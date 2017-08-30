@@ -63,6 +63,10 @@ export function registerControllerMetadata(meta: ControllerMetadata){
     // Each action will be pointing to its parent controller
     actions.forEach((action: ActionMetadata) => {
         action.controller = meta;
+        // retrieves all current response handlers meta and links them to the current action
+        action.responseHandlers = store.responseHandlers.filter((responseHandler: ResponseMetadata) => {
+            return responseHandler.methodName === action.method;
+        });
     });
     // handles possible missing middlewares
     if(isEmpty(meta.middlewares)){
@@ -86,7 +90,7 @@ export function registerActionMetadata(meta: ActionMetadata){
         return param.methodName === meta.method;
     });
     meta.params = params;
-    // Each param will be poitong to its parent action
+    // Each param will be pointing to its parent action
     params.forEach((param: ParamMetadata) => {
         param.action = meta;
     });
@@ -150,5 +154,5 @@ export function registerFieldMetadata(meta: FieldMetadata){
 export function registerResponseMetadata(meta: ResponseMetadata){
     let store = Injector.resolve(STORE_TOKEN);
     // insert meta in store
-    store.fields.push(meta);
+    store.responseHandlers.push(meta);
 }
