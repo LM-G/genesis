@@ -2,6 +2,7 @@ import * as mongoose from 'mongoose';
 import {Inject} from '../decorator/inject';
 import {SchemasStore} from './schemas-store';
 import {errorHandler} from './mongo-error-handler';
+import {assign} from 'lodash';
 
 /*
 import { IWriteRepository } from './interface/write';
@@ -16,13 +17,15 @@ export abstract class BaseRepository<T> /*implements IReadRepository<T>, IWriteR
     protected model: mongoose.Model<any>;
 
     constructor(definition: { new() : T}){
-        let schema = this.schemaStore.find<T>(definition);
-        schema.schema.plugin(errorHandler);
-        this.model = mongoose.model(schema.name, schema.schema);
+        let schemaContainer = this.schemaStore.find<T>(definition);
+        schemaContainer.schema.plugin(errorHandler);
+        this.model = mongoose.model(schemaContainer.name, schemaContainer.schema);
     }
 
-    create (item: T) {
-        return this.model.create(item);
+
+    async create (item: T) {
+        const itemCreated = await this.model.create(item);
+        return this.convert(item, itemCreated);
     }
 
     update (id: string, item: T){
@@ -62,5 +65,9 @@ export abstract class BaseRepository<T> /*implements IReadRepository<T>, IWriteR
 
     count (cond?: any) {
 
+    }
+
+    protected convert(item: T, model: any){
+        return assign(item, model._doc);
     }
 }

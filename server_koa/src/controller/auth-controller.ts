@@ -21,8 +21,7 @@ export class AuthController {
     @HttpStatus(201)
     @Post('/sign-up')
     async signUp (@Body() form : CreateUserForm) {
-        let user = new User();
-        Object.assign(user, form);
+        let user = form as User;
         // hash password
         await this.cipherService.hashPassword(user);
 

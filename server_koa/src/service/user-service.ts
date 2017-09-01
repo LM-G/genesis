@@ -2,7 +2,8 @@ import { Injectable } from '../core/decorator/injectable';
 import { UserRepository } from '../repository/user';
 import { User } from '../model/user';
 import { Inject } from '../core/decorator/inject';
-import { pick } from 'lodash';
+import { keys } from 'lodash';
+import {IUser} from 'genesis-common';
 
 /**
  * @class UserService
@@ -21,11 +22,7 @@ export class UserService {
     }
 
     async createUser(user: User) {
-        let userCreated = await this.userRepository.create(user);
-        let toto = Object.assign(user, userCreated._doc);
-
-        console.log(`Id: ${userCreated.id}`);
-
-        return toto;
+        await this.userRepository.create(user);
+        return user;
     };
 }

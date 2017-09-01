@@ -1,24 +1,17 @@
 import { Field } from '../core/decorator/field';
 import { Document } from "../core/decorator/document";
 import {IUser} from 'genesis-common';
+import {BaseDocument} from './base';
 
 @Document({
     name: 'User',
     options : {
-        timestamps: {
-            createdAt: 'created_at',
-            updatedAt: 'updated_at'
-        },
-        toObject: {
-            virtuals: true
-        },
-        toJSON: {
-            virtuals: true
-        }
+        timestamps: true,
+        toObject: { virtuals: true },
+        toJSON: { virtuals: true }
     }
 })
-export class User implements IUser{
-
+export class User extends BaseDocument implements IUser{
     @Field({
         unique: true,
         required: true
@@ -47,8 +40,4 @@ export class User implements IUser{
         default: true
     })
     active: boolean;
-
-    get id(): string{
-        return 'todo';
-    }
 }
