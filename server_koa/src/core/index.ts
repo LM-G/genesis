@@ -133,7 +133,15 @@ export function registerDocumentMetadata(meta: DocumentMetadata){
     store.documents.push(meta);
     // retrieve fields
     meta.fields = store.fields.filter((fieldMeta: FieldMetadata) => {
-        return fieldMeta.target === meta.target;
+        return fieldMeta.target === meta.target && fieldMeta.virtual === false && fieldMeta.embedded === false;
+    });
+    // retrieve virtual fields
+    meta.virtualFields = store.fields.filter((fieldMeta: FieldMetadata) => {
+        return fieldMeta.target === meta.target && fieldMeta.virtual === true && fieldMeta.embedded === false;
+    });
+    // retrieve embedded fields
+    meta.virtualFields = store.fields.filter((fieldMeta: FieldMetadata) => {
+        return fieldMeta.target === meta.target && fieldMeta.virtual === false && fieldMeta.embedded === true;
     });
 }
 

@@ -5,6 +5,7 @@ import {LoginForm} from '../form/login';
 import {CreateUserForm} from '../form/create-user';
 import {User} from '../model/user';
 import {HttpStatus} from '../core/decorator/http-status';
+import {pick} from 'lodash';
 
 /**
  * @class AuthController.
@@ -20,13 +21,14 @@ export class AuthController {
 
     @HttpStatus(201)
     @Post('/sign-up')
-    async signUp (@Body() form : CreateUserForm) {
-        let user = form as User;
+    async signUp (@Body() form : CreateUserForm): Promise<User> {
+        const user = form as User;
         // hash password
         await this.cipherService.hashPassword(user);
 
         // save user
-        return await this.userService.createUser(user);
+        const userCreated = await this.userService.createUser(user);
+        return pick(userCreated, 'id');
     }
 
 

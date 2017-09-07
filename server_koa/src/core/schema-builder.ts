@@ -1,7 +1,7 @@
 import {DocumentMetadata} from './metadata/document';
 import {FieldMetadata} from './metadata/field';
 import {Schema, SchemaDefinition, SchemaOptions} from 'mongoose';
-import {isEmpty, isObject} from 'lodash';
+import {isEmpty, isObject, isFunction} from 'lodash';
 import {LOGGER} from '../../config/logger';
 
 /**
@@ -32,11 +32,25 @@ export class SchemaBuilder{
                     definition[field.property] = SchemaBuilder.getSchemaType(field);
                 }
             });
+
         LOGGER.info(`Schema options generated for document ${this.documentMetadata.name} :`, definition);
         if(!isEmpty(this.documentMetadata.options)){
             this.schema.options = this.documentMetadata.options;
         }
-        return this.schema;
+
+        let schema = new Schema(this.schema.definition, this.schema.options);
+
+        this.documentMetadata.virtualFields
+            .forEach((field: FieldMetadata) => {
+                if (isFunction(field.options.set)) {
+                    schema.virtual(field.property).set(field.options.set);
+                }
+                if (isFunction(field.options.get)) {
+                    schema.virtual(field.property).get(field.options.get);
+                }
+            });
+
+        return schema;
     }
 
     private static getSchemaType(field: FieldMetadata){

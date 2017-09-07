@@ -6,6 +6,7 @@ import {MiddlewareMetadata} from './middleware';
 import {FieldMetadata} from './field';
 import {DocumentMetadata} from './document';
 import {ResponseMetadata} from './response';
+import {VirtualFieldMetadata} from './virtual-field';
 
 /**
  * Singleton storing all application metadata
@@ -20,6 +21,10 @@ export class MetadataStore{
      * Document fields metadata
      */
     fields: FieldMetadata[];
+    /**
+     * Document virtuak fields metadata
+     */
+    virtualFields: VirtualFieldMetadata[];
     /**
      * Middlewares metadata
      */
@@ -48,6 +53,7 @@ export class MetadataStore{
     reset(){
         this.documents = [];
         this.fields = [];
+        this.virtualFields = [];
         this.middlewares = [];
         this.controllers = [];
         this.actions = [];

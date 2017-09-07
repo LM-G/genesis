@@ -1,7 +1,9 @@
-import { Field } from '../core/decorator/field';
-import { Document } from "../core/decorator/document";
+import {Field, Id, Embedded} from '../core/decorator/field';
+import {Document} from "../core/decorator/document";
+
 import {IUser} from 'genesis-common';
 import {BaseDocument} from './base';
+import {Test} from './test';
 
 @Document({
     name: 'User',
@@ -12,6 +14,9 @@ import {BaseDocument} from './base';
     }
 })
 export class User extends BaseDocument implements IUser{
+    @Id()
+    id: string;
+
     @Field({
         unique: true,
         required: true
@@ -40,4 +45,7 @@ export class User extends BaseDocument implements IUser{
         default: true
     })
     active: boolean;
+
+    @Embedded()
+    test: Test;
 }

@@ -68,6 +68,7 @@ export abstract class BaseRepository<T> /*implements IReadRepository<T>, IWriteR
     }
 
     protected convert(item: T, model: any){
-        return assign(item, model._doc);
+        let test = model.toObject({ virtuals: true });
+        return assign(item, test);
     }
 }

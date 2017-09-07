@@ -141,11 +141,10 @@ export class GenesisCore {
     registerDocuments(){
         this.metadataStore.documents
             .forEach((meta: DocumentMetadata) => {
-                const schema = new SchemaBuilder(meta).build();
                 this.schemasStore.schemas.push({
                     document: meta.target,
                     name: meta.name,
-                    schema: new Schema(schema.definition, schema.options)
+                    schema: new SchemaBuilder(meta).build()
                 });
             });
         return this;
