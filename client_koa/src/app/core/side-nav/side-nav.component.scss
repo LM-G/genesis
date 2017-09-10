@@ -1,0 +1,26 @@
+.genesis-side-nav {
+    background-color: #616161;
+    min-height: 100%;
+    flex: 1 1 200px;
+    box-sizing: border-box;
+    max-width: 200px;
+    min-width: 200px;
+    color: white;
+}
+
+.genesis-side-nav-item {
+    padding-left: 10px;
+}
+
+ul {
+    padding-left: 0;
+}
+
+li{
+    list-style: none;
+    padding-bottom: 5px;
+}
+
+a{
+    width: 100%;
+}

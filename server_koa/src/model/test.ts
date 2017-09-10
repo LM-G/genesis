@@ -1,6 +1,5 @@
 import { Document } from '../core/decorator/document';
-import { Field } from '../core/decorator/field';
-import {Id} from '../core/decorator/id';
+import {Id} from '../core/decorator/field';
 
 @Document({
     name: 'Test'

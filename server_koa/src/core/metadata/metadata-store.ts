@@ -6,7 +6,6 @@ import {MiddlewareMetadata} from './middleware';
 import {FieldMetadata} from './field';
 import {DocumentMetadata} from './document';
 import {ResponseMetadata} from './response';
-import {VirtualFieldMetadata} from './virtual-field';
 
 /**
  * Singleton storing all application metadata
@@ -24,7 +23,7 @@ export class MetadataStore{
     /**
      * Document virtuak fields metadata
      */
-    virtualFields: VirtualFieldMetadata[];
+    virtualFields: FieldMetadata[];
     /**
      * Middlewares metadata
      */
