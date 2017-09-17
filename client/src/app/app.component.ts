@@ -1,11 +1,13 @@
 import { Component } from '@angular/core';
 
-/**
- * App main component
- */
 @Component({
-    selector: 'genesis-app',
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.css']
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
-export class AppComponent {}
+export class AppComponent {
+    hide = true;
+    constructor () {
+        console.debug('# App component started');
+    }
+}

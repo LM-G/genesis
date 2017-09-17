@@ -1,0 +1,17 @@
+@import 'styles/variables';
+@import '~font-awesome/scss/font-awesome';
+
+@import 'styles/theme.scss';
+
+@import 'styles/control';
+@import 'styles/form';
+@import 'styles/layout';
+@import 'styles/main';
+@import 'styles/bootstrap';
+
+@include mat-core();
+
+.app-theme {
+  // use our theme with angular-material-theme mixin
+  @include angular-material-theme($theme);
+}
