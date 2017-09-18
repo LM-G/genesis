@@ -1,81 +1,20 @@
-# Genesis
+# Client2
 
-Training on angular 4, webpack 3, karma, jasmine
-ExpressJS, Socket io, JWT
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.1.
 
-## Set-Up
+## Development server
 
-- Git
-- NodeJS 8.1.2
-- MongoDB
-- Typescript 2.4.3
-- Rimraf
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-### libraries installation
+## Build
 
-client :
-```javascript
-$ cd client
-$ npm run clean-install
-```
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-server :
-```javascript
-$ cd server
-$ npm i
-```
+## Running unit tests
 
-### Start front-end dev server
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-JIT compilation :
-```javascript
-$ cd client
-$ npm start
-```
+## Running end-to-end tests
 
-JIT compilation + Hot module Replacement:
-```javascript
-$ cd client
-$ npm start:hmr
-```
-
-### Launch DataBase
-Go to root (optional) and launch this command in new terminal
-```javascript
-$ mongod
-```
-
-### Start api server
-```javascript
-$ cd server
-$ npm start
-```
-
-
-## Must have
-- [GitHub](https://desktop.github.com/) client for windows
-- [MongoDB](https://robomongo.org/) client
-- [PostMan](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop) to test REST calls
-
-
-## Debugging backend server
-
-```javascript
-$ npm i -g node-inspector
-```
-In new terminal:
-```javascript
-$ node-inspector
-```
-
-## Unit tests
-
-Client 
-```javascript
-$ cd client
-$ npm test
-```
-```javascript
-$ cd client
-$ npm run test-watch
-```
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Before running the tests make sure you are serving the app via `ng serve`.

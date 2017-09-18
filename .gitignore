@@ -68,7 +68,6 @@ Temporary Items
 
 # compiled output
 *.js.map
-/client/src/app/**/*.js
 */dist/
 */dev/
 */build/
