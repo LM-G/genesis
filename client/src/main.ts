@@ -1,29 +1,13 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { enableProdMode } from '@angular/core';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+
 import { AppModule } from './app/app.module';
+import { environment } from './environments/environment';
 
-require('../src/styles/main.css');
-
-if (process.env.ENV === 'production') {
-    enableProdMode();
+if (environment.production) {
+  enableProdMode();
 }
 
-// Enables Hot Module Replacement.
-declare let module: any;
-if (module.hot) {
-    module.hot.accept();
-}
-
-export function main() {
-    return platformBrowserDynamic().bootstrapModule(AppModule);
-
-}
-
-// JIT compilation
-if (document.readyState === 'complete') {
-    main()
-        .then((success: any) => console.log('App bootstrapped'))
-        .catch((err: any) => console.error(err));
-} else {
-    document.addEventListener('DOMContentLoaded', main);
-}
+platformBrowserDynamic()
+    .bootstrapModule(AppModule)
+    .catch(err => console.log(err));

@@ -1,0 +1,16 @@
+#page{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  max-height: 100vh;
+}
+
+#wrapper{
+  display: flex;
+  flex: 1;
+}
+
+#container{
+  display: flex;
+  flex: 1 1;
+}

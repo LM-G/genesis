@@ -1,14 +1,11 @@
-<div id="wrapper" fxLayout="column">
-    <genesis-nav></genesis-nav>
-    <genesis-login></genesis-login>
-    <div id="container" fxLayout="row">
-        <genesis-side-nav [genesisAuth]></genesis-side-nav>
-        <div fxLayout="column">
-            <div class="page" fxFlex>
-                <router-outlet></router-outlet>
-            </div>
-            <genesis-footer></genesis-footer>
-        </div>
-    </div>
+<div id="wrapper" #test>
+  <app-side-nav *ngIf="!hide"></app-side-nav>
+  <div id="page">
+    <app-header *ngIf="!hide"></app-header>
+    <main>
+      <span (click)="hide = !hide" *ngIf="hide">Coucou</span>
+      <router-outlet></router-outlet>
+    </main>
+  </div>
 </div>
 

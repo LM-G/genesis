@@ -50,8 +50,8 @@ Temporary Items
 *.log
 
 # Node Files
-node_modules/
-bower_components/
+*/node_modules/
+*/bower_components/
 
 # IDE #
 .idea/
@@ -62,27 +62,28 @@ bower_components/
 /typings/
 /tsd_typings/
 
-# Dist
-/dist/
-/public/__build__/
-/src/*/__build__/
-/__build__/**
-/public/dist/
-/src/*/dist/
-/dist/**
-.webpack.json
 
 #NPM
-package-lock.json
+*/package-lock.json
 
-# Generated
-/client/doc/
-/server/public/
+# compiled output
+*.js.map
 /client/src/app/**/*.js
-/client/src/app/**/*.js.map
-/client/src/main.js
-/client/src/main.js.map
-/client/src/polyfills.js
-/client/src/polyfills.js.map
-/client/src/vendor.js
-/client/src/vendor.js.map
+*/dist/
+*/dev/
+*/build/
+*.webpack.json
+*/tmp
+*/out-tsc
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+testem.log
+/typings
+
+# e2e
+*/e2e/*.js
+*/e2e/*.map
