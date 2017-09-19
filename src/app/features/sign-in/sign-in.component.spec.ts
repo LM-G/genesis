@@ -1,24 +1,24 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-import { LoginComponent } from './login.component';
+import { SignInComponent } from './sign-in.component';
 
-let fixture: ComponentFixture<LoginComponent>;
+let fixture: ComponentFixture<SignInComponent>;
 
 
-describe('Login', () => {
+describe('SignIn', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [LoginComponent],
+            declarations: [SignInComponent],
             imports: [
                 /* Sets up the router to be used for testing. */
                 RouterTestingModule
             ]
         });
-        fixture = TestBed.createComponent(LoginComponent);
+        fixture = TestBed.createComponent(SignInComponent);
     });
     it ('should work', () => {
-        expect(fixture.componentInstance instanceof LoginComponent).toBe(true, 'should create LoginComponent');
+        expect(fixture.componentInstance instanceof SignInComponent).toBe(true, 'should create SignInComponent');
     });
 });
 

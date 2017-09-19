@@ -7,9 +7,8 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 // Features
 import { HomeModule } from './features/home/home.module';
-import 'hammerjs';
 import { DashboardModule } from './features/dashboard/dashboard.module';
-import { LoginModule } from './features/login/login.module';
+import { SignInModule } from './features/sign-in/sign-in.module';
 
 /**
  * App root module
@@ -21,7 +20,7 @@ import { LoginModule } from './features/login/login.module';
 
         HomeModule,
         DashboardModule,
-        LoginModule,
+        SignInModule,
 
         APP_ROUTE_MODULE
     ],

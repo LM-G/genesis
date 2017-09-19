@@ -4,13 +4,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
-import { MdButtonModule, MdInputModule, MdRippleModule, MdToolbarModule } from '@angular/material';
+import { MdButtonModule, MdCardModule, MdInputModule, MdRippleModule, MdToolbarModule } from '@angular/material';
 
 const MATERIAL_MODULES = [
     MdButtonModule,
     MdToolbarModule,
     MdInputModule,
-    MdRippleModule
+    MdRippleModule,
+    MdCardModule
 ];
 
 @NgModule({

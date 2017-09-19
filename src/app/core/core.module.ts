@@ -6,6 +6,7 @@ import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { HeaderComponent } from './components/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
+import { AuthGuard } from './components/authentication/auth-guard.service';
 
 /**
  * Resolves vital data from localstorage/server in order to initialize application correctly. When
@@ -45,6 +46,7 @@ const INITIALIZER: Provider = {
     ],
     providers: [
         CoreService,
+        AuthGuard,
         INITIALIZER
     ]
 })

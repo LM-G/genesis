@@ -1,14 +1,10 @@
-import {AuthenticationService} from './authentication.service';
-import {CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, NavigationExtras} from '@angular/router';
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { Injectable } from '@angular/core';
 
-/**
- *
- */
+
 @Injectable()
 export class AuthGuard implements CanActivate {
-    constructor(private authService: AuthenticationService, private router: Router) {
+    constructor(private router: Router) {
     }
 
     /**
@@ -19,21 +15,15 @@ export class AuthGuard implements CanActivate {
      * @param state wanted state
      * @returns {boolean} true if the user is authenticated
      */
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
         let url: string = state.url;
 
-        const canGo = this.authService.loggedIn();
+        const canGo = false;
 
-        console.log('router :: can activate ', url, ' ? : ', canGo, state);
+        console.log('# Router :: can activate ', url, ' ? : ', canGo, state);
 
         if (!canGo) {
-            this.authService.redirectUrl = url;
-
-            let navigationExtras: NavigationExtras = {
-                queryParams: { 'sl': 't' }
-            };
-
-            this.router.navigate(['/home'], navigationExtras);
+            this.router.navigate(['/sign-in']);
         }
 
         return canGo;

@@ -50,8 +50,8 @@ Temporary Items
 *.log
 
 # Node Files
-*/node_modules/
-*/bower_components/
+/node_modules/
+/bower_components/
 
 # IDE #
 .idea/

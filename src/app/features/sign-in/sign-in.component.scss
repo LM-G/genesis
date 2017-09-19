@@ -1,0 +1,23 @@
+@import './../../../styles/main';
+
+#container {
+  height: 100%;
+  width: 100%;
+}
+
+.mat-card {
+  color: $main-font-color !important;
+  font-size: 1.2em;
+}
+
+main {
+  background-color: #262626 !important;
+}
+
+.mat-form-field {
+  width: 100% !important;
+}
+
+button {
+  width: 50%;
+}
