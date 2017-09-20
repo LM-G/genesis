@@ -7,4 +7,4 @@ const appRoutes: Route[] = [
     { path: '**', redirectTo: '/home', canActivate: [AuthGuard] }
 ];
 
-export const APP_ROUTE_MODULE : ModuleWithProviders =  RouterModule.forRoot(appRoutes);
+export const APP_ROUTE_MODULE: ModuleWithProviders =  RouterModule.forRoot(appRoutes);

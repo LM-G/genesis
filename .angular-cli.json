@@ -8,8 +8,9 @@
       "root": "src",
       "outDir": "dist",
       "assets": [
-        "assets",
-        "favicon.ico"
+        { "glob": "robots.txt", "input": "./assets/", "output": "./" },
+        { "glob": "favicon.ico", "input": "./assets/", "output": "./" },
+        { "glob": "**/*", "input": "./assets/img/", "output": "./img/"}
       ],
       "index": "index.html",
       "main": "main.ts",

@@ -1,5 +1,15 @@
 @import './../../../styles/main';
 
+$divider-color: rgba(0, 0, 0, 0.42);
+
+main {
+  background-color: $main-bg-color-d !important;
+}
+
+button {
+  width: 100%;
+}
+
 #container {
   height: 100%;
   width: 100%;
@@ -7,17 +17,45 @@
 
 .mat-card {
   color: $main-font-color !important;
-  font-size: 1.2em;
-}
-
-main {
-  background-color: #262626 !important;
+  #title {
+    font-size: 1.2em;
+  }
 }
 
 .mat-form-field {
   width: 100% !important;
 }
 
-button {
-  width: 50%;
+#forgotten-password {
+  font-size: 0.8em;
 }
+
+#or-divider{
+  margin-top: 2em;
+  border-top: 1px solid $divider-color;
+
+  #or-buble{
+    background-color: mat-color(map-get($theme, primary));
+    color: white;
+    width: 40px;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -20px;
+    position: relative;
+    text-align: center;
+    border-radius: 20px;
+    line-height: 40px;
+  }
+}
+
+.sign-in-container {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.section {
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+}
+

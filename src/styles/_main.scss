@@ -1,8 +1,9 @@
 @import "../styles/variables";
 @import "../styles/theme";
-@import '~compass-mixins';
 
 $main-bg-color: mat-color(map-get($theme, primary), 100);
+$main-bg-color-d: darken($main-bg-color, 80%);
+
 $main-font-color: #5F5F5F;
 $main-font-color-d: darken($main-font-color, 7.5%);
 $main-font-color-vd: darken($main-font-color, 15%);
