@@ -67,13 +67,11 @@ Temporary Items
 */package-lock.json
 
 # compiled output
-*.js.map
-*/dist/
-*/dev/
-*/build/
+/dist/
+/dev/
 *.webpack.json
-*/tmp
-*/out-tsc
+/tmp
+/out-tsc
 
 # misc
 /.sass-cache
