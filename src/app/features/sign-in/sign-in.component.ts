@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Router } from '@angular/router';
 
 /**
  * Sign in component
@@ -11,9 +12,14 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class SignInComponent implements OnInit {
     constructor(
+        private router: Router
     ) {}
 
     ngOnInit(): void {
         console.debug('# SignInComponent started');
+    }
+
+    register(){
+        this.router.navigate(['/sign-up']);
     }
 }

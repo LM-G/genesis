@@ -9,7 +9,7 @@
             <form fxLayout="column">
                 <md-form-field>
                     <md-placeholder>
-                        <i class="fa fa-envelope"></i> Login
+                        <i class="fa fa-envelope"></i> Adresse mail
                     </md-placeholder>
                     <input mdInput type="text">
                 </md-form-field>
@@ -27,7 +27,7 @@
             <div fxLayout="column" fxLayoutAlign="center center">
                 <span id="forgotten-password">Mot de passe oublié ?</span>
                 <br>
-                <button md-raised-button color="accent">Se connecter</button>
+                <button md-raised-button color="accent">Log in</button>
             </div>
         </div>
         <div id="or-divider">
@@ -38,7 +38,9 @@
         <br>
         <div class="section">
             <div fxLayout="column" fxLayoutAlign="center center">
-                <button md-raised-button color="primary">S'enregistrer</button>
+                <button md-raised-button color="primary" (click)="register()">
+                  S'inscrire
+                </button>
             </div>
         </div>
     </md-card>
