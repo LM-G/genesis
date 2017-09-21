@@ -3,7 +3,7 @@ import { CoreService } from '../../core.service';
 import { User } from '../../../shared/model/user';
 
 import { findKey } from 'lodash';
-import { AuthLevel, IAuthLevel } from '../../../shared/constant/auth-level.constant';
+import { AuthLevel, IAuthLevel } from '../../../shared/constant/user-role';
 
 /**
  * Handles the visibility of elements in function of user authentication level.

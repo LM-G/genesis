@@ -2,11 +2,11 @@ import { APP_INITIALIZER, NgModule, Optional, Provider, SkipSelf } from '@angula
 import { BrowserModule } from '@angular/platform-browser';
 import { CoreService } from './core.service';
 import { SharedModule } from '../shared/shared.module';
-import { SideNavComponent } from './components/side-nav/side-nav.component';
-import { HeaderComponent } from './components/header/header.component';
+import { SideNavComponent } from './component/side-nav/side-nav.component';
+import { HeaderComponent } from './component/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { AuthGuard } from './components/authentication/auth-guard.service';
+import { AuthGuard } from './component/authentication/auth-guard.service';
 
 /**
  * Resolves vital data from localstorage/server in order to initialize application correctly. When

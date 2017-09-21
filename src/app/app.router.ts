@@ -1,6 +1,6 @@
 import {Route, RouterModule} from '@angular/router';
 import {ModuleWithProviders} from '@angular/core';
-import { AuthGuard } from './core/components/authentication/auth-guard.service';
+import { AuthGuard } from './core/component/authentication/auth-guard.service';
 
 const appRoutes: Route[] = [
     { path: '', redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },

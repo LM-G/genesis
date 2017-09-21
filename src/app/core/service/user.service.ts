@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { User } from '../../shared/model/user';
 import { Observable } from 'rxjs/Rx';
 import { Response } from '@angular/http';
-import { AuthHttpService } from '../components/authentication/auth-http.service';
+import { AuthHttpService } from '../component/authentication/auth-http.service';
 
+const PATH = '/';
 /**
  * User's service
  */

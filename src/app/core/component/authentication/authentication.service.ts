@@ -3,7 +3,7 @@ import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { User } from '../../../shared/model/user';
 import { TokenMessage } from '../../../shared/model/token-message';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../service/user.service';
 import { CoreService } from '../../core.service';
 
 /**
