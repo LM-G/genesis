@@ -1,5 +1,4 @@
-import { APP_INITIALIZER, NgModule, Optional, Provider, SkipSelf } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { APP_INITIALIZER, ClassProvider, NgModule, Optional, Provider, SkipSelf } from '@angular/core';
 import { CoreService } from './core.service';
 import { SharedModule } from '../shared/shared.module';
 import { SideNavComponent } from './component/side-nav/side-nav.component';
@@ -7,19 +6,57 @@ import { HeaderComponent } from './component/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from './component/authentication/auth-guard.service';
+import { FooterComponent } from './component/footer/footer.component';
+import { StoreModule } from '@ngrx/store';
+import { APP_EFFECTS, APP_REDUCERS } from './store/store';
+import { EffectsModule } from '@ngrx/effects';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { APIInterceptor } from './interceptor/api.interceptor';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { AuthService } from './service/auth.service';
+import { UserService } from './service/user.service';
 
 /**
  * Resolves vital data from localstorage/server in order to initialize application correctly. When
  * all vital data will be fetch, angular will resume our app bootstrapping.
  */
-const INITIALIZER: Provider = {
-    provide: APP_INITIALIZER,
-    useFactory(coreService: CoreService){
-        return () => coreService.initialize();
+const INITIALIZERS: Provider[] = [
+    {
+        provide: APP_INITIALIZER,
+        useFactory(coreService: CoreService){
+            return () => coreService.initialize();
+        },
+        deps: [CoreService],
+        multi: true
+    }
+];
+
+/**
+ * Http interceptors
+ */
+const INTERCEPTORS: ClassProvider[] = [
+    {
+        provide: HTTP_INTERCEPTORS,
+        useClass: APIInterceptor,
+        multi: true
     },
-    deps: [CoreService],
-    multi: true
-};
+    {
+        provide: HTTP_INTERCEPTORS,
+        useClass: AuthInterceptor,
+        multi: true
+    }
+];
+
+const REST_SERVICES = [
+    AuthService,
+    UserService
+];
+
+const CORE_COMPONENTS = [
+    SideNavComponent,
+    HeaderComponent,
+    FooterComponent
+];
 
 /**
  * Genesis application core module.
@@ -27,27 +64,31 @@ const INITIALIZER: Provider = {
  */
 @NgModule({
     imports: [
-        BrowserModule,
         BrowserAnimationsModule,
         RouterModule,
+        HttpClientModule,
+        StoreModule.forRoot(APP_REDUCERS),
+        EffectsModule.forRoot(APP_EFFECTS),
         SharedModule
     ],
     exports: [
-        BrowserModule,
         BrowserAnimationsModule,
         RouterModule,
+        HttpClientModule,
+        StoreModule,
+        EffectsModule,
 
-        SideNavComponent,
-        HeaderComponent
+        ...CORE_COMPONENTS
     ],
     declarations: [
-        SideNavComponent,
-        HeaderComponent
+        ...CORE_COMPONENTS
     ],
     providers: [
         CoreService,
         AuthGuard,
-        INITIALIZER
+        ...REST_SERVICES,
+        ...INITIALIZERS,
+        ...INTERCEPTORS
     ]
 })
 export class CoreModule {

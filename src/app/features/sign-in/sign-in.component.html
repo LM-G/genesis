@@ -6,29 +6,39 @@
                 <div>Connectez vous à votre compte Genesis</div>
             </div>
             <br>
-            <form fxLayout="column">
-                <md-form-field>
+            <form fxLayout="column" fxLayoutGap="0.5em" novalidate
+                  [formGroup]="signInForm"
+                  (ngSubmit)="signIn(signInForm)">
+                <md-form-field #titi>
                     <md-placeholder>
-                        <i class="fa fa-envelope"></i> Adresse mail
+                        <i class="fa fa-user-circle-o"></i> Identité
                     </md-placeholder>
-                    <input mdInput type="text">
+                    <input mdInput type="text" formControlName="login">
+                    <md-error ngxErrors="login">
+                        <span ngxError="required">Obligatoire</span>
+                    </md-error>
                 </md-form-field>
                 <md-form-field>
                     <md-placeholder>
                         <i class="fa fa-lock"></i> Mot de passe
                     </md-placeholder>
-                    <input mdInput type="password">
+                    <input mdInput type="password" formControlName="password">
+                    <md-error ngxErrors="password">
+                        <span ngxError="required">Obligatoire</span>
+                    </md-error>
                 </md-form-field>
                 <div>
-                    <md-checkbox>Se souvenir de moi</md-checkbox>
+                    <md-checkbox type="checkbox" formControlName="rememberme">Se souvenir de moi</md-checkbox>
+                </div>
+                <br>
+                <div fxLayout="column" fxLayoutAlign="center center">
+                    <span id="forgotten-password">Mot de passe oublié ?</span>
+                    <br>
+                    <button md-raised-button color="accent" type="submit">
+                        Log in
+                    </button>
                 </div>
             </form>
-            <br>
-            <div fxLayout="column" fxLayoutAlign="center center">
-                <span id="forgotten-password">Mot de passe oublié ?</span>
-                <br>
-                <button md-raised-button color="accent">Log in</button>
-            </div>
         </div>
         <div id="or-divider">
             <div id="or-buble">

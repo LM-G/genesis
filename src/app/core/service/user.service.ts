@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { User } from '../../shared/model/user';
 import { Observable } from 'rxjs/Rx';
-import { Response } from '@angular/http';
-import { AuthHttpService } from '../component/authentication/auth-http.service';
+import { HttpClient } from '@angular/common/http';
+import { User } from '../../shared/model/user';
 
-const PATH = '/';
+const PATH = '/users';
+
 /**
  * User's service
  */
@@ -12,11 +12,11 @@ const PATH = '/';
 export class UserService {
     /**
      * User service's constructor
-     * @param authHttp to get current logged in user information
+     * @param {HttpClient} http
      */
-    constructor(private authHttp: AuthHttpService) {}
+    constructor(private http: HttpClient) {}
 
-    getUser(): Observable<User> {
-        return this.authHttp.get('/api/user').map((res: Response) => res.json());
+    me (): Observable<User> {
+        return this.http.get<User>(PATH);
     }
 }

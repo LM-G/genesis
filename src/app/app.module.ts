@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 // Main
 import { AppComponent } from './app.component';
 import { APP_ROUTE_MODULE } from './app.router';
@@ -10,11 +11,13 @@ import { HomeModule } from './features/home/home.module';
 import { DashboardModule } from './features/dashboard/dashboard.module';
 import { SignInModule } from './features/sign-in/sign-in.module';
 
+
 /**
  * App root module
  */
 @NgModule({
     imports: [
+        BrowserModule,
         SharedModule,
         CoreModule,
 

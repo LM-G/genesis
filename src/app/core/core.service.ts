@@ -16,7 +16,7 @@ export class CoreService {
 
     initialize () {
         const initSequence: Observable<any>[] = [];
-        initSequence.push(Observable.timer(1000));
+        initSequence.push(Observable.timer(1));
         return Observable.forkJoin(initSequence).toPromise();
     }
 }
