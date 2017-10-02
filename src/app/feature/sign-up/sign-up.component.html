@@ -1,0 +1,67 @@
+<div id="container" fxLayout fxLayoutAlign="center center" class="fadeIn animated">
+  <md-card fxFlex="500px" class="sign-up-container">
+    <div class="section">
+      <img md-card-image src="img/sign-up.png" alt="Genesis">
+      <div fxLayout="row" fxLayoutAlign="center center" id="title">
+        <div>Inscrivez vous sur Genesis</div>
+      </div>
+      <br>
+      <form fxLayout="column" fxLayoutGap="0.5em" novalidate
+            [formGroup]="signUpForm"
+            (ngSubmit)="signUp(signUpForm)">
+        <md-form-field>
+          <md-placeholder>
+            <i class="fa fa-user"></i> Nom de compte
+          </md-placeholder>
+          <input mdInput type="text" formControlName="username" required [disableControl]="isLoading">
+          <md-error ngxErrors="username">
+            <span ngxError="required">Obligatoire</span>
+          </md-error>
+        </md-form-field>
+        <md-form-field>
+          <md-placeholder>
+            <i class="fa fa-envelope-o"></i> Adresse e-mail
+          </md-placeholder>
+          <input mdInput type="text" formControlName="email" required [disableControl]="isLoading">
+          <md-error ngxErrors="email">
+            <span ngxError="required">Obligatoire</span>
+            <span ngxError="pattern">E-mail invalide</span>
+          </md-error>
+        </md-form-field>
+        <md-form-field>
+          <md-placeholder>
+            <i class="fa fa-lock"></i> Mot de passe
+          </md-placeholder>
+          <input mdInput type="password" formControlName="password" required [disableControl]="isLoading">
+          <md-error ngxErrors="password">
+            <span ngxError="required">Obligatoire</span>
+          </md-error>
+        </md-form-field>
+        <md-form-field>
+          <input mdInput type="password" formControlName="confirmPassword" placeholder="Confirmation du mot de passe"
+                 [disableControl]="isLoading">
+          <md-error ngxErrors="confirmPassword">
+            <span ngxError="match">Mot de passe différent</span>
+          </md-error>
+        </md-form-field>
+        <br>
+        <button md-raised-button color="accent" type="submit" [disabled]="isLoading">
+          S'enregistrer <i class="fa fa-sign-in"></i>
+        </button>
+      </form>
+    </div>
+    <div class="or-divider">
+      <div class="or-buble">
+        ou
+      </div>
+    </div>
+    <br>
+    <div class="section">
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <button md-raised-button color="primary" (click)="login()">
+          Se connecter
+        </button>
+      </div>
+    </div>
+  </md-card>
+</div>

@@ -4,8 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SignInForm } from '../../shared/form/sign-in';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../core/store/store';
-import { AuthService } from '../../core/service/auth.service';
-import { LocalStorageUtils } from '../../util/local-storage-utils';
+import { AuthService } from '../../core/api/auth.service';
 import { LocalStorage } from '../../core/store/local-storage';
 import { FetchUserAction } from '../../core/store/action/user.actions';
 

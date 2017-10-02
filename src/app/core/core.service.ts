@@ -4,13 +4,13 @@ import 'rxjs/add/observable/timer';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/operator/toPromise';
 /**
- * Main logic service
+ * Main logic api
  */
 @Injectable()
 export class CoreService {
     /**
      * CoreService's constructor
-     * @param userService user handling service
+     * @param userService user handling api
      */
     constructor() {}
 

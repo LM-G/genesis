@@ -6,12 +6,12 @@ import { User } from '../../shared/model/user';
 const PATH = '/users';
 
 /**
- * User's service
+ * User's api
  */
 @Injectable()
 export class UserService {
     /**
-     * User service's constructor
+     * User api's constructor
      * @param {HttpClient} http
      */
     constructor(private http: HttpClient) {}

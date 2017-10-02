@@ -13,8 +13,9 @@ import { EffectsModule } from '@ngrx/effects';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { APIInterceptor } from './interceptor/api.interceptor';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
-import { AuthService } from './service/auth.service';
-import { UserService } from './service/user.service';
+import { AuthService } from './api/auth.service';
+import { UserService } from './api/user.service';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 /**
  * Resolves vital data from localstorage/server in order to initialize application correctly. When
@@ -60,7 +61,7 @@ const CORE_COMPONENTS = [
 
 /**
  * Genesis application core module.
- * All it's attached features are singletons which will be instantiated only once with app bootstrap
+ * All it's attached feature are singletons which will be instantiated only once with app bootstrap
  */
 @NgModule({
     imports: [
@@ -69,6 +70,8 @@ const CORE_COMPONENTS = [
         HttpClientModule,
         StoreModule.forRoot(APP_REDUCERS),
         EffectsModule.forRoot(APP_EFFECTS),
+        SimpleNotificationsModule.forRoot(),
+
         SharedModule
     ],
     exports: [
@@ -77,6 +80,7 @@ const CORE_COMPONENTS = [
         HttpClientModule,
         StoreModule,
         EffectsModule,
+        SimpleNotificationsModule,
 
         ...CORE_COMPONENTS
     ],

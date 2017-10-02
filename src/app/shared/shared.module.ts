@@ -6,6 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
 
 import { MdButtonModule, MdCardModule, MdCheckboxModule, MdInputModule, MdRippleModule, MdToolbarModule } from '@angular/material';
+import { DisableControlDirective } from './components/disable-control.directive';
 
 const MATERIAL_MODULES = [
     MdButtonModule,
@@ -16,6 +17,10 @@ const MATERIAL_MODULES = [
     MdCheckboxModule
 ];
 
+const DIRECTIVES = [
+    DisableControlDirective
+];
+
 @NgModule({
     exports: [
         CommonModule,
@@ -24,9 +29,12 @@ const MATERIAL_MODULES = [
         FlexLayoutModule,
         NgxErrorsModule,
         BrowserAnimationsModule,
-        ...MATERIAL_MODULES
+        ...MATERIAL_MODULES,
+
+        ...DIRECTIVES
     ],
     declarations: [
+        ...DIRECTIVES
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

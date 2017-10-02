@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { LocalStorage } from '../store/local-storage';
 import { isEmpty } from 'lodash';
-import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
+import { NotificationsService } from 'angular2-notifications';
 
 const AUTHORIZATION = "Authorization";
 const BEARER = "Bearer";
@@ -13,6 +14,10 @@ const BEARER = "Bearer";
  */
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+    constructor(
+        private notificationsService: NotificationsService
+    ) {}
+
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         const token = LocalStorage.token;
         if(token) {
@@ -23,11 +28,15 @@ export class AuthInterceptor implements HttpInterceptor {
         }
 
         return next.handle(req)
-            .map((evt: HttpResponse<any>) => {
-                if ( evt.status === 401 ) {
-                    console.warn('## User not authenticated, jwt expired or not valid');
+            .do(null,
+                err => {
+                    if(err instanceof HttpErrorResponse) {
+                        if ( err.status === 401 ) {
+                            console.warn('## User not authenticated, jwt expired or not valid');
+                        }
+                    }
+                    this.notificationsService.error('Erreur', err.statusText);
                 }
-                return evt
-            });
+            );
     }
 }
