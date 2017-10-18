@@ -1,0 +1,23 @@
+@import './../../styles/main';
+
+:host {
+  background-color: $main-bg-color-d !important;
+  width: 100%;
+}
+
+#container {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+.mat-card {
+  color: $main-font-color !important;
+  #title {
+    font-size: 1.2em;
+  }
+}
+
+.mat-form-field {
+  width: 100% !important;
+}

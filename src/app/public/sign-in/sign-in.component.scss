@@ -1,0 +1,32 @@
+@import './../../../styles/main';
+
+
+button {
+  width: 100%;
+}
+
+.mat-card {
+  color: $main-font-color !important;
+  #title {
+    font-size: 1.2em;
+  }
+}
+
+.mat-form-field {
+  width: 100% !important;
+}
+
+#forgotten-password {
+  font-size: 0.8em;
+}
+
+.sign-in-container {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+.section {
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+}
+

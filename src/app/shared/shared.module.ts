@@ -1,20 +1,18 @@
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxErrorsModule } from '@ultimate/ngxerrors';
-
-import { MdButtonModule, MdCardModule, MdCheckboxModule, MdInputModule, MdRippleModule, MdToolbarModule } from '@angular/material';
+import { MatButtonModule, MatCardModule, MatCheckboxModule, MatInputModule, MatRippleModule, MatToolbarModule } from '@angular/material';
 import { DisableControlDirective } from './components/disable-control.directive';
 
 const MATERIAL_MODULES = [
-    MdButtonModule,
-    MdToolbarModule,
-    MdInputModule,
-    MdRippleModule,
-    MdCardModule,
-    MdCheckboxModule
+    MatButtonModule,
+    MatToolbarModule,
+    MatInputModule,
+    MatRippleModule,
+    MatCardModule,
+    MatCheckboxModule
 ];
 
 const DIRECTIVES = [
@@ -28,7 +26,6 @@ const DIRECTIVES = [
         ReactiveFormsModule,
         FlexLayoutModule,
         NgxErrorsModule,
-        BrowserAnimationsModule,
         ...MATERIAL_MODULES,
 
         ...DIRECTIVES

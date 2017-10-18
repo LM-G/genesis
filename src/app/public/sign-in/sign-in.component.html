@@ -1,0 +1,57 @@
+<article fxLayout fxLayoutAlign="center center" class="full-screen fadeIn animated">
+    <mat-card fxFlex="500px" class="sign-in-container">
+        <div class="section">
+            <img mat-card-image src="img/sign-in.png" alt="Genesis">
+            <div fxLayout="row" fxLayoutAlign="center center" id="title">
+                <div>Connectez vous à votre compte Genesis</div>
+            </div>
+            <br>
+            <form fxLayout="column" fxLayoutGap="0.5em" novalidate
+                  [formGroup]="signInForm"
+                  (ngSubmit)="signIn(signInForm)">
+                <mat-form-field>
+                    <mat-placeholder>
+                        <i class="fa fa-user-circle-o"></i> Identité
+                    </mat-placeholder>
+                    <input matInput type="text" formControlName="login">
+                    <mat-error ngxErrors="login">
+                        <span ngxError="required">Obligatoire</span>
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-placeholder>
+                        <i class="fa fa-lock"></i> Mot de passe
+                    </mat-placeholder>
+                    <input matInput type="password" formControlName="password">
+                    <mat-error ngxErrors="password">
+                        <span ngxError="required">Obligatoire</span>
+                    </mat-error>
+                </mat-form-field>
+                <div>
+                    <mat-checkbox type="checkbox" formControlName="rememberme">Se souvenir de moi</mat-checkbox>
+                </div>
+                <br>
+                <div fxLayout="column" fxLayoutAlign="center center">
+                    <span id="forgotten-password">Mot de passe oublié ?</span>
+                    <br>
+                    <button mat-raised-button color="accent" type="submit">
+                        Log in
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="or-divider">
+            <div class="or-buble">
+                ou
+            </div>
+        </div>
+        <br>
+        <div class="section">
+            <div fxLayout="column" fxLayoutAlign="center center">
+                <button mat-raised-button color="primary" (click)="register()">
+                  S'inscrire
+                </button>
+            </div>
+        </div>
+    </mat-card>
+</article>

@@ -1,0 +1,54 @@
+@import '~compass-mixins';
+@import "../../../styles/variables";
+@import '../../../styles/theme';
+
+$color: mat-color(map-get($theme, primary));
+$color-d: darken($color, 5%);
+$color-l: lighten($color, 7.5%);
+
+#brand {
+    margin-left: 0.75em;
+    background-color: transparent;
+    font-size: 1.5em;
+}
+
+nav {
+  background-color: $color;
+  display: flex;
+  flex-direction: column;
+
+  header {
+    display: flex;
+    flex: 1 1 $header-height;
+    color: #fff;
+    background: $color-d;
+    min-height: $header-height;
+    max-height: $header-height;
+    align-items: center;
+    padding-left: 1em;
+
+  }
+
+  ul {
+    li {
+      position: relative;
+      border-bottom: 1px solid $color-d;
+    }
+
+    a, .item {
+      cursor: pointer;
+      display: block;
+      color: #fff;
+      padding: 1em 1em 1em 2em;
+
+      i:before {
+        position: relative;
+        right: 1em;
+      }
+
+      &.active, &:hover {
+        background-color: $color-l;
+      }
+    }
+  }
+}

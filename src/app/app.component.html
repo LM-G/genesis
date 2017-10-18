@@ -1,12 +1,6 @@
-<div id="wrapper" #test>
+<div id="wrapper">
   <simple-notifications [options]="notificationOpts"></simple-notifications>
-  <app-side-nav *ngIf="!hide"></app-side-nav>
-  <div id="page">
-    <app-header *ngIf="!hide"></app-header>
-    <main>
-      <router-outlet></router-outlet>
-    </main>
-  </div>
+  <router-outlet></router-outlet>
 </div>
 
 

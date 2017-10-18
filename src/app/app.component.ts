@@ -8,8 +8,7 @@ import { NOTIFICATION_CONFIG } from './config/notification';
 })
 export class AppComponent {
     notificationOpts = NOTIFICATION_CONFIG;
-    hide = true;
     constructor () {
-        console.debug('# App component started');
+        console.log('# App component started');
     }
 }

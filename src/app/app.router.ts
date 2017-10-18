@@ -1,10 +1,9 @@
-import {Route, RouterModule} from '@angular/router';
-import {ModuleWithProviders} from '@angular/core';
-import { AuthGuard } from './core/component/authentication/auth-guard.service';
+import { Route, RouterModule } from '@angular/router';
+import { ModuleWithProviders } from '@angular/core';
 
 const appRoutes: Route[] = [
-    { path: '', redirectTo: '/home', pathMatch: 'full', canActivate: [AuthGuard] },
-    { path: '**', redirectTo: '/home', canActivate: [AuthGuard] }
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: '**', redirectTo: '/home' }
 ];
 
-export const APP_ROUTE_MODULE: ModuleWithProviders =  RouterModule.forRoot(appRoutes);
+export const AppRoutingModule: ModuleWithProviders =  RouterModule.forRoot(appRoutes);

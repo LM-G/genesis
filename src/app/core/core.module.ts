@@ -1,8 +1,6 @@
 import { APP_INITIALIZER, ClassProvider, NgModule, Optional, Provider, SkipSelf } from '@angular/core';
 import { CoreService } from './core.service';
 import { SharedModule } from '../shared/shared.module';
-import { SideNavComponent } from './component/side-nav/side-nav.component';
-import { HeaderComponent } from './component/header/header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from './component/authentication/auth-guard.service';
@@ -54,8 +52,6 @@ const REST_SERVICES = [
 ];
 
 const CORE_COMPONENTS = [
-    SideNavComponent,
-    HeaderComponent,
     FooterComponent
 ];
 
