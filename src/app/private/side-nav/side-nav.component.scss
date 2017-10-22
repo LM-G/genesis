@@ -1,10 +1,16 @@
 @import '~compass-mixins';
 @import "../../../styles/variables";
-@import '../../../styles/theme';
 
 $color: mat-color(map-get($theme, primary));
 $color-d: darken($color, 5%);
 $color-l: lighten($color, 7.5%);
+
+:host {
+  display: flex;
+  flex: 1 1 $side-nav-width;
+  max-width: $side-nav-width;
+  min-width: $side-nav-width;
+}
 
 #brand {
     margin-left: 0.75em;

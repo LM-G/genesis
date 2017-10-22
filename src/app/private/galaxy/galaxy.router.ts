@@ -1,12 +1,12 @@
-import { Route, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 import { GalaxyComponent } from './galaxy.component';
 
-const galaxyRoute: Route[] = [
+const galaxyRoutes: Routes = [
     {
-        path: 'galaxy',
+        path: '',
         component: GalaxyComponent
     }
 ];
 
-export const GALAXY_ROUTE_MODULE: ModuleWithProviders = RouterModule.forChild(galaxyRoute);
+export const GalaxyRoutingModule: ModuleWithProviders = RouterModule.forChild(galaxyRoutes);

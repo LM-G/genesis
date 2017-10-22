@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-public',
-    templateUrl : './public.component.html',
+    template: `<router-outlet></router-outlet>`,
     styleUrls: ['./public.component.scss']
 })
 export class PublicComponent implements OnInit{

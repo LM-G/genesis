@@ -1,14 +1,4 @@
 @import "../styles/variables";
-@import "../styles/theme";
-
-$main-bg-color: mat-color(map-get($theme, primary), 100);
-$main-bg-color-d: darken($main-bg-color, 80%);
-
-$main-font-color: #5F5F5F;
-$main-font-color-d: darken($main-font-color, 7.5%);
-$main-font-color-vd: darken($main-font-color, 15%);
-
-$divider-color: rgba(0, 0, 0, 0.42);
 
 body{
     margin: 0;
@@ -20,13 +10,6 @@ body{
 app-root{
     display: flex;
     width: 100%;
-}
-
-app-side-nav {
-    display: flex;
-    flex: 1 1 $side-nav-width;
-    max-width: $side-nav-width;
-    min-width: $side-nav-width;
 }
 
 app-header {
@@ -70,24 +53,7 @@ main {
     background-color: $main-font-color;
 }
 
-.or-divider{
-    margin-top: 2.5em;
-    border-top: 1px solid $divider-color;
 
-    .or-buble{
-        background-color: mat-color(map-get($theme, primary));
-        color: white;
-        width: 40px;
-        height: 40px;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: -20px;
-        position: relative;
-        text-align: center;
-        border-radius: 20px;
-        line-height: 40px;
-    }
-}
 
 .simple-notification {
     border-radius: 2px;

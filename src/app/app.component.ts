@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NOTIFICATION_CONFIG } from './config/notification';
+import { NOTIFICATION_CONFIG } from './core/config/notification';
 
 @Component({
     selector: 'app-root',

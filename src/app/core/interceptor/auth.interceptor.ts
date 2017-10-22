@@ -34,8 +34,9 @@ export class AuthInterceptor implements HttpInterceptor {
                         if ( err.status === 401 ) {
                             console.warn('## User not authenticated, jwt expired or not valid');
                         }
+                        this.notificationsService.error('Erreur', err.error.message);
                     }
-                    this.notificationsService.error('Erreur', err.statusText);
+
                 }
             );
     }

@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
 
         const canGo = false;
 
-        console.log('# Router :: can activate ', url, ' ? : ', canGo, state);
+        console.log('# AuthGuard :: can activate ', url, ' ? : ', canGo, state);
 
         if (!canGo) {
             this.router.navigate(['/sign-in']);

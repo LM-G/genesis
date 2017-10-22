@@ -2,7 +2,7 @@ import { Route, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 import { AdminComponent } from './admin.component';
 import { AdminGuard } from './admin-guard.service';
-import { AuthGuard } from '../../core/component/authentication/auth-guard.service';
+import { AuthGuard } from '../../core/guard/auth.guard';
 
 const adminRoute: Route[] = [
     {

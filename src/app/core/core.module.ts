@@ -3,7 +3,7 @@ import { CoreService } from './core.service';
 import { SharedModule } from '../shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { AuthGuard } from './component/authentication/auth-guard.service';
+import { AuthGuard } from './guard/auth.guard';
 import { FooterComponent } from './component/footer/footer.component';
 import { StoreModule } from '@ngrx/store';
 import { APP_EFFECTS, APP_REDUCERS } from './store/store';

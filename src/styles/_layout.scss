@@ -1,3 +1,5 @@
+@import "../styles/variables";
+
 .spacer {
     flex: 1 1 auto;
 }
@@ -21,4 +23,19 @@ md-spinner {
     height: 100%;
     width: 100%;
     overflow: hidden;
+
+    button {
+        width: 100%;
+    }
+
+    .mat-card {
+        color: $main-font-color !important;
+        #title {
+            font-size: 1.2em;
+        }
+    }
+
+    .mat-form-field {
+        width: 100% !important;
+    }
 }

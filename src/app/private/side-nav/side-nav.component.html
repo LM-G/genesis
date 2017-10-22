@@ -1,14 +1,15 @@
 <nav fxFlex fxLayout="column">
   <header class="header">
-    <button md-mini-fab><i class="fa fa-bars"></i></button>
+    <button mat-mini-fab><i class="fa fa-bars"></i></button>
     <a id="brand" routerLink="/home">GENESIS</a>
   </header>
 
   <ul fxLayout="column" fxFlex>
-    <li md-ripple><a routerLink="/dashboard" routerLinkActive="active"><i class="fa fa-th"></i>Dashboard</a></li>
-    <li md-ripple><a><i class="fa fa-bar-chart"></i>Statistiques</a></li>
-    <li md-ripple><a><i class="fa fa-road"></i>Roadmap</a></li>
+    <li mat-ripple><a routerLink="/dashboard" routerLinkActive="active"><i class="fa fa-th"></i>Dashboard</a></li>
+    <li mat-ripple><a routerLink="/galaxy" routerLinkActive="active"><i class="fa fa-globe"></i>Galaxy</a></li>
+    <li mat-ripple><a><i class="fa fa-bar-chart"></i>Statistiques</a></li>
+    <li mat-ripple><a><i class="fa fa-road"></i>Roadmap</a></li>
     <li class="spacer"></li>
-    <li md-ripple><span class="item"><i class="fa fa-sign-out"></i>Déconnexion</span></li>
+    <li mat-ripple><span class="item"><i class="fa fa-sign-out"></i>Déconnexion</span></li>
   </ul>
 </nav>

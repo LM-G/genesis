@@ -1,15 +1,13 @@
-import { Route, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
 
 import { HomeComponent } from './home.component';
-import { AuthGuard } from '../../core/component/authentication/auth-guard.service';
 
-const homeRoute: Route[] = [
+const homeRoutes: Routes = [
     {
-        path: 'home',
-        component: HomeComponent,
-        canActivate: [AuthGuard]
+        path: '',
+        component: HomeComponent
     }
 ];
 
-export const HomeRoutingModule: ModuleWithProviders = RouterModule.forChild(homeRoute);
+export const HomeRoutingModule: ModuleWithProviders = RouterModule.forChild(homeRoutes);

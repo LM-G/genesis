@@ -1,0 +1,22 @@
+@import "../styles/variables";
+
+$divider-color: rgba(0, 0, 0, 0.42);
+
+.or-divider{
+  margin-top: 2.5em;
+  border-top: 1px solid $divider-color;
+
+  .or-buble{
+    background-color: mat-color(map-get($theme, primary));
+    color: white;
+    width: 40px;
+    height: 40px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -20px;
+    position: relative;
+    text-align: center;
+    border-radius: 20px;
+    line-height: 40px;
+  }
+}
