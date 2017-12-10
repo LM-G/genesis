@@ -9,53 +9,66 @@
       <form fxLayout="column" fxLayoutGap="0.5em" novalidate
             [formGroup]="signUpForm"
             (ngSubmit)="signUp(signUpForm)">
+
+        <!-- account name-->
         <mat-form-field>
           <mat-placeholder>
             <i class="fa fa-user"></i> Nom de compte
           </mat-placeholder>
           <input matInput type="text" formControlName="name" required [disableControl]="isLoading">
-          <mat-error ngxErrors="name">
-            <span ngxError="required">Obligatoire</span>
+          <mat-error appErrors="name">
+            <span appError="required">Obligatoire</span>
           </mat-error>
         </mat-form-field>
+
+        <!-- e mail-->
         <mat-form-field>
           <mat-placeholder>
             <i class="fa fa-envelope-o"></i> Adresse e-mail
           </mat-placeholder>
           <input matInput type="text" formControlName="email" required [disableControl]="isLoading">
-          <mat-error ngxErrors="email">
-            <span ngxError="required">Obligatoire</span>
-            <span ngxError="pattern">E-mail invalide</span>
+          <mat-error appErrors="email">
+            <span appError="required">Obligatoire</span>
+            <span appError="pattern">E-mail invalide</span>
           </mat-error>
         </mat-form-field>
+
+        <!-- password-->
         <mat-form-field>
           <mat-placeholder>
             <i class="fa fa-lock"></i> Mot de passe
           </mat-placeholder>
           <input matInput type="password" formControlName="password" required [disableControl]="isLoading">
-          <mat-error ngxErrors="password">
-            <span ngxError="required">Obligatoire</span>
+          <mat-error appErrors="password">
+            <span appError="required">Obligatoire</span>
           </mat-error>
         </mat-form-field>
+
+        <!-- password confirmation-->
         <mat-form-field>
           <input matInput type="password" formControlName="confirmPassword" placeholder="Confirmation du mot de passe"
                  [disableControl]="isLoading">
-          <mat-error ngxErrors="confirmPassword">
-            <span ngxError="match">Mot de passe différent</span>
+          <mat-error appErrors="confirmPassword">
+            <span appError="match">Mot de passe différent</span>
           </mat-error>
         </mat-form-field>
+
         <br>
+
         <button mat-raised-button color="accent" type="submit" [disabled]="isLoading">
           S'enregistrer <i class="fa fa-sign-in"></i>
         </button>
       </form>
     </div>
+
     <div class="or-divider">
       <div class="or-buble">
         ou
       </div>
     </div>
+
     <br>
+
     <div class="section">
       <div fxLayout="column" fxLayoutAlign="center center">
         <button mat-raised-button color="primary" (click)="login()">

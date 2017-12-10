@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../../shared/model/user';
+import { User } from '../../../shared/model/user';
 
 const PATH = '/users';
 

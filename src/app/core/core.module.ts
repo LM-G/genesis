@@ -5,14 +5,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from './guard/auth.guard';
 import { FooterComponent } from './component/footer/footer.component';
-import { StoreModule } from '@ngrx/store';
-import { APP_EFFECTS, APP_REDUCERS } from './store/store';
-import { EffectsModule } from '@ngrx/effects';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { APIInterceptor } from './interceptor/api.interceptor';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
-import { AuthService } from './api/auth.service';
-import { UserService } from './api/user.service';
+import { AuthService } from './api/auth/auth.service';
+import { UserService } from './api/user/user.service';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
 /**
@@ -64,8 +61,6 @@ const CORE_COMPONENTS = [
         BrowserAnimationsModule,
         RouterModule,
         HttpClientModule,
-        StoreModule.forRoot(APP_REDUCERS),
-        EffectsModule.forRoot(APP_EFFECTS),
         SimpleNotificationsModule.forRoot(),
 
         SharedModule
@@ -74,8 +69,6 @@ const CORE_COMPONENTS = [
         BrowserAnimationsModule,
         RouterModule,
         HttpClientModule,
-        StoreModule,
-        EffectsModule,
         SimpleNotificationsModule,
 
         ...CORE_COMPONENTS

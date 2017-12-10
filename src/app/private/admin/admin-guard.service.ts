@@ -1,14 +1,11 @@
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Injectable } from '@angular/core';
-import { AppState } from '../../core/store/store';
-import { Store } from '@ngrx/store';
 
 
 @Injectable()
 export class AdminGuard implements CanActivate {
     constructor(
-        private router: Router,
-        private store: Store<AppState>
+        private router: Router
     ) {
     }
 

@@ -1,14 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SignInForm } from '../../shared/form/sign-in';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../core/store/store';
-import { AuthService } from '../../core/api/auth.service';
-import { LocalStorage } from '../../core/store/local-storage';
-import { FetchUserAction } from '../../core/store/user/user.actions';
-import { StartLoadingAction, StopLoadingAction } from '../../core/store/loading/loading.action';
-import { Observable } from 'rxjs/Observable';
+import { SignInForm } from '../../core/api/auth/form/sign-in';
+import { AuthService } from '../../core/api/auth/auth.service';
+import { TokensHolder } from '../../core/api/auth/model/tokens-holder';
 
 /**
  * Sign in component
@@ -21,20 +16,15 @@ import { Observable } from 'rxjs/Observable';
 })
 export class SignInComponent implements OnInit {
     signInForm: FormGroup;
-    isLoading$: Observable<boolean>;
 
     constructor(
         private router: Router,
-        private fb: FormBuilder,
-        private store: Store<AppState>,
         private authService: AuthService
     ) { }
 
     ngOnInit(): void {
         console.log('# SignInComponent started');
-        this.initSignInForm();
-        this.isLoading$ = this.store.select(state => state.loading);
-
+        this.signInForm = SignInForm.create();
     }
 
     register(): void {
@@ -42,33 +32,23 @@ export class SignInComponent implements OnInit {
     }
 
     /**
-     * Initializes login form
-     */
-    initSignInForm(): void {
-
-        this.signInForm = this.fb.group({
-            login: ['', Validators.required],
-            password: ['', Validators.required],
-            rememberme: true
-        });
-    }
-
-    /**
      * SignIn
      * @param {SignInForm} value
      * @param {boolean} valid
      */
-    signIn({ value, valid }: { value: SignInForm, valid: boolean }): void {
+    signIn({ value, valid }: { value: SignInForm, valid: boolean }) {
         if (!valid) {
             return;
         }
-        this.store.dispatch(new StartLoadingAction());
-        this.authService.signIn(value)
-            .subscribe(
-                (token: string) => {
-                    LocalStorage.token = token;
-                    this.store.dispatch(new FetchUserAction());
-                }, null, () => this.store.dispatch(new StopLoadingAction())
-            );
+
+        this.authService.signIn(value).subscribe(
+            registerTokens,
+            (err) => console.log('## signIn : erreur ', err),
+            () => console.log('## signIn : done')
+        );
+
+        function registerTokens({accessToken, refreshToken} : TokensHolder){
+            console.log('## signIn : connection réussie ', accessToken, refreshToken)
+        }
     }
 }

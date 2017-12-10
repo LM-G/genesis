@@ -1,20 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SignInForm } from '../../shared/form/sign-in';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../core/store/store';
-import { AuthService } from '../../core/api/auth.service';
-import { SignUpForm } from '../../shared/form/sign-up';
-import { EMAIL_REGEXP } from '../../shared/constant/static';
-import { CustomValidators } from '../../shared/validator/custom-validator';
-
-interface ISignUpForm {
-    name: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-}
+import { FormGroup } from '@angular/forms';
+import { SignInForm } from '../../core/api/auth/form/sign-in';
+import { AuthService } from '../../core/api/auth/auth.service';
+import { SignUpForm } from '../../core/api/auth/form/sign-up';
 
 /**
  * Sign in component
@@ -30,27 +19,12 @@ export class SignUpComponent implements OnInit {
     isLoading = false;
     constructor(
         private router: Router,
-        private fb: FormBuilder,
-        private store: Store<AppState>,
         private authService: AuthService
     ) {}
 
     ngOnInit(): void {
         console.log('# SignUpComponent started');
-        this.initSignUpForm();
-    }
-
-    /**
-     * Initializes register form
-     */
-    initSignUpForm(): void {
-
-        this.signUpForm = this.fb.group({
-            name: ['', Validators.required],
-            email: ['', [Validators.required, Validators.pattern(EMAIL_REGEXP)]],
-            password: ['', Validators.required],
-            confirmPassword: ['', CustomValidators.match('password')]
-        });
+        this.signUpForm = SignUpForm.create();
     }
 
     /**
@@ -58,20 +32,14 @@ export class SignUpComponent implements OnInit {
      * @param {SignInForm} value
      * @param {boolean} valid
      */
-    signUp({ value, valid }: { value: ISignUpForm, valid: boolean }): void {
+    signUp({ value, valid }: { value: SignUpForm, valid: boolean }): void {
         if (!valid) {
             return;
         }
 
         this.isLoading = true;
 
-        const signUpForm: SignUpForm = {
-            name: value.name,
-            email: value.email,
-            password: value.password
-        };
-
-        this.authService.signUp(signUpForm)
+        this.authService.signUp(value)
             .subscribe(
                 () => this.isLoading = false,
                 () => {
