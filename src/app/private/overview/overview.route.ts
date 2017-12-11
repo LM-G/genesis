@@ -1,14 +1,14 @@
-import { Route, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
+import { Route, RouterModule } from '@angular/router';
+import { AuthGuard } from '@genesis/core/guard/auth.guard';
 
 import { OverviewComponent } from './overview.component';
-import { AuthGuard } from '../../core/guard/auth.guard';
 
 const overviewRoute: Route[] = [
     {
         path: 'overview',
         component: OverviewComponent,
-        canActivate: [AuthGuard],
+        canActivate: [ AuthGuard ],
     }
 ];
 

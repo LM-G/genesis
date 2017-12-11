@@ -1,15 +1,14 @@
 import { Directive, DoCheck, forwardRef, HostBinding, Inject, Input, OnDestroy, OnInit } from '@angular/core';
-import { ErrorOptions } from './errors';
-import { Subscription } from 'rxjs/Subscription';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs/Observable';
-import { ErrorsDirective } from './errors.directive';
-import { toArray } from '../../../util/to-array';
-
+import { toArray } from '@genesis/util/to-array';
+import 'rxjs/add/observable/combineLatest';
+import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/observable/combineLatest';
+import { Observable } from 'rxjs/Observable';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
+import { ErrorOptions } from './errors';
+import { ErrorsDirective } from './errors.directive';
 
 @Directive({
     selector: '[appError]'

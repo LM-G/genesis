@@ -10,8 +10,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
     public sections: Array<number> = Array(20);
-    constructor(
-    ) {}
+
+    constructor() {}
 
     ngOnInit(): void {
         console.debug('# HomeComponent started');

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
+import { SharedModule } from '@genesis/shared/shared.module';
+import { AdminGuard } from './admin-guard.service';
 import { AdminComponent } from './admin.component';
 import { ADMIN_ROUTE_MODULE } from './admin.router';
-import { SharedModule } from '../../shared/shared.module';
-import { AdminGuard } from './admin-guard.service';
 
 @NgModule({
     imports: [
@@ -17,4 +17,5 @@ import { AdminGuard } from './admin-guard.service';
     ]
 })
 
-export class AdminModule {}
+export class AdminModule {
+}

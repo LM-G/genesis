@@ -1,14 +1,14 @@
-import { Route, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
+import { Route, RouterModule } from '@angular/router';
+import { AuthGuard } from '@genesis/core/guard/auth.guard';
 
 import { ChatComponent } from './chat.component';
-import {AuthGuard} from '../../core/guard/auth.guard';
 
 const chatRoute: Route[] = [
     {
         path: 'chat',
         component: ChatComponent,
-        canActivate: [AuthGuard],
+        canActivate: [ AuthGuard ],
     }
 ];
 

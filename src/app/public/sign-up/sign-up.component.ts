@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { FormGroup } from '@angular/forms';
-import { SignInForm } from '../../core/api/auth/form/sign-in';
-import { AuthService } from '../../core/api/auth/auth.service';
-import { SignUpForm } from '../../core/api/auth/form/sign-up';
+import { Router } from '@angular/router';
+import { AuthService } from '@genesis/core/api/auth/auth.service';
+import { SignInForm, SignUpForm } from '@genesis/core/api/auth/form';
+import { GenesisForm } from '@genesis/shared/factory/genesis-form';
 
 /**
  * Sign in component
@@ -17,14 +17,13 @@ import { SignUpForm } from '../../core/api/auth/form/sign-up';
 export class SignUpComponent implements OnInit {
     signUpForm: FormGroup;
     isLoading = false;
-    constructor(
-        private router: Router,
-        private authService: AuthService
-    ) {}
+
+    constructor(private router: Router,
+                private authService: AuthService) {}
 
     ngOnInit(): void {
         console.log('# SignUpComponent started');
-        this.signUpForm = SignUpForm.create();
+        this.signUpForm = GenesisForm.create(SignUpForm);
     }
 
     /**
@@ -48,7 +47,7 @@ export class SignUpComponent implements OnInit {
             );
     }
 
-    login () {
-        this.router.navigate(['/sign-in']);
+    login() {
+        this.router.navigate([ '/sign-in' ]);
     }
 }

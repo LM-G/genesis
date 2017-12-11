@@ -1,7 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { ChatComponent } from './chat.component';
-import { chatRouting} from './chat.route';
-import { CommonModule } from '@angular/common';
+import { chatRouting } from './chat.route';
 
 @NgModule({
     imports: [
@@ -11,7 +11,8 @@ import { CommonModule } from '@angular/common';
     declarations: [
         ChatComponent
     ],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 
-export class ChatModule {}
+export class ChatModule {
+}

@@ -14,9 +14,17 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "baseUrl": "./src",
+    "paths": {
+      "@genesis/*": [
+        "app/*"
+      ]
+    }
   },
-  "exclude": [
-    "node_modules"
-  ]
+  "paths": {
+    "@genesis/*": [
+      "app/*"
+    ]
+  }
 }

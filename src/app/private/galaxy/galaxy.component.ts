@@ -9,8 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GalaxyComponent implements OnInit {
 
-    constructor(
-    ) {}
+    constructor() {}
 
     ngOnInit(): void {
         console.debug('# GalaxyComponent started');

@@ -5,10 +5,10 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.router';
 // Core
 import { CoreModule } from './core/core.module';
-import { SharedModule } from './shared/shared.module';
+import { PrivateModule } from './private/private.module';
 // Features
 import { PublicModule } from './public/public.module';
-import { PrivateModule } from './private/private.module';
+import { SharedModule } from './shared/shared.module';
 
 
 /**
@@ -32,4 +32,5 @@ import { PrivateModule } from './private/private.module';
     bootstrap: [ AppComponent ]
 
 })
-export class AppModule {}
+export class AppModule {
+}

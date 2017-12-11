@@ -1,8 +1,8 @@
 import { AfterViewInit, Directive, Input, OnChanges, OnDestroy, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AbstractControl, FormGroupDirective } from '@angular/forms';
+import { toArray } from '@genesis/util/to-array';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ErrorDetails, ErrorOptions } from './errors';
-import { toArray } from '../../../util/to-array';
 
 @Directive({
     selector: '[appErrors]'

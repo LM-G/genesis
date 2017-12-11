@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../../../shared/model/user';
+import { Injectable } from '@angular/core';
+import { User } from '@genesis/shared/model/user';
+import { Observable } from 'rxjs/Observable';
 
 const PATH = '/users';
 
@@ -16,7 +16,7 @@ export class UserService {
      */
     constructor(private http: HttpClient) {}
 
-    me (): Observable<User> {
+    me(): Observable<User> {
         return this.http.get<User>(PATH);
     }
 }

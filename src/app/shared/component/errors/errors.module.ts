@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
-import { ErrorsDirective } from './errors.directive';
 import { ErrorDirective } from './error.directive';
+import { ErrorsDirective } from './errors.directive';
 
 const DEPENDENCIES = [
     ErrorsDirective,

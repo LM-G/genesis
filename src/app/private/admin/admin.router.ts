@@ -1,14 +1,14 @@
-import { Route, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
-import { AdminComponent } from './admin.component';
+import { Route, RouterModule } from '@angular/router';
+import { AuthGuard } from '@genesis/core/guard/auth.guard';
 import { AdminGuard } from './admin-guard.service';
-import { AuthGuard } from '../../core/guard/auth.guard';
+import { AdminComponent } from './admin.component';
 
 const adminRoute: Route[] = [
     {
         path: 'admin',
         component: AdminComponent,
-        canActivate: [AuthGuard, AdminGuard]
+        canActivate: [ AuthGuard, AdminGuard ]
     }
 ];
 

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { DashboardComponent } from './dashboard.component';
-import { DASHBOARD_ROUTE_MODULE} from './dashboard.router';
+import { DASHBOARD_ROUTE_MODULE } from './dashboard.router';
 
 @NgModule({
     imports: [
@@ -11,4 +11,5 @@ import { DASHBOARD_ROUTE_MODULE} from './dashboard.router';
     ]
 })
 
-export class DashboardModule {}
+export class DashboardModule {
+}

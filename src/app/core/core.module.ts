@@ -1,15 +1,14 @@
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, ClassProvider, NgModule, Optional, Provider, SkipSelf } from '@angular/core';
-import { CoreService } from './core.service';
-import { SharedModule } from '../shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
-import { AuthGuard } from './guard/auth.guard';
-import { FooterComponent } from './component/footer/footer.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { APIInterceptor } from './interceptor/api.interceptor';
-import { AuthInterceptor } from './interceptor/auth.interceptor';
-import { AuthService } from './api/auth/auth.service';
-import { UserService } from './api/user/user.service';
+import { AuthService } from '@genesis/core/api/auth/auth.service';
+import { UserService } from '@genesis/core/api/user/user.service';
+import { FooterComponent } from '@genesis/core/component/footer/footer.component';
+import { CoreService } from '@genesis/core/core.service';
+import { AuthGuard } from '@genesis/core/guard/auth.guard';
+import { APIInterceptor, AuthInterceptor } from '@genesis/core/interceptor';
+import { SharedModule } from '@genesis/shared/shared.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
 /**
@@ -19,10 +18,10 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 const INITIALIZERS: Provider[] = [
     {
         provide: APP_INITIALIZER,
-        useFactory(coreService: CoreService){
+        useFactory(coreService: CoreService) {
             return () => coreService.initialize();
         },
-        deps: [CoreService],
+        deps: [ CoreService ],
         multi: true
     }
 ];

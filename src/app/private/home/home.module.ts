@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
+import { SharedModule } from '@genesis/shared/shared.module';
 import { HomeComponent } from './home.component';
 import { HomeRoutingModule } from './home.router';
-import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
     imports: [
@@ -13,4 +13,5 @@ import { SharedModule } from '../../shared/shared.module';
     ]
 })
 
-export class HomeModule {}
+export class HomeModule {
+}

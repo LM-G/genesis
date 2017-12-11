@@ -11,4 +11,5 @@ import { overviewRouting } from './overview.route';
     ]
 })
 
-export class OverviewModule {}
+export class OverviewModule {
+}

@@ -1,12 +1,13 @@
 import { FormControl } from '@angular/forms';
 import { isNullOrUndefined } from 'util';
 
-export function Control(...args) : Function{
-    return (target: any, key: string) => {
-        console.log(target, key);
+export const CONTROLS_TOKEN = '$$__genesis_controls';
 
-        if(isNullOrUndefined(target.constructor.controls)) {
-            Object.defineProperty(target.constructor, "controls", {
+export function Control(...args) {
+    return (target: any, key: string) => {
+
+        if (isNullOrUndefined(target.constructor[ CONTROLS_TOKEN ])) {
+            Object.defineProperty(target.constructor, CONTROLS_TOKEN, {
                 writable: false,
                 enumerable: true,
                 configurable: true,
@@ -14,6 +15,6 @@ export function Control(...args) : Function{
             });
         }
 
-        target.constructor.controls.set(key, new FormControl(...args));
-    }
+        target.constructor[ CONTROLS_TOKEN ].set(key, new FormControl(...args));
+    };
 }

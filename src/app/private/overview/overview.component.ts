@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
  * Overview component
  */
 @Component({
-    selector: 'genesis-overview',
+    selector: 'app-overview',
     templateUrl: './overview.component.html',
     styleUrls: [ './overview.component.scss' ]
 })

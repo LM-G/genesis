@@ -1,4 +1,4 @@
-import { UserRole } from "../../core/constant/user-role";
+import { UserRole } from '@genesis/shared/constant/user-role';
 
 export class User {
     id: string;

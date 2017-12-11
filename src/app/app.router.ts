@@ -1,5 +1,5 @@
-import { Route, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
+import { Route, RouterModule } from '@angular/router';
 
 /**
  * Applicaiton default routes
@@ -10,4 +10,4 @@ const appRoutes: Route[] = [
     { path: '**', redirectTo: '/home' }
 ];
 
-export const AppRoutingModule: ModuleWithProviders =  RouterModule.forRoot(appRoutes);
+export const AppRoutingModule: ModuleWithProviders = RouterModule.forRoot(appRoutes);

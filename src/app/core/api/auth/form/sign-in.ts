@@ -1,10 +1,8 @@
-import { Form } from '../../../decorator/form-decorator';
-import { Control } from '../../../decorator/control-decorator';
 import { Validators } from '@angular/forms';
-import { AbstractForm } from '../../../../shared/model/abstract-form';
+import { Control } from '@genesis/core/decorator/control-decorator';
 
-@Form()
-export class SignInForm extends AbstractForm{
+
+export class SignInForm {
     @Control('', Validators.required)
     login: string;
 

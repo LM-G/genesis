@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class NotLoggedOnlyGuard implements CanActivate {
-  constructor(private router: Router) {}
-  canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-      let url: string = state.url;
+    constructor(private router: Router) {}
 
-      const canGo = true;
+    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+        let url: string = state.url;
 
-      console.log('# NotLoggedOnlyGuard :: can activate ', url, ' ? : ', canGo, state);
+        const canGo = true;
 
-      if (!canGo) {
-          this.router.navigate(['/home']);
-      }
+        console.log('# NotLoggedOnlyGuard :: can activate ', url, ' ? : ', canGo, state);
 
-      return canGo;
-  }
+        if (!canGo) {
+            this.router.navigate([ '/home' ]);
+        }
+
+        return canGo;
+    }
 }

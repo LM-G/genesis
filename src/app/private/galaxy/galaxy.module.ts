@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
+import { SharedModule } from '@genesis/shared/shared.module';
 import { GalaxyComponent } from './galaxy.component';
 import { GalaxyRoutingModule } from './galaxy.router';
-import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
     imports: [
@@ -13,4 +13,5 @@ import { SharedModule } from '../../shared/shared.module';
     ]
 })
 
-export class GalaxyModule {}
+export class GalaxyModule {
+}

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
-import { PublicRoutingModule } from './public.router';
-import { PublicComponent } from './public.component';
 import { NotLoggedOnlyGuard } from './core/not-logged-only.guard';
+import { PublicComponent } from './public.component';
+import { PublicRoutingModule } from './public.router';
 
 @NgModule({
     imports: [
@@ -15,4 +15,5 @@ import { NotLoggedOnlyGuard } from './core/not-logged-only.guard';
     ]
 })
 
-export class PublicModule {}
+export class PublicModule {
+}

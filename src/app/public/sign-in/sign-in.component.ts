@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SignInForm } from '../../core/api/auth/form/sign-in';
-import { AuthService } from '../../core/api/auth/auth.service';
-import { TokensHolder } from '../../core/api/auth/model/tokens-holder';
+import { AuthService } from '@genesis/core/api/auth/auth.service';
+import { SignInForm } from '@genesis/core/api/auth/form';
+import { TokensHolder } from '@genesis/core/api/auth/model/tokens-holder';
+import { GenesisForm } from '@genesis/shared/factory/genesis-form';
 
 /**
  * Sign in component
@@ -17,18 +18,16 @@ import { TokensHolder } from '../../core/api/auth/model/tokens-holder';
 export class SignInComponent implements OnInit {
     signInForm: FormGroup;
 
-    constructor(
-        private router: Router,
-        private authService: AuthService
-    ) { }
+    constructor(private router: Router,
+                private authService: AuthService) { }
 
     ngOnInit(): void {
         console.log('# SignInComponent started');
-        this.signInForm = SignInForm.create();
+        this.signInForm = GenesisForm.create(SignInForm);
     }
 
     register(): void {
-        this.router.navigate(['/sign-up']);
+        this.router.navigate([ '/sign-up' ]);
     }
 
     /**
@@ -47,8 +46,8 @@ export class SignInComponent implements OnInit {
             () => console.log('## signIn : done')
         );
 
-        function registerTokens({accessToken, refreshToken} : TokensHolder){
-            console.log('## signIn : connection réussie ', accessToken, refreshToken)
+        function registerTokens({ accessToken, refreshToken }: TokensHolder) {
+            console.log('## signIn : connection réussie ', accessToken, refreshToken);
         }
     }
 }

@@ -1,12 +1,10 @@
-import { AbstractForm } from '../../../../shared/model/abstract-form';
-import { Form } from '../../../decorator/form-decorator';
-import { Control } from '../../../decorator/control-decorator';
-import { Validators } from '@angular/forms';
-import { EMAIL_REGEXP } from '../../../constant/static';
-import { CustomValidators } from '../../../../shared/validator/custom-validator';
+import {Validators} from '@angular/forms';
+import {JsonIgnore} from '@genesis/core/decorator';
+import {Control} from '@genesis/core/decorator/control-decorator';
+import {EMAIL_REGEXP} from '@genesis/shared/constant/static';
+import {GenesisValidators} from '@genesis/shared/validator/genesis-validator';
 
-@Form()
-export class SignUpForm extends AbstractForm{
+export class SignUpForm {
 
     @Control('', Validators.required)
     name: string;
@@ -17,6 +15,7 @@ export class SignUpForm extends AbstractForm{
     @Control('', [Validators.required, Validators.pattern(EMAIL_REGEXP)])
     email: string;
 
-    @Control('', [Validators.required, CustomValidators.match('password')])
+    @JsonIgnore
+    @Control('', [Validators.required, GenesisValidators.match('password')])
     confirmPassword: string;
 }

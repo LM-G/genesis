@@ -1,14 +1,14 @@
-import { Route, RouterModule } from '@angular/router';
 import { ModuleWithProviders } from '@angular/core';
+import { Route, RouterModule } from '@angular/router';
+import { AuthGuard } from '@genesis/core/guard/auth.guard';
 
 import { DashboardComponent } from './dashboard.component';
-import { AuthGuard } from '../../core/guard/auth.guard';
 
 const dashBoardRoute: Route[] = [
     {
         path: 'dashboard',
         component: DashboardComponent,
-        canActivate: [AuthGuard]
+        canActivate: [ AuthGuard ]
     }
 ];
 
