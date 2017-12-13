@@ -1,41 +1,41 @@
 @import "../styles/variables";
 
 .spacer {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }
 
 .mat-column-action {
-    flex: 0.2 !important;
+  flex: 0.2 !important;
 }
 
 ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 md-spinner {
-    margin: auto;
+  margin: auto;
 }
 
 .full-screen {
-    height: 100%;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+
+  button {
     width: 100%;
-    overflow: hidden;
+  }
 
-    button {
-        width: 100%;
+  .mat-card {
+    color: $main-font-color !important;
+    #title {
+      font-size: 1.2em;
     }
+  }
 
-    .mat-card {
-        color: $main-font-color !important;
-        #title {
-            font-size: 1.2em;
-        }
-    }
-
-    .mat-form-field {
-        width: 100% !important;
-    }
+  .mat-form-field {
+    width: 100% !important;
+  }
 }

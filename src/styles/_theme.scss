@@ -2,6 +2,6 @@
 @import '~compass-mixins';
 
 $primary: mat-palette($mat-grey, 800, 100, 300);
-$accent:  mat-palette($mat-pink, A200, A100, A400);
-$warn:    mat-palette($mat-red);
-$theme:   mat-light-theme($primary, $accent, $warn);
+$accent: mat-palette($mat-pink, A200, A100, A400);
+$warn: mat-palette($mat-red);
+$theme: mat-light-theme($primary, $accent, $warn);

@@ -1,19 +1,23 @@
-import { FormControl, FormGroup } from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
+import {FORM_CONTROLS_METADATA_KEY, GENESIS_METADATA_KEY} from '@genesis/core/decorator/metadata/metadata';
+import {get} from 'lodash';
 
 /**
  * Form builder with one static function to generate
  */
 export class GenesisForm {
 
-    static create(form: any): FormGroup {
-        const formGroup = new FormGroup({});
+  static create(form: any): FormGroup {
+    const formGroup = new FormGroup({});
 
-        if (form.$$__genesis_controls) {
-            form.$$__genesis_controls.forEach((value: FormControl, key: string) => {
-                formGroup.registerControl(key, value);
-            });
-        }
+    const controls = get(form.prototype, GENESIS_METADATA_KEY + '.' + FORM_CONTROLS_METADATA_KEY);
 
-        return formGroup;
+    if (controls) {
+      controls.forEach((value: FormControl, key: string) => {
+        formGroup.registerControl(key, value);
+      });
     }
+
+    return formGroup;
+  }
 }

@@ -1,20 +1,9 @@
 import { FormControl } from '@angular/forms';
-import { isNullOrUndefined } from 'util';
-
-export const CONTROLS_TOKEN = '$$__genesis_controls';
+import { FORM_CONTROLS_METADATA_KEY, getMetadata } from './metadata/metadata';
 
 export function Control(...args) {
     return (target: any, key: string) => {
-
-        if (isNullOrUndefined(target.constructor[ CONTROLS_TOKEN ])) {
-            Object.defineProperty(target.constructor, CONTROLS_TOKEN, {
-                writable: false,
-                enumerable: true,
-                configurable: true,
-                value: new Map()
-            });
-        }
-
-        target.constructor[ CONTROLS_TOKEN ].set(key, new FormControl(...args));
+        const controls: Map<string, FormControl> = getMetadata(target, FORM_CONTROLS_METADATA_KEY, new Map());
+        controls.set(key, new FormControl(...args));
     };
 }

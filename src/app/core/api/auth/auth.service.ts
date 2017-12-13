@@ -15,10 +15,11 @@ export class AuthService {
      * Auth api's constructor
      * @param {HttpClient} http
      */
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) {
+    }
 
     signIn(form: SignInForm): Observable<TokensHolder> {
-        return this.http.post<TokensHolder>(AUTH_PATH + '/sign-in', form).first();
+        return this.http.post<TokensHolder>(AUTH_PATH + '/sign-in', form);
     }
 
     signUp(form: SignUpForm): Observable<void> {

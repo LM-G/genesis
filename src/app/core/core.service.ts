@@ -13,9 +13,10 @@ export class CoreService {
      * CoreService's constructor
      * @param userService user handling api
      */
-    constructor() {}
+    constructor() {
+    }
 
-    initialize() {
+    initialize(): Promise<any[]> {
         const initSequence: Observable<any>[] = [];
         initSequence.push(Observable.timer(1));
         return Observable.forkJoin(initSequence).toPromise();

@@ -1,8 +1,8 @@
 @charset "UTF-8";
 @font-face {
   font-family: "genesis";
-  src:url("#{$app-font-path}/genesis.eot");
-  src:url("#{$app-font-path}/genesis.eot?#iefix") format("embedded-opentype"),
+  src: url("#{$app-font-path}/genesis.eot");
+  src: url("#{$app-font-path}/genesis.eot?#iefix") format("embedded-opentype"),
   url("#{$app-font-path}/genesis.woff") format("woff"),
   url("#{$app-font-path}/genesis.ttf") format("truetype"),
   url("#{$app-font-path}/genesis.svg#genesis") format("svg");

@@ -1,10 +1,12 @@
-import {Validators} from '@angular/forms';
-import {JsonIgnore} from '@genesis/core/decorator';
-import {Control} from '@genesis/core/decorator/control-decorator';
-import {EMAIL_REGEXP} from '@genesis/shared/constant/static';
-import {GenesisValidators} from '@genesis/shared/validator/genesis-validator';
+import { Validators } from '@angular/forms';
+import { Form, JsonIgnore } from '@genesis/core/decorator';
+import { Control } from '@genesis/core/decorator/control-decorator';
+import { EMAIL_REGEXP } from '@genesis/shared/constant/static';
+import { GenesisForm } from '@genesis/shared/model/genesis-form';
+import { GenesisValidators } from '@genesis/shared/validator/genesis-validator';
 
-export class SignUpForm {
+@Form
+export class SignUpForm extends GenesisForm {
 
     @Control('', Validators.required)
     name: string;
@@ -12,10 +14,10 @@ export class SignUpForm {
     @Control('', Validators.required)
     password: string;
 
-    @Control('', [Validators.required, Validators.pattern(EMAIL_REGEXP)])
+    @Control('', [ Validators.required, Validators.pattern(EMAIL_REGEXP) ])
     email: string;
 
     @JsonIgnore
-    @Control('', [Validators.required, GenesisValidators.match('password')])
+    @Control('', [ Validators.required, GenesisValidators.match('password') ])
     confirmPassword: string;
 }

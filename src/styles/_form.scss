@@ -2,11 +2,11 @@
 
 $divider-color: rgba(0, 0, 0, 0.42);
 
-.or-divider{
+.or-divider {
   margin-top: 2.5em;
   border-top: 1px solid $divider-color;
 
-  .or-buble{
+  .or-buble {
     background-color: mat-color(map-get($theme, primary));
     color: white;
     width: 40px;

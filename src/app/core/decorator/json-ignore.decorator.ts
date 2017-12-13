@@ -1,17 +1,5 @@
-import { isNullOrUndefined } from 'util';
-
-export const IGNGORES_TOKEN = '$$__genesis_ignores';
+import { FORM_IGNORED_PROPERTIES_METADATA_KEY, getMetadata } from './metadata/metadata';
 
 export const JsonIgnore = (target: any, key: string) => {
-
-    if (isNullOrUndefined(target.constructor[ IGNGORES_TOKEN ])) {
-        Object.defineProperty(target.constructor, IGNGORES_TOKEN, {
-            writable: false,
-            enumerable: true,
-            configurable: true,
-            value: []
-        });
-    }
-
-    target.constructor[ IGNGORES_TOKEN ].push(key);
+    getMetadata(target, FORM_IGNORED_PROPERTIES_METADATA_KEY, []).push(key);
 };

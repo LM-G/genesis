@@ -1,5 +1,5 @@
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { APP_INITIALIZER, ClassProvider, NgModule, Optional, Provider, SkipSelf } from '@angular/core';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule, HttpXhrBackend } from '@angular/common/http';
+import { APP_INITIALIZER, ClassProvider, FactoryProvider, NgModule, Optional, Provider, SkipSelf } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '@genesis/core/api/auth/auth.service';
@@ -8,6 +8,7 @@ import { FooterComponent } from '@genesis/core/component/footer/footer.component
 import { CoreService } from '@genesis/core/core.service';
 import { AuthGuard } from '@genesis/core/guard/auth.guard';
 import { APIInterceptor, AuthInterceptor } from '@genesis/core/interceptor';
+import { httpProxy } from '@genesis/core/proxy/http-proxy';
 import { SharedModule } from '@genesis/shared/shared.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 
@@ -51,6 +52,14 @@ const CORE_COMPONENTS = [
     FooterComponent
 ];
 
+const PROXIES: FactoryProvider[] = [
+    {
+        provide: HttpClient,
+        useFactory: httpProxy,
+        deps: [ HttpXhrBackend, HTTP_INTERCEPTORS ]
+    }
+];
+
 /**
  * Genesis application core module.
  * All it's attached feature are singletons which will be instantiated only once with app bootstrap
@@ -79,8 +88,9 @@ const CORE_COMPONENTS = [
         CoreService,
         AuthGuard,
         ...REST_SERVICES,
+        ...INTERCEPTORS,
         ...INITIALIZERS,
-        ...INTERCEPTORS
+        ...PROXIES
     ]
 })
 export class CoreModule {
