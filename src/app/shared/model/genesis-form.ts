@@ -1,4 +1,7 @@
 export abstract class GenesisForm {
-  constructor(form: Object) {
-  }
+    static of: Function;
+
+    constructor(form: Object) {
+    }
 }
+

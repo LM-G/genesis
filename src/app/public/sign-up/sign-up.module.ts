@@ -1,4 +1,5 @@
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
+import { SignUpSuccessComponent } from '@genesis/public/sign-up/success/sign-up-success.component';
 import { SharedModule } from '../../shared/shared.module';
 import { SignUpComponent } from './sign-up.component';
 import { SignUpRoutingModule } from './sign-up.router';
@@ -9,9 +10,9 @@ import { SignUpRoutingModule } from './sign-up.router';
         SignUpRoutingModule
     ],
     declarations: [
-        SignUpComponent
-    ],
-    schemas: [ NO_ERRORS_SCHEMA ]
+        SignUpComponent,
+        SignUpSuccessComponent
+    ]
 })
 
 export class SignUpModule {

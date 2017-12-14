@@ -38,7 +38,7 @@ export const httpProxy = (xhr: HttpXhrBackend, interceptors: HttpInterceptor[]) 
  * @returns {any[]} processed args
  */
 function preProcess(target: HttpClient, key: string, args: any[]): any[] {
-    const processedArgs: any[] = new Array(...args);
+    const processedArgs: any[] = [ ...args ];
     // only process put, post, patch methods
     if (httpVerbs.includes(key) && args.length > 1) {
         // arg [0] is the endpoint called, arg [1] is the body, arg[2] are the options if present

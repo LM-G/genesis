@@ -1,3 +1,4 @@
+<router-outlet></router-outlet>
 <article fxLayout fxLayoutAlign="center center" class="full-screen fadeIn animated">
   <mat-card fxFlex="500px" class="sign-up-container">
     <div class="section">
@@ -15,7 +16,7 @@
           <mat-placeholder>
             <i class="fa fa-user"></i> Nom de compte
           </mat-placeholder>
-          <input matInput type="text" formControlName="name" required [appDisableControl]="isLoading">
+          <input matInput type="text" formControlName="name" required [disabled]="isLoading">
           <mat-error appErrors="name">
             <span appError="required">Obligatoire</span>
           </mat-error>
@@ -26,7 +27,7 @@
           <mat-placeholder>
             <i class="fa fa-envelope-o"></i> Adresse e-mail
           </mat-placeholder>
-          <input matInput type="text" formControlName="email" required [appDisableControl]="isLoading">
+          <input matInput type="text" formControlName="email" required [disabled]="isLoading">
           <mat-error appErrors="email">
             <span appError="required">Obligatoire</span>
             <span appError="pattern">E-mail invalide</span>
@@ -38,7 +39,7 @@
           <mat-placeholder>
             <i class="fa fa-lock"></i> Mot de passe
           </mat-placeholder>
-          <input matInput type="password" formControlName="password" required [appDisableControl]="isLoading">
+          <input matInput type="password" formControlName="password" required [disabled]="isLoading">
           <mat-error appErrors="password">
             <span appError="required">Obligatoire</span>
           </mat-error>
@@ -47,7 +48,7 @@
         <!-- password confirmation-->
         <mat-form-field>
           <input matInput type="password" formControlName="confirmPassword" placeholder="Confirmation du mot de passe"
-                 [appDisableControl]="isLoading">
+                 [disabled]="isLoading">
           <mat-error appErrors="confirmPassword">
             <span appError="match">Mot de passe différent</span>
           </mat-error>
@@ -78,3 +79,4 @@
     </div>
   </mat-card>
 </article>
+
