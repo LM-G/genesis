@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "client"
+    "name": "genesis-client"
   },
   "apps": [
     {
@@ -26,6 +26,7 @@
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
+        "hmr": "environments/environment.hmr.ts",
         "prod": "environments/environment.prod.ts"
       }
     }
@@ -57,5 +58,8 @@
   "defaults": {
     "styleExt": "scss",
     "component": {}
+  },
+  "warnings": {
+    "typescriptMismatch": false
   }
 }

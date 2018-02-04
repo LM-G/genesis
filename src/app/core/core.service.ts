@@ -5,20 +5,25 @@ import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Observable';
 
 /**
- * Main logic api
+ * Core service, initialize app important stuff first before launching it
  */
 @Injectable()
 export class CoreService {
-    /**
-     * CoreService's constructor
-     * @param userService user handling api
-     */
-    constructor() {
-    }
+  constructor() {
+  }
 
-    initialize(): Promise<any[]> {
-        const initSequence: Observable<any>[] = [];
-        initSequence.push(Observable.timer(1));
-        return Observable.forkJoin(initSequence).toPromise();
-    }
+  initialize(): Promise<any[]> {
+    const initSequence: Observable<any>[] = [];
+    initSequence.push(Observable.timer(1));
+    return Observable.forkJoin(initSequence).toPromise();
+  }
+}
+
+/**
+ * Factory for initializing the coreService
+ * @param {CoreService} coreService
+ * @returns core service initialization promises
+ */
+export function coreInitializerFactory(coreService: CoreService) {
+  return () => coreService.initialize();
 }

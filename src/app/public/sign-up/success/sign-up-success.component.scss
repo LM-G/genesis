@@ -1,1 +1,22 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  flex: 1;
+  background-size: auto;
+  background: url('../../../../assets/img/sign-up-success.jpg') no-repeat center center;
+  animation: fadein 4s;
+}
 
+mat-card {
+  min-width: 500px;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

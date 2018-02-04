@@ -10,13 +10,13 @@ const PATH = '/users';
  */
 @Injectable()
 export class UserService {
-    /**
-     * User api's constructor
-     * @param {HttpClient} http
-     */
-    constructor(private http: HttpClient) {}
+  /**
+   * User api's constructor
+   * @param {HttpClient} http
+   */
+  constructor(private http: HttpClient) {}
 
-    me(): Observable<User> {
-        return this.http.get<User>(PATH);
-    }
+  me(): Observable<User> {
+    return this.http.get<User>(PATH + '/me');
+  }
 }

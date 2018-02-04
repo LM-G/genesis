@@ -1,20 +1,22 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
+import { AppStore } from '@genesis/core/store/app-store';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class NotLoggedOnlyGuard implements CanActivate {
-    constructor(private router: Router) {}
+    constructor(
+      private _router: Router,
+      private _appStore: AppStore
+    ) {}
 
     canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-        let url: string = state.url;
+        const canGo = this._appStore.tokens.accessToken === undefined;
 
-        const canGo = true;
-
-        console.log('# NotLoggedOnlyGuard :: can activate ', url, ' ? : ', canGo, state);
+        console.log('# NotLoggedOnlyGuard :: can activate ', state.url, ' ? : ', canGo, state);
 
         if (!canGo) {
-            this.router.navigate([ '/home' ]);
+            this._router.navigate([ '/home' ]);
         }
 
         return canGo;

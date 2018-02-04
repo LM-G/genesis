@@ -1,20 +1,15 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 /**
- * Sign in component
+ * Sign up success component
  */
 @Component({
-    selector: 'app-sign-up-success',
-    templateUrl: './sign-up-success.component.html',
-    styleUrls: [ './sign-up-success.component.scss' ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-sign-up-success',
+  templateUrl: './sign-up-success.component.html',
+  styleUrls: [ './sign-up-success.component.scss' ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SignUpSuccessComponent implements OnInit {
-    constructor(private router: Router) {
-    }
-
-    ngOnInit(): void {
-        console.log('# SignUpSuccessComponent started');
-    }
+export class SignUpSuccessComponent {
+  constructor() {
+  }
 }

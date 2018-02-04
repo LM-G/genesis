@@ -1,4 +1,4 @@
-import { NgModule, NO_ERRORS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 // Main
 import { AppComponent } from './app.component';
@@ -15,21 +15,20 @@ import { SharedModule } from './shared/shared.module';
  * App root module
  */
 @NgModule({
-    imports: [
-        BrowserModule,
-        SharedModule,
-        CoreModule,
+  imports: [
+    BrowserModule,
+    SharedModule,
+    CoreModule,
 
-        PublicModule,
-        PrivateModule,
+    PublicModule,
+    PrivateModule,
 
-        AppRoutingModule
-    ],
-    declarations: [
-        AppComponent
-    ],
-    schemas: [ NO_ERRORS_SCHEMA ],
-    bootstrap: [ AppComponent ]
+    AppRoutingModule
+  ],
+  declarations: [
+    AppComponent
+  ],
+  bootstrap: [ AppComponent ]
 
 })
 export class AppModule {

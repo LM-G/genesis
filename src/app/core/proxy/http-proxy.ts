@@ -12,21 +12,21 @@ const httpVerbs = [ 'post', 'put', 'patch' ];
  * @returns {any} proxy of http client
  */
 export const httpProxy = (xhr: HttpXhrBackend, interceptors: HttpInterceptor[]) => {
-    /* WTF https://github.com/angular/angular/blob/5.1.x/packages/common/http/public_api.ts */
-    // we registers http interceptors in a custom handler and user it on the new http client because, angular can't register
-    // them automatically
-    const handler: HttpHandler = ɵinterceptingHandler(xhr, interceptors);
-    const client = new HttpClient(handler);
-    return new Proxy(client, {
-        get(target: HttpClient, key: string) {
-            return (...args) => {
-                // pre process all outgoing requests
-                const processedArgs = preProcess(target, key, args);
-                // then execute the reak http client
-                return client[ key ](...processedArgs);
-            };
-        }
-    });
+  /* WTF https://github.com/angular/angular/blob/5.1.x/packages/common/http/public_api.ts */
+  // we registers http interceptors in a custom handler and user it on the new http client because, angular can't register
+  // them automatically
+  const handler: HttpHandler = ɵinterceptingHandler(xhr, interceptors);
+  const client = new HttpClient(handler);
+  return new Proxy(client, {
+    get(target: HttpClient, key: string) {
+      return (...args) => {
+        // pre process all outgoing requests
+        const processedArgs = preProcess(target, key, args);
+        // then execute the real http client
+        return client[ key ](...processedArgs);
+      };
+    }
+  });
 };
 
 /**
@@ -38,14 +38,14 @@ export const httpProxy = (xhr: HttpXhrBackend, interceptors: HttpInterceptor[]) 
  * @returns {any[]} processed args
  */
 function preProcess(target: HttpClient, key: string, args: any[]): any[] {
-    const processedArgs: any[] = [ ...args ];
-    // only process put, post, patch methods
-    if (httpVerbs.includes(key) && args.length > 1) {
-        // arg [0] is the endpoint called, arg [1] is the body, arg[2] are the options if present
-        processedArgs[ 1 ] = handleBody(args[ 1 ]);
-    }
-    // returns the processed args
-    return processedArgs;
+  const processedArgs: any[] = [ ...args ];
+  // only process put, post, patch methods
+  if (httpVerbs.includes(key) && args.length > 1) {
+    // arg [0] is the endpoint called, arg [1] is the body, arg[2] are the options if present
+    processedArgs[ 1 ] = handleBody(args[ 1 ]);
+  }
+  // returns the processed args
+  return processedArgs;
 }
 
 /**
@@ -55,13 +55,13 @@ function preProcess(target: HttpClient, key: string, args: any[]): any[] {
  * @returns {Object} transformed body
  */
 function handleBody(body: any): Object {
-    let result;
-    // gets application custom metadata
-    const metadata = body.constructor.prototype[ GENESIS_METADATA_KEY ];
-    if (metadata) {
-        // clean the body
-        result = omit(body, metadata[ FORM_IGNORED_PROPERTIES_METADATA_KEY ]);
-    }
-    // then returns it
-    return result;
+  let result;
+  // gets application custom metadata
+  const metadata = body.constructor.prototype[ GENESIS_METADATA_KEY ];
+  if (metadata) {
+    // clean the body
+    result = omit(body, metadata[ FORM_IGNORED_PROPERTIES_METADATA_KEY ]);
+  }
+  // then returns it
+  return result;
 }

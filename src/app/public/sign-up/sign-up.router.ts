@@ -6,14 +6,14 @@ import { NotLoggedOnlyGuard } from '../core/not-logged-only.guard';
 import { SignUpComponent } from './sign-up.component';
 
 const signUpRoute: Routes = [
-    {
-        path: '',
-        component: SignUpComponent,
-        canActivate: [ NotLoggedOnlyGuard ],
-        children: [
-            { path: 'success', component: SignUpSuccessComponent },
-        ]
-    }
+  {
+    path: '',
+    canActivate: [ NotLoggedOnlyGuard ],
+    children: [
+      { path: '', component: SignUpComponent },
+      { path: 'success', component: SignUpSuccessComponent },
+    ]
+  }
 ];
 
 export const SignUpRoutingModule: ModuleWithProviders = RouterModule.forChild(signUpRoute);

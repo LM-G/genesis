@@ -1,82 +1,82 @@
-<router-outlet></router-outlet>
-<article fxLayout fxLayoutAlign="center center" class="full-screen fadeIn animated">
-  <mat-card fxFlex="500px" class="sign-up-container">
-    <div class="section">
-      <img mat-card-image src="assets/img/sign-up.png" alt="Genesis">
-      <div fxLayout="row" fxLayoutAlign="center center" id="title">
-        <div>Inscrivez vous sur Genesis</div>
-      </div>
-      <br>
-      <form fxLayout="column" fxLayoutGap="0.5em" novalidate
-            [formGroup]="signUpForm"
-            (ngSubmit)="signUp(signUpForm)">
-
-        <!-- account name-->
-        <mat-form-field>
-          <mat-placeholder>
-            <i class="fa fa-user"></i> Nom de compte
-          </mat-placeholder>
-          <input matInput type="text" formControlName="name" required [disabled]="isLoading">
-          <mat-error appErrors="name">
-            <span appError="required">Obligatoire</span>
-          </mat-error>
-        </mat-form-field>
-
-        <!-- e mail-->
-        <mat-form-field>
-          <mat-placeholder>
-            <i class="fa fa-envelope-o"></i> Adresse e-mail
-          </mat-placeholder>
-          <input matInput type="text" formControlName="email" required [disabled]="isLoading">
-          <mat-error appErrors="email">
-            <span appError="required">Obligatoire</span>
-            <span appError="pattern">E-mail invalide</span>
-          </mat-error>
-        </mat-form-field>
-
-        <!-- password-->
-        <mat-form-field>
-          <mat-placeholder>
-            <i class="fa fa-lock"></i> Mot de passe
-          </mat-placeholder>
-          <input matInput type="password" formControlName="password" required [disabled]="isLoading">
-          <mat-error appErrors="password">
-            <span appError="required">Obligatoire</span>
-          </mat-error>
-        </mat-form-field>
-
-        <!-- password confirmation-->
-        <mat-form-field>
-          <input matInput type="password" formControlName="confirmPassword" placeholder="Confirmation du mot de passe"
-                 [disabled]="isLoading">
-          <mat-error appErrors="confirmPassword">
-            <span appError="match">Mot de passe différent</span>
-          </mat-error>
-        </mat-form-field>
-
+<router-outlet>
+  <article fxLayout fxLayoutAlign="center center" class="full-screen fadeIn animated">
+    <mat-card fxFlex="500px" class="sign-up-container">
+      <div class="section">
+        <img mat-card-image src="assets/img/sign-up.png" alt="Genesis">
+        <div fxLayout="row" fxLayoutAlign="center center" id="title">
+          <div>Inscrivez vous sur Genesis</div>
+        </div>
         <br>
+        <form fxLayout="column" fxLayoutGap="0.5em" novalidate
+              [formGroup]="signUpForm"
+              (ngSubmit)="signUp(signUpForm)">
 
-        <button mat-raised-button color="accent" type="submit" [disabled]="isLoading">
-          S'enregistrer <i class="fa fa-sign-in"></i>
-        </button>
-      </form>
-    </div>
+          <!-- account name-->
+          <mat-form-field>
+            <mat-placeholder>
+              <i class="fa fa-user"></i> Nom de compte
+            </mat-placeholder>
+            <input matInput type="text" formControlName="name" required [disabled]="isLoading">
+            <mat-error appErrors="name">
+              <span appError="required">Obligatoire</span>
+            </mat-error>
+          </mat-form-field>
 
-    <div class="or-divider">
-      <div class="or-buble">
-        ou
+          <!-- e mail-->
+          <mat-form-field>
+            <mat-placeholder>
+              <i class="fa fa-envelope-o"></i> Adresse e-mail
+            </mat-placeholder>
+            <input matInput type="text" formControlName="email" required [disabled]="isLoading">
+            <mat-error appErrors="email">
+              <span appError="required">Obligatoire</span>
+              <span appError="pattern">E-mail invalide</span>
+            </mat-error>
+          </mat-form-field>
+
+          <!-- password-->
+          <mat-form-field>
+            <mat-placeholder>
+              <i class="fa fa-lock"></i> Mot de passe
+            </mat-placeholder>
+            <input matInput type="password" formControlName="password" required [disabled]="isLoading">
+            <mat-error appErrors="password">
+              <span appError="required">Obligatoire</span>
+            </mat-error>
+          </mat-form-field>
+
+          <!-- password confirmation-->
+          <mat-form-field>
+            <input matInput type="password" formControlName="confirmPassword" placeholder="Confirmation du mot de passe"
+                   [disabled]="isLoading">
+            <mat-error appErrors="confirmPassword">
+              <span appError="match">Mot de passe différent</span>
+            </mat-error>
+          </mat-form-field>
+
+          <br>
+
+          <button mat-raised-button color="accent" type="submit" [disabled]="isLoading">
+            S'enregistrer <i class="fa fa-sign-in"></i>
+          </button>
+        </form>
       </div>
-    </div>
 
-    <br>
-
-    <div class="section">
-      <div fxLayout="column" fxLayoutAlign="center center">
-        <button mat-raised-button color="primary" (click)="login()">
-          Se connecter
-        </button>
+      <div class="or-divider">
+        <div class="or-buble">
+          ou
+        </div>
       </div>
-    </div>
-  </mat-card>
-</article>
 
+      <br>
+
+      <div class="section">
+        <div fxLayout="column" fxLayoutAlign="center center">
+          <a mat-raised-button color="primary" routerLink="/sign-in">
+            Se connecter
+          </a>
+        </div>
+      </div>
+    </mat-card>
+  </article>
+</router-outlet>
