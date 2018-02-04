@@ -1,0 +1,9 @@
+<p>
+  lab works!
+</p>
+<div>
+  <button *ngIf="!connected" (click)="connect()">CONNECT</button>
+  <button *ngIf="connected" (click)="disconnect()">DISCONNECT</button>
+  <button (click)="ping()">PING</button>
+</div>
+
