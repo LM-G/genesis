@@ -7,6 +7,7 @@ import { UserService } from '@genesis/core/api/user/user.service';
 import { FooterComponent } from '@genesis/core/component/footer/footer.component';
 import { coreInitializerFactory, CoreService } from '@genesis/core/core.service';
 import { AuthGuard } from '@genesis/core/guard/auth.guard';
+import { NotLoggedOnlyGuard } from '@genesis/core/guard/not-logged-only.guard';
 import { APIInterceptor, AuthInterceptor } from '@genesis/core/interceptor';
 import { httpProxy } from '@genesis/core/proxy/http-proxy';
 import { AppStore } from '@genesis/core/store/app-store';
@@ -87,6 +88,7 @@ const GENESIS_PROXIES: FactoryProvider[] = [
   providers: [
     CoreService,
     AuthGuard,
+    NotLoggedOnlyGuard,
     StompRService,
     AppStore,
     ...GENESIS_HTTP_SERVICES,

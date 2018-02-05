@@ -1,7 +1,7 @@
 import { ModuleWithProviders } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LabComponent } from '@genesis/public/lab/lab.component';
-import { NotLoggedOnlyGuard } from '../core/not-logged-only.guard';
+import { NotLoggedOnlyGuard } from '../../core/guard/not-logged-only.guard';
 
 const labRoute: Routes = [
     {
