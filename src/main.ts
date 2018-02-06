@@ -22,7 +22,7 @@ export function main() {
         console.error('HMR not enabled, did you forget -hmr flag for ng serve?');
       }
     })
-    .catch(err => console.log(err));
+    .catch(err => console.error('Application could not bootstrap :', err));
 }
 
 bootloader(main);

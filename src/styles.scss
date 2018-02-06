@@ -1,13 +1,13 @@
-@import 'styles/variables';
+@import 'variables';
 @import '~font-awesome/scss/font-awesome';
 @import '~animate.css/animate';
-@import 'styles/theme';
-@import 'styles/font';
-@import 'styles/control';
-@import 'styles/form';
-@import 'styles/layout';
-@import 'styles/main';
-@import 'styles/bootstrap';
+@import 'theme';
+@import 'font';
+@import 'control';
+@import 'form';
+@import 'layout';
+@import 'main';
+@import 'bootstrap';
 
 @include mat-core();
 
