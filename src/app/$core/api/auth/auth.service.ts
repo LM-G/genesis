@@ -2,7 +2,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { SignInForm, SignUpForm } from '@genesis/$core/api/auth/form';
 import { TokensHolder } from '@genesis/$core/api/auth/model/tokens-holder';
-import 'rxjs/add/operator/first';
 
 import { Observable } from 'rxjs/Observable';
 
