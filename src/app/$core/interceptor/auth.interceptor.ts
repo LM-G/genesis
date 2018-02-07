@@ -2,11 +2,13 @@ import { HttpErrorResponse, HttpEvent, HttpHandler, HttpHeaders, HttpInterceptor
 import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@genesis/$core/api/auth/auth.service';
+import { TokensHolder } from '@genesis/$core/api/auth/model/tokens-holder';
 import { AppStore } from '@genesis/$core/store/app-store';
 import { isEmpty } from 'lodash';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { fromPromise } from 'rxjs/observable/fromPromise';
-import { catchError, map, switchMap } from 'rxjs/operators';
+import { catchError, filter, finalize, map, switchMap, take } from 'rxjs/operators';
 
 const AUTHORIZATION = 'Authorization';
 const BEARER = 'Bearer';
@@ -18,9 +20,10 @@ const E_EXPIRED_TOKEN = 'E_EXPIRED_TOKEN';
  */
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
+  isRefreshingToken = false;
+  tokensSubject$: BehaviorSubject<TokensHolder> = new BehaviorSubject<TokensHolder>(null);
   private _authService: AuthService;
   private _router: Router;
-  private pending;
 
   constructor(private _appStore: AppStore,
               private _injector: Injector) {
@@ -38,7 +41,7 @@ export class AuthInterceptor implements HttpInterceptor {
           if (err instanceof HttpErrorResponse) {
             if (err.status === 401 && err.error.code === E_EXPIRED_TOKEN) {
               console.warn('## User not authenticated, jwt expired or not valid');
-              return this.refreshToken(req, next);
+              return this.handle401(req, next);
             }
             throw err.error;
           }
@@ -46,6 +49,31 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       )
     );
+  }
+
+  private handle401(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    if (!this.isRefreshingToken) {
+      this.isRefreshingToken = true;
+      this.tokensSubject$.next(null);
+      return this.refreshToken().pipe(
+        finalize(() => this.isRefreshingToken = false),
+        switchMap(tokens => {
+          this._appStore.setTokens(tokens);
+          this.tokensSubject$.next(tokens);
+          const reAuthedReq = this.authRequest(req);
+          return next.handle(reAuthedReq);
+        })
+      );
+    } else {
+      return this.tokensSubject$.pipe(
+        filter(token => token != null),
+        take(1),
+        switchMap(() => {
+          const reAuthedReq = this.authRequest(req);
+          return next.handle(reAuthedReq);
+        })
+      );
+    }
   }
 
   private authRequest(req: HttpRequest<any>): HttpRequest<any> {
@@ -59,16 +87,11 @@ export class AuthInterceptor implements HttpInterceptor {
     return req;
   }
 
-  private refreshToken(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  private refreshToken(): Observable<TokensHolder> {
     const { refreshToken } = this._appStore.tokens;
     if (refreshToken) {
       return this._authService.refresh(refreshToken)
         .pipe(
-          switchMap(tokens => {
-            this._appStore.setTokens(tokens);
-            const authedReq = this.authRequest(req);
-            return next.handle(authedReq);
-          }),
           catchError(() => this.goSignIn())
         );
     } else {
