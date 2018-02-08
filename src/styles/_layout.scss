@@ -1,4 +1,5 @@
-@import "variables";
+@import 'variables';
+@import 'breakpoint';
 
 .spacer {
   flex: 1 1 auto;
@@ -19,23 +20,48 @@ md-spinner {
   margin: auto;
 }
 
-.full-screen {
-  height: 100%;
-  width: 100%;
-  overflow: hidden;
+.section {
+  padding-left: 1.5em;
+  padding-right: 1.5em;
+}
 
-  a, button {
+%full-screen-mat-card {
+  max-width: 500px;
+  color: $main-font-color !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+
+  @include with-media($phone) {
     width: 100%;
+    .mat-card-image {
+      margin-top: -16px;
+    }
   }
 
-  .mat-card {
-    color: $main-font-color !important;
-    #title {
-      font-size: 1.2em;
-    }
+  #title {
+    font-size: 1.2em;
   }
 
   .mat-form-field {
     width: 100% !important;
+  }
+}
+
+.full-screen {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  place-content: center;
+
+  @include with-media($phone) {
+    align-items: stretch;
+  }
+
+  .mat-card {
+    @extend %full-screen-mat-card;
   }
 }

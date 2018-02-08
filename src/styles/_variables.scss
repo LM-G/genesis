@@ -1,13 +1,20 @@
-@import "theme";
+@import 'theme';
 
 $fa-font-path: '~/font-awesome/fonts';
 $app-font-path: './assets/fonts';
 $header-height: 4em;
 $side-nav-width: 200px;
 
+// colors
 $main-bg-color: mat-color(map-get($theme, primary), 100);
 $main-bg-color-d: darken($main-bg-color, 80%);
 
 $main-font-color: #5F5F5F;
 $main-font-color-d: darken($main-font-color, 7.5%);
 $main-font-color-vd: darken($main-font-color, 15%);
+
+// breakpoints media
+$phone: '(max-width: 599px)';
+$tablet-portrait: '(max-width: 767px)';
+$tablet-landscape: '(min-width: 768px) and (max-width: 1279px)';
+$desktop: '(min-width: 1280px)';

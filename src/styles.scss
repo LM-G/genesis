@@ -8,6 +8,7 @@
 @import 'layout';
 @import 'main';
 @import 'bootstrap';
+@import 'breakpoint';
 
 @include mat-core();
 
@@ -15,3 +16,7 @@
   // use our theme with angular-material-theme mixin
   @include angular-material-theme($theme);
 }
+
+// https://www.sitepoint.com/8-tips-help-get-best-sass/
+// https://material.io/guidelines/layout/responsive-ui.html#responsive-ui-breakpoints
+// https://coderwall.com/p/h-dzpa/media-queries-sass-mixin

@@ -2,14 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-private',
-  template: `
-    <app-side-nav></app-side-nav>
-    <div id="page">
-      <app-header></app-header>
-      <main>
-        <router-outlet></router-outlet>
-      </main>
-    </div>`,
+  templateUrl: './private-feature.component.html',
   styleUrls: [ './private-feature.component.scss' ]
 })
 export class PrivateFeatureComponent {
