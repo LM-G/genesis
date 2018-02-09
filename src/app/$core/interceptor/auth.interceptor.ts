@@ -30,7 +30,7 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return this.authRequest(req, next).pipe(
+    return this.addJwt(req, next).pipe(
       catchError(err => {
           if (err instanceof HttpErrorResponse) {
             if (err.status === 401 && err.error.code === E_EXPIRED_TOKEN) {
@@ -51,7 +51,7 @@ export class AuthInterceptor implements HttpInterceptor {
    * @param {HttpHandler} next next http handler
    * @returns {Observable<HttpEvent<any>>} response stream
    */
-  private authRequest(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  private addJwt(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = this._appStore.tokens;
     if (token.accessToken) {
       const value = `${BEARER} ${token.accessToken}`;
@@ -103,7 +103,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     // executes the refresh request or the pending requests needing authentication
     return process$.pipe(
-      switchMap(() => this.authRequest(req, next))
+      switchMap(() => this.addJwt(req, next))
     );
   }
 
