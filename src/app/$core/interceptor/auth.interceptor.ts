@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 import { AuthService } from '@genesis/$core/api/auth/auth.service';
 import { TokensHolder } from '@genesis/$core/api/auth/model/tokens-holder';
 import { AppStore } from '@genesis/$core/store/app-store';
-import { NotificationsService } from 'angular2-notifications';
 import { isEmpty } from 'lodash';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
+import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { fromPromise } from 'rxjs/observable/fromPromise';
 import { catchError, filter, finalize, map, switchMap, take, tap } from 'rxjs/operators';
 
@@ -25,21 +25,19 @@ export class AuthInterceptor implements HttpInterceptor {
   tokensSubject$: BehaviorSubject<TokensHolder> = new BehaviorSubject<TokensHolder>(null);
 
   constructor(private _appStore: AppStore,
-              private _notificationsService: NotificationsService,
               private _injector: Injector) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return this.addJwt(req, next).pipe(
+      // handles auth related errors
       catchError(err => {
           if (err instanceof HttpErrorResponse) {
             if (err.status === 401 && err.error.code === E_EXPIRED_TOKEN) {
               return this.handle401(req, next);
             }
-            this._notificationsService.error('Erreur', err.error.message);
-            throw err.error;
           }
-          throw err;
+          return ErrorObservable.create(err);
         }
       )
     );
@@ -116,7 +114,7 @@ export class AuthInterceptor implements HttpInterceptor {
     const router = this._injector.get(Router);
     return fromPromise(router.navigate([ '/sign-in' ]))
       .pipe(
-        map(() => Observable.throw('User not authenticated'))
+        map(() => ErrorObservable.create('User not authenticated'))
       );
   }
 }
