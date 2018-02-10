@@ -1,4 +1,5 @@
 @import '~compass-mixins';
+@import 'breakpoint';
 @import 'variables';
 
 $color: mat-color(map-get($theme, primary));
@@ -10,50 +11,36 @@ $color-l: lighten($color, 7.5%);
   flex: 1 1 $side-nav-width;
   max-width: $side-nav-width;
   min-width: $side-nav-width;
-}
 
-#brand {
-  margin-left: 0.75em;
-  background-color: transparent;
-  font-size: 1.5em;
-}
-
-nav {
-  background-color: $color;
-  display: flex;
-  flex-direction: column;
-
-  header {
-    display: flex;
-    flex: 1 1 $header-height;
-    color: #fff;
-    background: $color-d;
-    min-height: $header-height;
-    max-height: $header-height;
-    align-items: center;
-    padding-left: 1em;
-
+  @include with-media($phone) {
+    display: none !important;
   }
 
-  ul {
-    li {
-      position: relative;
-      border-bottom: 1px solid $color-d;
-    }
+  nav {
+    background-color: $color;
+    display: flex;
+    flex-direction: column;
 
-    a, .item {
-      cursor: pointer;
-      display: block;
-      color: #fff;
-      padding: 1em 1em 1em 2em;
-
-      i:before {
+    ul {
+      li {
         position: relative;
-        right: 1em;
+        border-bottom: 1px solid $color-d;
       }
 
-      &.active, &:hover {
-        background-color: $color-l;
+      a, .item {
+        cursor: pointer;
+        display: block;
+        color: #fff;
+        padding: 1em 1em 1em 2em;
+
+        i:before {
+          position: relative;
+          right: 1em;
+        }
+
+        &.active, &:hover {
+          background-color: $color-l;
+        }
       }
     }
   }

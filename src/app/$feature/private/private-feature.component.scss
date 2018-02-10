@@ -1,12 +1,35 @@
+@import 'variables';
+
 :host {
   width: 100%;
   display: flex;
   flex: 1 1 auto;
+  flex-direction: column;
+  max-height: 100vh;
+  overflow-y: hidden;
+
+  #main-content {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    background-color: $main-bg-color;
+    color: $main-font-color;
+    h1 {
+      color: $main-font-color-vd;
+    }
+    h2 {
+      color: $main-font-color-d;
+    }
+  }
+
+  #page {
+    display: flex;
+    flex: 1;
+    padding: 0 1em;
+    overflow-y: auto;
+  }
 }
 
-#page {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  max-height: 100vh;
-}
+
+
+

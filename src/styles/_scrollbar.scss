@@ -7,33 +7,6 @@ body {
   font-family: Roboto, sans-serif;
 }
 
-app-root {
-  display: flex;
-  width: 100%;
-}
-
-app-header {
-  display: flex;
-  flex: 1 1 $header-height;
-  max-height: $header-height;
-  min-height: $header-height;
-}
-
-main {
-  background-color: $main-bg-color;
-  flex: 1;
-  padding: 0 1em;
-  color: $main-font-color;
-  overflow-x: hidden;
-  overflow-y: auto;
-  h1 {
-    color: $main-font-color-vd;
-  }
-  h2 {
-    color: $main-font-color-d;
-  }
-}
-
 *::-webkit-scrollbar-track {
   box-shadow: inset 0 0 4px rgba(0, 0, 0, .2);
   background-color: lighten($main-font-color, 50%);

@@ -1,3 +1,39 @@
-mat-toolbar {
-  height: 64px;
+@import 'variables';
+
+:host {
+  display: flex;
+
+  mat-toolbar {
+    display: flex;
+    height: $header-height;
+    flex-direction: row;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  header {
+    box-sizing: border-box;
+    display: flex;
+    color: white;
+    background: $color-d;
+    height: $header-height;
+    flex: 1 1 $side-nav-width;
+    max-width: $side-nav-width;
+    min-width: $side-nav-width;
+    align-items: center;
+    padding-left: 0.5em;
+  }
 }
+
+#brand {
+  margin-left: 0.5em;
+  background-color: transparent;
+  font-size: 1.25em;
+}
+
+#commands {
+  flex: 1 1 auto;
+  padding: 0 1em;
+}
+
+

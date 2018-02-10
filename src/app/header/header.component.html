@@ -1,1 +1,9 @@
-<mat-toolbar color="primary">{{user.name}}</mat-toolbar>
+<mat-toolbar color="primary">
+  <header>
+    <button mat-mini-fab><i class="fa fa-bars"></i></button>
+    <a id="brand" routerLink="/home">GENESIS</a>
+  </header>
+  <div id="commands">
+    <span>{{user.name}}</span>
+  </div>
+</mat-toolbar>

@@ -1,6 +1,17 @@
 @import 'variables';
 @import 'breakpoint';
 
+body {
+  margin: 0;
+  display: flex;
+  min-height: 100vh;
+  font-family: Roboto, sans-serif;
+}
+
+app-root {
+  width: 100%;
+}
+
 .spacer {
   flex: 1 1 auto;
 }
