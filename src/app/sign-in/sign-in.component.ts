@@ -5,7 +5,7 @@ import { AuthService } from '@genesis/$core/api/auth/auth.service';
 import { SignInForm } from '@genesis/$core/api/auth/form';
 import { TokensHolder } from '@genesis/$core/api/auth/model/tokens-holder';
 import { UserService } from '@genesis/$core/api/user/user.service';
-import { AppStore } from '@genesis/$core/store/app-store';
+import { AppState } from '@genesis/$core/store/app.state';
 import { GenesisForm } from '@genesis/$shared/factory/genesis-form';
 import { User } from '@genesis/$shared/model/user';
 import { finalize, switchMap } from 'rxjs/operators';
@@ -27,7 +27,7 @@ export class SignInComponent implements OnInit {
               private _authService: AuthService,
               private _userService: UserService,
               private _cdr: ChangeDetectorRef,
-              private _appStore: AppStore) {
+              private _appStore: AppState) {
   }
 
   ngOnInit(): void {

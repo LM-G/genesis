@@ -6,7 +6,7 @@ import { LocalStorageUtils } from '@genesis/$shared/util/local-storage-utils';
 const TOKENS = 'tokens';
 
 @Injectable()
-export class AppStore {
+export class AppState {
   private _tokens: TokensHolder;
 
   get tokens(): TokensHolder {

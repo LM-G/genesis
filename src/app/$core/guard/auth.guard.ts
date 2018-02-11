@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { AppStore } from '@genesis/$core/store/app-store';
+import { AppState } from '@genesis/$core/store/app.state';
 
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(protected _router: Router,
-              private _appStore: AppStore) {}
+              private _appStore: AppState) {}
 
   /**
    * Checks that the user is connected and if so, permits the activation of the wanted state. If the user is not

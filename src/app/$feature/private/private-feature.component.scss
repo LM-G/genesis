@@ -1,4 +1,5 @@
 @import 'variables';
+@import 'breakpoint';
 
 :host {
   width: 100%;
@@ -19,6 +20,10 @@
     }
     h2 {
       color: $main-font-color-d;
+    }
+
+    @include with-media($phone) {
+      flex-direction: column;
     }
   }
 

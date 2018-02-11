@@ -1,10 +1,20 @@
-<nav fxFlex fxLayout="column">
-  <ul id="side-nav-links" fxLayout="column" fxFlex>
-    <li mat-ripple><a routerLink="/dashboard" routerLinkActive="active"><i class="fa fa-th"></i>Dashboard</a></li>
-    <li mat-ripple><a routerLink="/galaxy" routerLinkActive="active"><i class="fa fa-globe"></i>Galaxy</a></li>
-    <li mat-ripple><a><i class="fa fa-bar-chart"></i>Statistiques</a></li>
-    <li mat-ripple><a><i class="fa fa-road"></i>Roadmap</a></li>
+<nav fxFlex fxLayout="column" [ngClass]="{'collapsed': collapsed, 'minimized': minimized}">
+  <ul id="side-nav-links" fxLayout="column" fxFlex (click)="close()" >
+    <li mat-ripple>
+      <a routerLink="/dashboard" routerLinkActive="active">
+        <span class="link-description"><i class="fa fa-th"></i>Dashboard</span>
+      </a>
+    </li>
+    <li mat-ripple>
+      <a routerLink="/galaxy" routerLinkActive="active">
+        <span class="link-description"><i class="fa fa-globe"></i>Galaxy</span>
+      </a>
+    </li>
     <li class="spacer"></li>
-    <li mat-ripple (click)="disconnect()"><span class="item"><i class="fa fa-sign-out"></i>Déconnexion</span></li>
+    <li mat-ripple (click)="disconnect()">
+      <a>
+        <span class="link-description"><i class="fa fa-sign-out"></i>Logout</span>
+      </a>
+    </li>
   </ul>
 </nav>

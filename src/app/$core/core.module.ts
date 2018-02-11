@@ -9,7 +9,7 @@ import { AuthGuard } from '@genesis/$core/guard/auth.guard';
 import { NotLoggedOnlyGuard } from '@genesis/$core/guard/not-logged-only.guard';
 import { APIInterceptor, AuthInterceptor, ErrorInterceptor } from '@genesis/$core/interceptor';
 import { httpProxy } from '@genesis/$core/proxy/http-proxy';
-import { AppStore } from '@genesis/$core/store/app-store';
+import { AppState } from '@genesis/$core/store/app.state';
 import { SharedModule } from '@genesis/$shared/shared.module';
 import { FooterComponent } from '@genesis/footer/footer.component';
 import { StompRService } from '@stomp/ng2-stompjs';
@@ -95,7 +95,7 @@ const GENESIS_PROXIES: FactoryProvider[] = [
     AuthGuard,
     NotLoggedOnlyGuard,
     StompRService,
-    AppStore,
+    AppState,
     ...GENESIS_HTTP_SERVICES,
     ...GENESIS_HTTP_INTERCEPTORS,
     ...GENESIS_APP_INITIALIZERS,

@@ -3,7 +3,7 @@ import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '@genesis/$core/api/auth/auth.service';
 import { TokensHolder } from '@genesis/$core/api/auth/model/tokens-holder';
-import { AppStore } from '@genesis/$core/store/app-store';
+import { AppState } from '@genesis/$core/store/app.state';
 import { isEmpty } from 'lodash';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
@@ -24,7 +24,7 @@ export class AuthInterceptor implements HttpInterceptor {
   isRefreshingToken = false;
   tokensSubject$: BehaviorSubject<TokensHolder> = new BehaviorSubject<TokensHolder>(null);
 
-  constructor(private _appStore: AppStore,
+  constructor(private _appState: AppState,
               private _injector: Injector) {
   }
 
@@ -50,7 +50,7 @@ export class AuthInterceptor implements HttpInterceptor {
    * @returns {Observable<HttpEvent<any>>} response stream
    */
   private addJwt(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const token = this._appStore.tokens;
+    const token = this._appState.tokens;
     if (token.accessToken) {
       const value = `${BEARER} ${token.accessToken}`;
       const headers: HttpHeaders = isEmpty(req.headers) ? new HttpHeaders().set(AUTHORIZATION, value)
@@ -69,7 +69,7 @@ export class AuthInterceptor implements HttpInterceptor {
   private handle401(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let process$: Observable<TokensHolder>;
     const authService = this._injector.get(AuthService);
-    const { refreshToken } = this._appStore.tokens;
+    const { refreshToken } = this._appState.tokens;
 
     // if no refresh token is stored
     if (!refreshToken) {
@@ -86,7 +86,7 @@ export class AuthInterceptor implements HttpInterceptor {
         finalize(() => this.isRefreshingToken = false),
         catchError(() => this.signOut()),
         tap(tokens => {
-          this._appStore.setTokens(tokens);
+          this._appState.setTokens(tokens);
           // notify the tokens observable with the new tokens, it will trigger the other pending request
           this.tokensSubject$.next(tokens);
         })
@@ -110,7 +110,7 @@ export class AuthInterceptor implements HttpInterceptor {
    * @returns {Observable<any>}
    */
   private signOut(): Observable<any> {
-    this._appStore.reset();
+    this._appState.reset();
     const router = this._injector.get(Router);
     return fromPromise(router.navigate([ '/sign-in' ]))
       .pipe(

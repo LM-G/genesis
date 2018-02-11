@@ -1,7 +1,7 @@
 @import 'variables';
 
 /**
- * Applies a media query to apply for the given $media
+ * Applies a media$ query to apply for the given $media
  */
 @mixin with-media($media) {
   @media only screen and #{$media} {

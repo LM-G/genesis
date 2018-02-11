@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from '@genesis/$core/api/user/user.service';
-import { AppStore } from '@genesis/$core/store/app-store';
+import { AppState } from '@genesis/$core/store/app.state';
 import { Observable } from 'rxjs/Observable';
 import { empty } from 'rxjs/observable/empty';
 import { forkJoin } from 'rxjs/observable/forkJoin';
@@ -15,14 +15,14 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class CoreService {
   private _router: Router;
 
-  constructor(private _appStore: AppStore,
+  constructor(private _appState: AppState,
               private _userService: UserService,
               private _injector: Injector) {}
 
   initialize(): Promise<any[]> {
     this._router = this._injector.get(Router);
     const initSequence: Observable<any>[] = [];
-    if (this._appStore.tokens.accessToken) {
+    if (this._appState.tokens.accessToken) {
       initSequence.push(this.retrieveUser());
     }
     return forkJoin(initSequence).toPromise();
@@ -32,12 +32,12 @@ export class CoreService {
     return this._userService.me()
       .pipe(
         catchError(() => {
-          this._appStore.reset();
+          this._appState.reset();
           return fromPromise(this._router.navigate([ '/sign-in' ])).pipe(
             map(() => empty())
           );
         }),
-        tap(user => this._appStore.setUser(user))
+        tap(user => this._appState.setUser(user))
       );
   }
 }

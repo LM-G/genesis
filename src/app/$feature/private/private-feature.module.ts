@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { SideNavState } from '@genesis/side-nav/side-nav.state';
 import { SharedModule } from 'app/$shared/shared.module';
 import { GalaxyModule } from 'app/galaxy/galaxy.module';
 import { HeaderComponent } from 'app/header/header.component';
@@ -28,6 +29,9 @@ import { PrivateRoutingModule } from './private-feature.router';
   ],
   entryComponents: [
     SignOutDialogComponent
+  ],
+  providers: [
+    SideNavState
   ]
 })
 

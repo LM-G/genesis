@@ -13,23 +13,46 @@ $color-l: lighten($color, 7.5%);
   min-width: $side-nav-width;
 
   @include with-media($phone) {
-    display: none !important;
+    max-height: fit-content;
+    max-width: 100%;
+    min-width: 100%;
+
+    .spacer {
+      display: none;
+    }
+
+    .link-description {
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    nav {
+      display: block !important;
+    }
   }
 
   nav {
     background-color: $color;
     display: flex;
     flex-direction: column;
+    opacity: 1;
+    height: auto;
+    position: relative;
+
+    &.collapsed {
+      display: none !important;
+    }
 
     ul {
       li {
+        flex-direction: row;
         position: relative;
         border-bottom: 1px solid $color-d;
       }
 
       a, .item {
+        display: flex;
         cursor: pointer;
-        display: block;
         color: #fff;
         padding: 1em 1em 1em 2em;
 

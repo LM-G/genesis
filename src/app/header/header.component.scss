@@ -1,3 +1,4 @@
+@import 'breakpoint';
 @import 'variables';
 
 :host {
@@ -22,6 +23,13 @@
     min-width: $side-nav-width;
     align-items: center;
     padding-left: 0.5em;
+
+    @include with-media($phone) {
+      flex: 1 1 $header-height;
+      max-width: $header-height;
+      min-width: $header-height;
+      background: $color;
+    }
   }
 }
 
@@ -29,11 +37,18 @@
   margin-left: 0.5em;
   background-color: transparent;
   font-size: 1.25em;
+  @include with-media($phone) {
+    display: none;
+  }
 }
 
 #commands {
   flex: 1 1 auto;
   padding: 0 1em;
+
+  @include with-media($phone) {
+    padding: 0 0.5em;
+  }
 }
 
 
