@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Unsubscriber } from '@genesis/$shared/util/unsubscriber';
-import { SideNavState } from '@genesis/side-nav/side-nav.state';
+import { MEDIA_MOBILE, SideNavState } from '@genesis/side-nav/side-nav.state';
 import { SignOutDialogComponent } from 'app/sign-out-dialog/sign-out-dialog.component';
 import { takeUntil } from 'rxjs/operators';
 
@@ -46,7 +46,9 @@ export class SideNavComponent implements OnInit, OnDestroy {
   }
 
   close() {
-    this._sideNavState.collapsed$.next(true);
+    if (this._sideNavState.media$.getValue() === MEDIA_MOBILE) {
+      this._sideNavState.collapsed$.next(true);
+    }
   }
 
   ngOnDestroy() {

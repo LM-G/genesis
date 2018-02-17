@@ -3,7 +3,7 @@ import { ObservableMedia } from '@angular/flex-layout';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { filter, map } from 'rxjs/operators';
 
-const IS_MOBILE = 'xs';
+export const MEDIA_MOBILE = 'xs';
 
 @Injectable()
 export class SideNavState {
@@ -18,15 +18,15 @@ export class SideNavState {
     this._obersableMedia.asObservable().pipe(
       map(mediaChange => mediaChange.mqAlias),
       filter(alias =>
-        (alias === IS_MOBILE && this.media$.getValue() !== IS_MOBILE) ||
-        (alias !== IS_MOBILE && this.media$.getValue() === IS_MOBILE) ||
+        (alias === MEDIA_MOBILE && this.media$.getValue() !== MEDIA_MOBILE) ||
+        (alias !== MEDIA_MOBILE && this.media$.getValue() === MEDIA_MOBILE) ||
         this.media$.getValue() == null
       )
     ).subscribe(this.onMediaChange.bind(this));
   }
 
   toggle() {
-    if (this.media$.getValue() === IS_MOBILE) {
+    if (this.media$.getValue() === MEDIA_MOBILE) {
       this.toggleCollapsed();
     } else {
       this.toggleMinimized();
@@ -44,7 +44,7 @@ export class SideNavState {
   private onMediaChange(media: string) {
     console.log('media$ change', media);
     this.media$.next(media);
-    if (media === IS_MOBILE) {
+    if (media === MEDIA_MOBILE) {
       this.collapsed$.next(true);
       this.minimized$.next(false);
     } else {
