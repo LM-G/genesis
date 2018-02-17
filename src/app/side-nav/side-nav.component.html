@@ -1,19 +1,28 @@
 <nav fxFlex fxLayout="column" [ngClass]="{'collapsed': collapsed, 'minimized': minimized}">
-  <ul id="side-nav-links" fxLayout="column" fxFlex (click)="close()" >
+  <ul id="side-nav-links" fxLayout="column" fxFlex (click)="close()">
     <li mat-ripple>
       <a routerLink="/dashboard" routerLinkActive="active">
-        <span class="link-description"><i class="fa fa-th"></i>Dashboard</span>
+        <span class="link-description">
+          <i class="fa fa-th"></i>
+          <span *ngIf="!minimized">Dashboard</span>
+        </span>
       </a>
     </li>
     <li mat-ripple>
       <a routerLink="/galaxy" routerLinkActive="active">
-        <span class="link-description"><i class="fa fa-globe"></i>Galaxy</span>
+        <span class="link-description">
+          <i class="fa fa-globe"></i>
+          <span *ngIf="!minimized">Galaxy</span>
+        </span>
       </a>
     </li>
     <li class="spacer"></li>
     <li mat-ripple (click)="disconnect()">
       <a>
-        <span class="link-description"><i class="fa fa-sign-out"></i>Logout</span>
+        <span class="link-description">
+          <i class="fa fa-sign-out"></i>
+          <span *ngIf="!minimized">Logout</span>
+        </span>
       </a>
     </li>
   </ul>
