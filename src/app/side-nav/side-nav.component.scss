@@ -13,6 +13,7 @@ nav {
   opacity: 1;
   height: auto;
   position: relative;
+  transition: all 0.2s ease-in-out;
 
   @include with-media($phone) {
     display: block !important;
@@ -24,7 +25,7 @@ nav {
       display: none;
     }
 
-    .link-description {
+    .link-content {
       margin-right: auto;
       margin-left: auto;
     }
@@ -33,33 +34,45 @@ nav {
   &.minimized {
     max-width: 3em;
     min-width: 3em;
+    .spacer {
+      background-color: whitesmoke;
+      transition: background-color 0.2s ease-in-out;
+    }
+    .link-description {
+      opacity: 0;
+      transition: opacity 50ms linear;
+    }
   }
 
   &.collapsed {
     display: none !important;
   }
 
-  ul {
-    li {
-      flex-direction: row;
+  .link-description {
+    transition: opacity .5s ease-in .1s;
+  }
+}
+
+ul {
+  li {
+    flex-direction: row;
+    position: relative;
+    border-bottom: 1px solid $color-d;
+    height: 50px;
+  }
+
+  a, .item {
+    display: flex;
+    cursor: pointer;
+    color: #fff;
+    padding: 1em 1em 1em 2em;
+    i:before {
       position: relative;
-      border-bottom: 1px solid $color-d;
+      right: 1em;
     }
 
-    a, .item {
-      display: flex;
-      cursor: pointer;
-      color: #fff;
-      padding: 1em 1em 1em 2em;
-
-      i:before {
-        position: relative;
-        right: 1em;
-      }
-
-      &.active, &:hover {
-        background-color: $color-l;
-      }
+    &.active, &:hover {
+      background-color: $color-l;
     }
   }
 }

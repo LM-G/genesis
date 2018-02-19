@@ -1,9 +1,15 @@
 import { Injectable } from '@angular/core';
 import { ObservableMedia } from '@angular/flex-layout';
+import { LocalStorageUtils } from '@genesis/$shared/util/local-storage-utils';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { filter, map } from 'rxjs/operators';
 
 export const MEDIA_MOBILE = 'xs';
+const LOCAL_STORAGE_TOKEN = 'side-nav-state';
+
+interface LocalStorageToken {
+  minimized: boolean;
+}
 
 @Injectable()
 export class SideNavState {
@@ -12,7 +18,8 @@ export class SideNavState {
   media$: BehaviorSubject<string>;
 
   constructor(private _obersableMedia: ObservableMedia) {
-    this.minimized$ = new BehaviorSubject(false);
+    const localStorageToken = this.getLocalStorageToken();
+    this.minimized$ = new BehaviorSubject(localStorageToken.minimized || false);
     this.collapsed$ = new BehaviorSubject(true);
     this.media$ = new BehaviorSubject(null);
     this._obersableMedia.asObservable().pipe(
@@ -39,9 +46,11 @@ export class SideNavState {
 
   toggleMinimized() {
     this.minimized$.next(!this.minimized$.getValue());
+    LocalStorageUtils.set(LOCAL_STORAGE_TOKEN, { minimized: this.minimized$.getValue() });
   }
 
   private onMediaChange(media: string) {
+    const localStorageToken = this.getLocalStorageToken();
     console.log('media$ change', media);
     this.media$.next(media);
     if (media === MEDIA_MOBILE) {
@@ -49,7 +58,11 @@ export class SideNavState {
       this.minimized$.next(false);
     } else {
       this.collapsed$.next(false);
-      this.minimized$.next(false);
+      this.minimized$.next(localStorageToken.minimized || false);
     }
+  }
+
+  private getLocalStorageToken(): LocalStorageToken {
+    return LocalStorageUtils.get(LOCAL_STORAGE_TOKEN) || {} as LocalStorageToken;
   }
 }
